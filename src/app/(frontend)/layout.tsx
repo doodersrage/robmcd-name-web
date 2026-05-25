@@ -1,4 +1,5 @@
 import React from 'react'
+import Script from 'next/script'
 import './globals.css'
 
 export const metadata = {
@@ -11,6 +12,20 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-ETMLWXCT6M"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-ETMLWXCT6M');`}
+        </Script>
+      </head>
       <body>
         <main>{children}</main>
       </body>
