@@ -10,19 +10,21 @@ import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
 import config from '@/payload.config'
 
-type Props = {
+interface Props {
   params: { slug: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const payload = await getPayload({ config: configPromise })
 
+  const { slug } = await params
+
   // Fetch the page by slug
   const pages = await payload.find({
     collection: 'pages',
     where: {
       slug: {
-        equals: params.slug || 'home', // Fallback to home page
+        equals: slug || 'home', // Fallback to home page
       },
     },
   })
@@ -46,12 +48,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: { Props }) {
   const payload = await getPayload({ config: configPromise })
 
+  const { slug } = await params
+
   // Fetch the page by slug
   const pages = await payload.find({
     collection: 'pages',
     where: {
       slug: {
-        equals: params.slug || 'home', // Fallback to home page
+        equals: slug || 'home', // Fallback to home page
       },
     },
   })
