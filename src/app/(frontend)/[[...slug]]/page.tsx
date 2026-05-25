@@ -1,30 +1,27 @@
-import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
 import { getPayload } from 'payload'
 import React from 'react'
-import { fileURLToPath } from 'url'
 import configPromise from '@payload-config'
 import type { Metadata } from 'next'
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
-import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
-import config from '@/payload.config'
+export type paramsType = Promise<{ slug: string[] }>
 
-interface Props {
-  params: { slug: string }
+type Props = {
+  params: paramsType
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const payload = await getPayload({ config: configPromise })
 
   const { slug } = await params
+  const pathArray = slug || []
 
   // Fetch the page by slug
   const pages = await payload.find({
     collection: 'pages',
     where: {
       slug: {
-        equals: slug || 'home', // Fallback to home page
+        equals: pathArray.join('/') || 'home', // Fallback to home page
       },
     },
   })
@@ -49,13 +46,14 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
   const payload = await getPayload({ config: configPromise })
 
   const { slug } = await params
+  const pathArray = slug || []
 
   // Fetch the page by slug
   const pages = await payload.find({
     collection: 'pages',
     where: {
       slug: {
-        equals: slug || 'home', // Fallback to home page
+        equals: pathArray.join('/') || 'home', // Fallback to home page
       },
     },
   })
