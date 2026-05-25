@@ -21,6 +21,7 @@
       "database_id": "9c3ac6dc-aceb-4e92-bc86-10d4f3289056",
       "database_name": "robmcd-name",
       "remote": true,
+      "migrations_dir": "src/migrations",
     },
   ],
   "services": [
@@ -33,7 +34,8 @@
   "r2_buckets": [
     {
       "binding": "R2",
-      "bucket_name": "robmcd-name","preview_bucket_name": "robmcd-name",
+      "bucket_name": "robmcd-name",
+      "preview_bucket_name": "robmcd-name",
     },
     // Create a R2 binding with the binding name "NEXT_INC_CACHE_R2_BUCKET"
     // {
