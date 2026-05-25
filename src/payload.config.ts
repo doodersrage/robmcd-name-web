@@ -7,6 +7,9 @@ import { fileURLToPath } from 'url'
 import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
 import { GetPlatformProxyOptions } from 'wrangler'
 import { r2Storage } from '@payloadcms/storage-r2'
+import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
+import { Posts } from './collections/Posts'
+import { Pages } from './collections/Pages'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -50,7 +53,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Pages, Posts],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -59,6 +62,11 @@ export default buildConfig({
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
   logger: isProduction ? cloudflareLogger : undefined,
   plugins: [
+    nestedDocsPlugin({
+      collections: ['pages'], // Specify the collections to enable nesting
+      generateLabel: (_, doc) => doc.title as string,
+      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
+    }),
     r2Storage({
       bucket: cloudflare.env.R2,
       collections: { media: true },
