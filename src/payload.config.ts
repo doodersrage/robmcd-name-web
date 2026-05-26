@@ -10,6 +10,8 @@ import { r2Storage } from '@payloadcms/storage-r2'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { Posts } from './collections/Posts'
 import { Pages } from './collections/Pages'
+import { searchPlugin } from '@payloadcms/plugin-search'
+import { extractPlainText } from './utilities/extractPlainText'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -70,6 +72,61 @@ export default buildConfig({
     r2Storage({
       bucket: cloudflare.env.R2,
       collections: { media: true },
+    }),
+    searchPlugin({
+      collections: ['pages', 'posts'],
+      defaultPriorities: {
+        pages: 10,
+        posts: 20,
+      },
+      searchOverrides: {
+        fields: ({ defaultFields }) => [
+          ...defaultFields,
+          {
+            name: 'description',
+            type: 'textarea',
+            label: 'Description',
+          },
+          {
+            name: 'slug',
+            type: 'text',
+            label: 'Slug',
+          },
+        ],
+      },
+      // Map content from your original documents into the shape expected in the search index
+      beforeSync: ({ originalDoc, searchDoc }) => {
+        const collection = searchDoc.doc.relationTo
+
+        // If the document is from the pages collection...
+        if (collection === 'pages') {
+          return {
+            ...searchDoc,
+            // Map the 'heading' field from the article as the search result title
+            title: originalDoc.title,
+            slug: originalDoc.slug,
+
+            // Extract and flatten the rich text content to make it searchable
+            description: extractPlainText(originalDoc.content),
+          }
+        }
+
+        // If the document is from the posts collection...
+        if (collection === 'posts') {
+          return {
+            ...searchDoc,
+            // Use the author's name as the title
+            title: originalDoc.title,
+            slug: originalDoc.slug,
+
+            // Extract plain text from the bio for consistent searching
+            description: extractPlainText(originalDoc.content),
+          }
+        }
+
+        // For any other collections not explicitly handled, fall back to the default
+        return searchDoc
+      },
     }),
   ],
 })

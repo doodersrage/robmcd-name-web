@@ -1,5 +1,6 @@
 import React from 'react'
 import Nav from '../nav'
+import Search from '../search'
 
 const Header = () => {
   return (
@@ -58,6 +59,7 @@ const Header = () => {
           </div>
         </div>
         <Nav />
+        <Search />
       </nav>
     </header>
   )
