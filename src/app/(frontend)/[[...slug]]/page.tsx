@@ -10,38 +10,6 @@ type Props = {
   params: paramsType
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const payload = await getPayload({ config: configPromise })
-
-  const { slug } = await params
-  const pathArray = slug || []
-
-  // Fetch the page by slug
-  const pages = await payload.find({
-    collection: 'pages',
-    where: {
-      slug: {
-        equals: pathArray.join('/') || 'home', // Fallback to home page
-      },
-    },
-  })
-
-  const page = pages.docs[0]
-
-  if (!page) {
-    return {
-      title: 'Page Not Found',
-      description: 'The requested page was not found.',
-    }
-  }
-
-  return {
-    title: page.title,
-    description: page.pageMeta?.metaDescription,
-    keywords: page.pageMeta?.metaKeywords,
-  }
-}
-
 export default async function Page({ params }: Props): Promise<React.ReactNode> {
   const payload = await getPayload({ config: configPromise })
 
@@ -63,9 +31,16 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
   if (!page) return <div>Page Not Found</div>
 
   return (
-    <main>
-      <h1>{page.title}</h1>
-      <RichTextConverter data={page.content} />
-    </main>
+    <>
+      <head>
+        <title>{page.pageMeta?.headerTitle || page.title}</title>
+        <meta name="description" content={page.pageMeta?.metaDescription || ''} />
+        <meta name="keywords" content={page.pageMeta?.metaKeywords || ''} />
+      </head>
+      <main>
+        <h1>{page.title}</h1>
+        <RichTextConverter data={page.content} />
+      </main>
+    </>
   )
 }

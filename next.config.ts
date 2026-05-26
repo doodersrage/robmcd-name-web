@@ -23,6 +23,15 @@ const nextConfig = {
 
     return webpackConfig
   },
+  async redirects() {
+    return [
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true, // Returns 308 instead of 307
+      },
+    ]
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

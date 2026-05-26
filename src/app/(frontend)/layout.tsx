@@ -4,11 +4,6 @@ import Footer from '../components/ui/footer'
 import Header from '../components/ui/header'
 import './globals.css'
 
-export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
-}
-
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
@@ -30,7 +25,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       </head>
       <body>
         <Header />
-        <main>{children}</main>
+        <main id="content" className="shrink-0">
+          <div className="max-w-340 min-h-160 mx-auto py-10 px-4 sm:px-6 lg:px-8">{children}</div>
+        </main>
         <Footer />
       </body>
     </html>
