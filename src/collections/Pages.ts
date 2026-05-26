@@ -1,4 +1,15 @@
 import { CollectionConfig } from 'payload'
+import {
+  BlocksFeature,
+  EXPERIMENTAL_TableFeature,
+  LinkFeature,
+  ParagraphFeature,
+  HeadingFeature,
+  TextStateFeature,
+  lexicalEditor,
+  FixedToolbarFeature,
+  InlineToolbarFeature,
+} from '@payloadcms/richtext-lexical'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -25,6 +36,32 @@ export const Pages: CollectionConfig = {
       name: 'content',
       type: 'richText',
       label: 'Content',
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          FixedToolbarFeature(),
+          InlineToolbarFeature(),
+          TextStateFeature(),
+          HeadingFeature(),
+          ParagraphFeature(),
+          LinkFeature(),
+          EXPERIMENTAL_TableFeature(),
+          BlocksFeature({
+            blocks: [
+              {
+                interfaceName: 'MyTextBlock',
+                slug: 'myTextBlock',
+                fields: [
+                  {
+                    name: 'text',
+                    type: 'text',
+                  },
+                ],
+              },
+            ],
+          }),
+        ],
+      }),
     },
     {
       name: 'pageMeta',
