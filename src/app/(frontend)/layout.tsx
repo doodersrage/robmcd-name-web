@@ -2,7 +2,7 @@ import React from 'react'
 import Script from 'next/script'
 import Footer from '../components/ui/footer'
 import Header from '../components/ui/header'
-import './globals.css'
+import './globals.scss'
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props

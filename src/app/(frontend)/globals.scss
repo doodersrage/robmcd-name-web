@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+$ink-black: #01161E;
+$dark-teal: #124559;
+$air-fire-blue: #598392;
+$ash-gray: #AEC3B0;
+$beige: #EFF6E0;
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: $beige;
+  color: $ink-black;
+  font-family: "Noto Sans", sans-serif;
+}
+
+main{
+  p{
+    font-family: "Noto Sans", sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+  }
+  h1{
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+}
+footer {
+  background-color: $ink-black;
+  color: $beige;
+  padding: 1rem;
+  text-align: center;
+}
+
+header {
+  background-color: $dark-teal;
+  color: $beige;
+  padding: 1rem;
+}
+
