@@ -1,11 +1,11 @@
 import type { MetadataRoute } from 'next'
-import { BasePayload, getPayload, PaginatedDocs } from 'payload'
-import config from '@payload-config'
-import { getServerSideURL } from './utilities/getURL'
+import { getPayload, PaginatedDocs } from 'payload'
+import configPromise from '@payload-config'
 import { Page, Post } from '@/payload-types'
+import { getServerSideURL } from './utilities/getURL'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const payload: BasePayload = await getPayload({ config })
+  const payload = await getPayload({ config: configPromise })
 
   // Fetch all posts
   const posts: PaginatedDocs<Post> = await payload.find({

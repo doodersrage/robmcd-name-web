@@ -1,7 +1,6 @@
 import { getPayload } from 'payload'
 import React from 'react'
 import configPromise from '@payload-config'
-import type { Metadata } from 'next'
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
 
 export type paramsType = Promise<{ slug: string[] }>
