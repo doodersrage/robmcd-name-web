@@ -1,4 +1,7 @@
+'use client'
+
 import React from 'react'
+import { useSearchParams } from 'next/navigation'
 
 export type paramsType = Promise<{ query: string }>
 
@@ -6,12 +9,9 @@ type Props = {
   params: paramsType
 }
 
-export default async function Search({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | '' }>
-}) {
-  const { query } = (await searchParams) || {}
+export default function Search() {
+  const searchParams = useSearchParams()
+  const query = searchParams.get('query') || ''
 
   return (
     <div className="w-[400px] ml-4">
@@ -21,7 +21,7 @@ export default async function Search({
           type="text"
           name="query"
           placeholder="Search..."
-          value={query}
+          defaultValue={query}
         />
         <button
           className="inline-block rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"

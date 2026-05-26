@@ -28,6 +28,10 @@ main{
     font-size: 2.5rem;
     margin-bottom: 1rem;
   }
+  a{
+    color: $dark-teal;
+    text-decoration: underline;
+  }
   .payload-richtext{
     ol{
       list-style: decimal;
