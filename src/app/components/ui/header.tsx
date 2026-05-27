@@ -2,6 +2,7 @@ import React from 'react'
 import Nav from '../nav'
 import Search from '../search'
 import Script from 'next/dist/client/script'
+import Link from 'next/link'
 
 const Header = () => {
   return (
@@ -9,13 +10,13 @@ const Header = () => {
       <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-navbar border-b border-navbar-line text-sm py-4">
         <nav className="max-w-340 w-full mx-auto lg:px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <a
+            <Link
               className="flex-none font-semibold text-xl text-foreground focus:outline-hidden focus:opacity-80"
               href="/"
               aria-label="Brand"
             >
               Robmcd.name
-            </a>
+            </Link>
             <div className="sm:hidden">
               <button
                 type="button"

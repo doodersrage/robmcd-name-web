@@ -80,12 +80,10 @@ const getPages = async (id: number | string) => {
           <li key={page.id}>
             <a className="text-lg capitalize font-semibold text-shadow-md" href={`/${page.slug}`}>
               {page.title}
-              {page.parent !== null
-                ? getPages(page.parent).then((childPages) => {
-                    const childPage = childPages
-                    return childPage ? ` (${childPage})` : ''
-                  })
-                : null}
+              {getPages(page.id).then((childPages) => {
+                const childPage = childPages
+                return childPage ? childPage : ''
+              })}
             </a>
           </li>
         ))}
