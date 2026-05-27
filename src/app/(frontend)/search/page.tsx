@@ -6,15 +6,7 @@ import qs from 'qs'
 
 export type paramsType = Promise<{ query: string }>
 
-type Props = {
-  params: paramsType
-}
-
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-}) {
+export default async function Page({ searchParams }: { searchParams: Promise<paramsType> }) {
   const { query } = await searchParams
 
   const queryObj = {
@@ -56,7 +48,7 @@ export default async function Page({
     return (
       <>
         <main>
-          <h1>Search Results for {query}</h1>
+          <h1>Search Results for &quot;{query}&quot;</h1>
           {query && data?.docs ? (
             <ul>
               {data.docs.map((result: any) => (

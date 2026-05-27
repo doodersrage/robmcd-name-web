@@ -14,10 +14,10 @@ export default function Search() {
   const query = searchParams.get('query') || ''
 
   return (
-    <div className="w-[400px] ml-4">
+    <div className="lg:w-[400px] lg:ml-4 sm:w-full sm:py-4">
       <form method="GET" action="/search">
         <input
-          className="inline-block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"
+          className="border-gray-500 border-width-1 inline-block min-w-0 grow bg-gray-800 py-1.5 pr-3 pl-1 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"
           type="text"
           name="query"
           placeholder="Search..."
