@@ -37,7 +37,7 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
         <meta name="keywords" content={page.pageMeta?.metaKeywords || ''} />
       </head>
       <main>
-        <h1>{page.title}</h1>
+        <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{page.title}</h1>
         <RichTextConverter data={page.content} />
       </main>
     </>
