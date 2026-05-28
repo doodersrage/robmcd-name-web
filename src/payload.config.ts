@@ -12,6 +12,8 @@ import { Posts } from './collections/Posts'
 import { Pages } from './collections/Pages'
 import { searchPlugin } from '@payloadcms/plugin-search'
 import { extractPlainText } from './utilities/extractPlainText'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -64,6 +66,10 @@ export default buildConfig({
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
   logger: isProduction ? cloudflareLogger : undefined,
   plugins: [
+    formBuilderPlugin({
+      defaultToEmail: process.env.SMTP_MAIL_FROM,
+      redirectRelationships: ['pages'],
+    }),
     nestedDocsPlugin({
       collections: ['pages'], // Specify the collections to enable nesting
       generateLabel: (_, doc) => doc.title as string,
@@ -129,6 +135,18 @@ export default buildConfig({
       },
     }),
   ],
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.EMAIL_USER,
+    defaultFromName: 'Your App Name',
+    transportOptions: {
+      host: process.env.EMAIL_HOST,
+      port: Number(process.env.EMAIL_PORT),
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    },
+  }),
 })
 
 // Adapted from https://github.com/opennextjs/opennextjs-cloudflare/blob/d00b3a13e42e65aad76fba41774815726422cc39/packages/cloudflare/src/api/cloudflare-context.ts#L328C36-L328C46
