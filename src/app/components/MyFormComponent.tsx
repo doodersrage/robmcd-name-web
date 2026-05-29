@@ -131,6 +131,7 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
               type={field.blockType}
               name={field.name}
               id={field.name}
+              {...(field.required && { required: true })}
               style={{ width: '60%' }}
             />
           </div>
