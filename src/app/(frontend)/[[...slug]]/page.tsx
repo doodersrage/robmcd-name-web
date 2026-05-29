@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import configPromise from '@payload-config'
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
+import MyFormComponent from '@/app/components/MyFormComponent'
 
 export type paramsType = Promise<{ slug: string[] }>
 
@@ -39,6 +40,20 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
       <main>
         <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{page.title}</h1>
         <RichTextConverter data={page.content} />
+        {page.layout && (
+          <div className="mt-8">
+            {page.layout.map((block: any, index: number) => {
+              if (block.blockType === 'formBlock') {
+                return (
+                  <div key={index} className="my-8">
+                    <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
+                    <MyFormComponent formId={block.form.id} />
+                  </div>
+                )
+              }
+            })}
+          </div>
+        )}
       </main>
     </>
   )

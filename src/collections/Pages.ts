@@ -10,6 +10,7 @@ import {
   FixedToolbarFeature,
   InlineToolbarFeature,
 } from '@payloadcms/richtext-lexical'
+import { FormBlock } from '@/blocks/FormBlock'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -86,12 +87,13 @@ export const Pages: CollectionConfig = {
         },
       ],
     },
-    // {
-    //   name: 'layout', // Often used for building dynamic page layouts
-    //   type: 'blocks',
-    //   blocks: [
-    //     // Define your layout blocks here (e.g., Hero, Content, Media)
-    //   ],
-    // },
+    {
+      name: 'layout', // Often used for building dynamic page layouts
+      type: 'blocks',
+      blocks: [
+        // Define your layout blocks here (e.g., Hero, Content, Media)
+        FormBlock,
+      ],
+    },
   ],
 }

@@ -1,6 +1,6 @@
 import React from 'react'
-import Nav from '../nav'
-import Search from '../search'
+import Nav from '@/app/components/nav'
+import Search from '@/app/components/search'
 import Script from 'next/dist/client/script'
 import Link from 'next/link'
 

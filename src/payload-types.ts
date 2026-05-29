@@ -193,6 +193,15 @@ export interface Page {
     [k: string]: unknown;
   } | null;
   pageMeta?: Meta;
+  layout?:
+    | {
+        form: number | Form;
+        enableIntro?: boolean | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'formBlock';
+      }[]
+    | null;
   parent?: (number | null) | Page;
   breadcrumbs?:
     | {
@@ -214,33 +223,6 @@ export interface Meta {
   metaDescription?: string | null;
   metaKeywords?: string | null;
   metaExtra?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  slug: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  pageMeta?: Meta;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -423,6 +405,33 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  slug: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  pageMeta?: Meta;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
@@ -432,6 +441,16 @@ export interface FormSubmission {
     | {
         field: string;
         value: string;
+        id?: string | null;
+      }[]
+    | null;
+  submissionUploads?:
+    | {
+        field: string;
+        value: {
+          relationTo: 'media';
+          value: number | Media;
+        }[];
         id?: string | null;
       }[]
     | null;
@@ -603,6 +622,18 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   content?: T;
   pageMeta?: T | MetaSelect<T>;
+  layout?:
+    | T
+    | {
+        formBlock?:
+          | T
+          | {
+              form?: T;
+              enableIntro?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
   parent?: T;
   breadcrumbs?:
     | T
@@ -779,6 +810,13 @@ export interface FormsSelect<T extends boolean = true> {
 export interface FormSubmissionsSelect<T extends boolean = true> {
   form?: T;
   submissionData?:
+    | T
+    | {
+        field?: T;
+        value?: T;
+        id?: T;
+      };
+  submissionUploads?:
     | T
     | {
         field?: T;

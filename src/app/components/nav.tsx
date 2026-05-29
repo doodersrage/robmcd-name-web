@@ -32,11 +32,11 @@ const Nav = async () => {
                   href={`/${page.slug}`}
                 >
                   {page.title}
-                  {getPages(page.id).then((childPages) => {
-                    const childPage = childPages
-                    return childPage ? childPage : ''
-                  })}
                 </a>
+                {getPages(page.id).then((childPages) => {
+                  const childPage = childPages
+                  return childPage ? childPage : ''
+                })}
               </li>
             ))}
           </ul>

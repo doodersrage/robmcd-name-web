@@ -69,6 +69,7 @@ export default buildConfig({
     formBuilderPlugin({
       defaultToEmail: process.env.SMTP_MAIL_FROM,
       redirectRelationships: ['pages'],
+      uploadCollections: ['media'],
     }),
     nestedDocsPlugin({
       collections: ['pages'], // Specify the collections to enable nesting
