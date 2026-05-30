@@ -110,59 +110,61 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
   }
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <form onSubmit={handleSubmit} ref={formRef}>
-        {cmsForm.fields.map((field: any) => (
-          <div
-            key={field.id}
-            style={{
-              marginTop: '1rem',
-              marginBottom: '1rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.5rem',
-            }}
+    <>
+      <div style={{ padding: '2rem' }}>
+        <form onSubmit={handleSubmit} ref={formRef}>
+          {cmsForm.fields.map((field: any) => (
+            <div
+              key={field.id}
+              style={{
+                marginTop: '1rem',
+                marginBottom: '1rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem',
+              }}
+            >
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={field.name}>
+                {field.label}
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type={field.blockType}
+                name={field.name}
+                id={field.name}
+                {...(field.required && { required: true })}
+                style={{ width: '60%' }}
+              />
+            </div>
+          ))}
+          {cmsForm.hasAttachment && (
+            <div
+              style={{
+                marginTop: '1rem',
+                marginBottom: '1rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem',
+              }}
+            >
+              <label htmlFor="file">{cmsForm.hasAttachmentLabel || 'Attachment'}</label>
+              <input
+                className="inline-block rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                type="file"
+                name="file"
+                id="file"
+              />
+            </div>
+          )}
+          <button
+            className="inline-block rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            type="submit"
           >
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={field.name}>
-              {field.label}
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type={field.blockType}
-              name={field.name}
-              id={field.name}
-              {...(field.required && { required: true })}
-              style={{ width: '60%' }}
-            />
-          </div>
-        ))}
-        {cmsForm.hasAttachment && (
-          <div
-            style={{
-              marginTop: '1rem',
-              marginBottom: '1rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.5rem',
-            }}
-          >
-            <label htmlFor="file">{cmsForm.hasAttachmentLabel || 'Attachment'}</label>
-            <input
-              className="inline-block rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-              type="file"
-              name="file"
-              id="file"
-            />
-          </div>
-        )}
-        <button
-          className="inline-block rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-          type="submit"
-        >
-          Submit
-        </button>
-      </form>
-    </div>
+            Submit
+          </button>
+        </form>
+      </div>
+    </>
   )
 }
 
