@@ -12,7 +12,11 @@ const Nav = async () => {
       parent: {
         equals: null,
       },
+      hideInMenu: {
+        equals: false,
+      },
     },
+    sort: '-sortOrder',
   })
 
   return (
@@ -25,20 +29,22 @@ const Nav = async () => {
       >
         <div className="dd-menu flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
-            {pages.docs.map((page) => (
-              <li key={page.id}>
-                <a
-                  className="text-lg capitalize font-semibold text-shadow-md"
-                  href={`/${page.slug}`}
-                >
-                  {page.title}
-                </a>
-                {getPages(page.id).then((childPages) => {
-                  const childPage = childPages
-                  return childPage ? childPage : ''
-                })}
-              </li>
-            ))}
+            {pages.docs.map((page) =>
+              page.hideInMenu ? null : (
+                <li key={page.id}>
+                  <a
+                    className="text-lg capitalize font-semibold text-shadow-md"
+                    href={`/${page.slug}`}
+                  >
+                    {page.title}
+                  </a>
+                  {getPages(page.id).then((childPages) => {
+                    const childPage = childPages
+                    return childPage ? childPage : ''
+                  })}
+                </li>
+              ),
+            )}
           </ul>
         </div>
       </div>
@@ -68,7 +74,11 @@ const getPages = async (id: number | string) => {
       parent: {
         equals: id,
       },
+      hideInMenu: {
+        equals: false,
+      },
     },
+    sort: '-sortOrder',
   })
 
   if (!pages.docs[0]) return null

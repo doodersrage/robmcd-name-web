@@ -14,6 +14,7 @@ import { searchPlugin } from '@payloadcms/plugin-search'
 import { extractPlainText } from './utilities/extractPlainText'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
+import { importExportPlugin } from '@payloadcms/plugin-import-export'
 
 import { validateTurnstile } from './hooks/validateTurnstile'
 import { Users } from './collections/Users'
@@ -66,7 +67,20 @@ export default buildConfig({
   },
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
   logger: isProduction ? cloudflareLogger : undefined,
+  jobs: {
+    autoRun: [
+      {
+        allQueues: true,
+        cron: '*/5 * * * *', // Check every 5 minutes
+        queue: 'default',
+      },
+    ],
+  },
   plugins: [
+    importExportPlugin({
+      collections: [{ slug: 'users' }, { slug: 'pages' }, { slug: 'posts' }, { slug: 'media' }],
+      // see below for a list of available options
+    }),
     formBuilderPlugin({
       defaultToEmail: process.env.SMTP_MAIL_FROM,
       redirectRelationships: ['pages'],

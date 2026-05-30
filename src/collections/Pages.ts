@@ -34,6 +34,18 @@ export const Pages: CollectionConfig = {
       },
     },
     {
+      name: 'sortOrder',
+      type: 'number',
+      required: true,
+      defaultValue: 0,
+    },
+    {
+      name: 'hideInMenu',
+      type: 'checkbox',
+      required: true,
+      defaultValue: false,
+    },
+    {
       name: 'content',
       type: 'richText',
       label: 'Content',

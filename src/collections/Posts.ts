@@ -33,6 +33,12 @@ export const Posts: CollectionConfig = {
       },
     },
     {
+      name: 'sortOrder',
+      type: 'number',
+      required: true,
+      defaultValue: 0,
+    },
+    {
       name: 'content',
       type: 'richText',
       label: 'Content',
