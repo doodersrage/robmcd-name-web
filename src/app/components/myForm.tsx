@@ -123,7 +123,7 @@ function validateFormFields(
 }
 
 const inputClassName =
-  'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+  'flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2'
 const inputErrorClassName = `${inputClassName} border-red-500`
 
 const MyForm = ({ formId }: { formId: string }) => {
@@ -393,7 +393,7 @@ const MyForm = ({ formId }: { formId: string }) => {
           onLoad={() => setTurnstileReady(true)}
         />
       )}
-      <div style={{ padding: '2rem' }}>
+      <div>
         {error && (
           <p role="alert" style={{ color: '#b91c1c', marginBottom: '1rem' }}>
             {error}
@@ -452,7 +452,7 @@ const MyForm = ({ formId }: { formId: string }) => {
             >
               <label htmlFor="file">{cmsForm.hasAttachmentLabel || 'Attachment'}</label>
               <input
-                className="inline-block rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                 type="file"
                 name="file"
                 id="file"

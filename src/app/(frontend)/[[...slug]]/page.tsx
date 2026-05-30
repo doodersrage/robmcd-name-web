@@ -92,6 +92,21 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
                 <RichTextConverter data={post?.content} />
               </div>
             )}
+
+            {page.layout && (
+              <div className="mt-8">
+                {page.layout.map((block: any, index: number) => {
+                  if (block.blockType === 'formBlock') {
+                    return (
+                      <div key={index} className="my-8">
+                        <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
+                        <MyForm formId={block.form.id} />
+                      </div>
+                    )
+                  }
+                })}
+              </div>
+            )}
           </div>
 
           {posts.docs.length > 0 && (
@@ -107,21 +122,6 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
                   </div>
                 ))}
               </div>
-            </div>
-          )}
-
-          {page.layout && (
-            <div className="mt-8">
-              {page.layout.map((block: any, index: number) => {
-                if (block.blockType === 'formBlock') {
-                  return (
-                    <div key={index} className="my-8">
-                      <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
-                      <MyForm formId={block.form.id} />
-                    </div>
-                  )
-                }
-              })}
             </div>
           )}
         </div>
