@@ -16,7 +16,7 @@ const Nav = async () => {
         equals: false,
       },
     },
-    sort: '-sortOrder',
+    sort: ['-sortOrder', 'title'],
   })
 
   return (
@@ -78,7 +78,7 @@ const getPages = async (id: number | string) => {
         equals: false,
       },
     },
-    sort: '-sortOrder',
+    sort: ['-sortOrder', 'title'],
   })
 
   if (!pages.docs[0]) return null

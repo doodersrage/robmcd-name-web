@@ -52,7 +52,7 @@ function getFieldValue(formData: FormData, field: FormField): string {
   }
 
   const value = formData.get(field.name)
-  return typeof value === 'string' ? value : value?.toString() ?? ''
+  return typeof value === 'string' ? value : (value?.toString() ?? '')
 }
 
 function validateField(field: FormField, value: string): string | null {
@@ -102,7 +102,10 @@ function validateField(field: FormField, value: string): string | null {
   return null
 }
 
-function validateFormFields(fields: FormField[] | null | undefined, formData: FormData): FieldErrors {
+function validateFormFields(
+  fields: FormField[] | null | undefined,
+  formData: FormData,
+): FieldErrors {
   const errors: FieldErrors = {}
 
   for (const field of fields ?? []) {
@@ -123,7 +126,7 @@ const inputClassName =
   'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
 const inputErrorClassName = `${inputClassName} border-red-500`
 
-const MyFormComponent = ({ formId }: { formId: string }) => {
+const MyForm = ({ formId }: { formId: string }) => {
   const [cmsForm, setCmsForm] = useState<CmsForm | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
@@ -153,34 +156,36 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
     })
   }, [])
 
-  const validateSingleField = useCallback(
-    (field: FormField) => {
-      if (!formRef.current || field.blockType === 'message') {
-        return
-      }
+  const validateSingleField = useCallback((field: FormField) => {
+    if (!formRef.current || field.blockType === 'message') {
+      return
+    }
 
-      const formData = new FormData(formRef.current)
-      const fieldError = validateField(field, getFieldValue(formData, field))
+    const formData = new FormData(formRef.current)
+    const fieldError = validateField(field, getFieldValue(formData, field))
 
-      setFieldErrors((current) => {
-        if (!fieldError) {
-          if (!current[field.name]) {
-            return current
-          }
-
-          const next = { ...current }
-          delete next[field.name]
-          return next
+    setFieldErrors((current) => {
+      if (!fieldError) {
+        if (!current[field.name]) {
+          return current
         }
 
-        return { ...current, [field.name]: fieldError }
-      })
-    },
-    [],
-  )
+        const next = { ...current }
+        delete next[field.name]
+        return next
+      }
+
+      return { ...current, [field.name]: fieldError }
+    })
+  }, [])
 
   useEffect(() => {
-    if (!turnstileSiteKey || !turnstileReady || !turnstileContainerRef.current || !window.turnstile) {
+    if (
+      !turnstileSiteKey ||
+      !turnstileReady ||
+      !turnstileContainerRef.current ||
+      !window.turnstile
+    ) {
       return
     }
 
@@ -345,7 +350,9 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
           />
         )
       case 'number':
-        return <input {...commonProps} type="number" defaultValue={field.defaultValue ?? undefined} />
+        return (
+          <input {...commonProps} type="number" defaultValue={field.defaultValue ?? undefined} />
+        )
       case 'email':
         return <input {...commonProps} type="email" autoComplete="email" />
       default:
@@ -396,7 +403,10 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
           {cmsForm.fields?.map((field) => {
             if (field.blockType === 'message') {
               return (
-                <div key={field.id ?? field.blockName ?? 'message'} style={{ marginBottom: '1rem' }}>
+                <div
+                  key={field.id ?? field.blockName ?? 'message'}
+                  style={{ marginBottom: '1rem' }}
+                >
                   {renderField(field)}
                 </div>
               )
@@ -419,7 +429,11 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
                 </label>
                 {renderField(field)}
                 {fieldErrors[field.name] && (
-                  <p id={`${field.name}-error`} role="alert" style={{ color: '#b91c1c', fontSize: '0.875rem' }}>
+                  <p
+                    id={`${field.name}-error`}
+                    role="alert"
+                    style={{ color: '#b91c1c', fontSize: '0.875rem' }}
+                  >
                     {fieldErrors[field.name]}
                   </p>
                 )}
@@ -459,4 +473,4 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
   )
 }
 
-export default MyFormComponent
+export default MyForm
