@@ -1,44 +1,96 @@
 'use client'
 
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import { useEffect, useRef } from 'react'
+import Script from 'next/script'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { useState } from 'react'
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        container: HTMLElement,
+        options: {
+          sitekey: string
+          callback?: (token: string) => void
+          'expired-callback'?: () => void
+          'error-callback'?: () => void
+        },
+      ) => string
+      reset: (widgetId?: string) => void
+      remove: (widgetId: string) => void
+    }
+  }
+}
+
+const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
 
 const MyFormComponent = ({ formId }: { formId: string }) => {
   const [cmsForm, setCmsForm] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const [success, setSuccess] = useState<boolean>(false)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileReady, setTurnstileReady] = useState(false)
+  const turnstileContainerRef = useRef<HTMLDivElement>(null)
+  const turnstileWidgetIdRef = useRef<string | null>(null)
 
-  // 1) get the form from payload
+  const resetTurnstile = useCallback(() => {
+    if (window.turnstile && turnstileWidgetIdRef.current) {
+      window.turnstile.reset(turnstileWidgetIdRef.current)
+    }
+    setTurnstileToken(null)
+  }, [])
+
   useEffect(() => {
-    // Fetch the form configuration
+    if (!turnstileSiteKey || !turnstileReady || !turnstileContainerRef.current || !window.turnstile) {
+      return
+    }
+
+    if (turnstileWidgetIdRef.current) {
+      window.turnstile.remove(turnstileWidgetIdRef.current)
+      turnstileWidgetIdRef.current = null
+    }
+
+    turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
+      sitekey: turnstileSiteKey,
+      callback: (token) => setTurnstileToken(token),
+      'expired-callback': () => setTurnstileToken(null),
+      'error-callback': () => setTurnstileToken(null),
+    })
+
+    return () => {
+      if (window.turnstile && turnstileWidgetIdRef.current) {
+        window.turnstile.remove(turnstileWidgetIdRef.current)
+        turnstileWidgetIdRef.current = null
+      }
+    }
+  }, [turnstileReady])
+
+  useEffect(() => {
     const formUrl = `/api/forms/${formId}`
-    console.log('Fetching form from:', formUrl)
     fetch(formUrl)
       .then((res) => res.json())
       .then((data) => {
         setCmsForm(data)
-        console.log('cmsForm', data)
       })
-      .catch((err) => setError('Error loading form'))
+      .catch(() => setError('Error loading form'))
   }, [formId])
 
-  // 2) render the form based on field types
-
-  // handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     let fileUploadedId = null
 
     e.preventDefault()
+    setError(null)
+
+    if (turnstileSiteKey && !turnstileToken) {
+      setError('Please complete the security check')
+      return
+    }
+
     const formData = new FormData(e.currentTarget)
 
-    // get the file from the form data, if it exists
     const file = formData.get('file')
     if (file) {
-      console.log('file', file)
-      // upload the file to payload
       const formDataToSend = new FormData()
       formDataToSend.append('file', file as File)
       formDataToSend.append(
@@ -51,31 +103,24 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
         method: 'POST',
         body: formDataToSend,
       })
-      console.log('response', response)
       if (!response.ok) {
-        throw new Error('Failed to upload file')
+        setError('Failed to upload file')
+        return
       }
       const data: { doc: { id: string } } = await response.json()
-      // console.log('data', data)
-      // debugger
 
       fileUploadedId = data?.doc?.id
-      // add the file id to the form data
     }
 
-    // delete the file from the form data, so it's not sent to payload,
-    // because it's already uploaded
     if (file) {
       formData.delete('file')
     }
 
-    // convert the form data to a json object, for fields that are not files
     const dataToSend = Array.from(formData.entries()).map(([name, value]) => ({
       field: name,
       value: value.toString(),
     }))
 
-    // send the form data to payload
     const response = await fetch('/api/form-submissions', {
       method: 'POST',
       body: JSON.stringify({
@@ -85,18 +130,20 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
       }),
       headers: {
         'Content-Type': 'application/json',
+        ...(turnstileToken ? { 'cf-turnstile-response': turnstileToken } : {}),
       },
     })
-    console.log('response', response)
+
     if (response.ok) {
       setSuccess(true)
+      formRef.current?.reset()
+      resetTurnstile()
     } else {
       setError('Form submission failed')
       setSuccess(false)
+      resetTurnstile()
     }
 
-    // reset the form
-    formRef.current?.reset()
     fileUploadedId = null
   }
 
@@ -111,7 +158,19 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
 
   return (
     <>
+      {turnstileSiteKey && (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+          strategy="afterInteractive"
+          onLoad={() => setTurnstileReady(true)}
+        />
+      )}
       <div style={{ padding: '2rem' }}>
+        {error && (
+          <p role="alert" style={{ color: '#b91c1c', marginBottom: '1rem' }}>
+            {error}
+          </p>
+        )}
         <form onSubmit={handleSubmit} ref={formRef}>
           {cmsForm.fields.map((field: any) => (
             <div
@@ -156,9 +215,11 @@ const MyFormComponent = ({ formId }: { formId: string }) => {
               />
             </div>
           )}
+          {turnstileSiteKey && <div ref={turnstileContainerRef} style={{ marginBottom: '1rem' }} />}
           <button
             className="inline-block rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             type="submit"
+            disabled={Boolean(turnstileSiteKey && !turnstileToken)}
           >
             Submit
           </button>

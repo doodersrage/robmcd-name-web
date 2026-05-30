@@ -15,6 +15,7 @@ import { extractPlainText } from './utilities/extractPlainText'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 
+import { validateTurnstile } from './hooks/validateTurnstile'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 
@@ -70,6 +71,11 @@ export default buildConfig({
       defaultToEmail: process.env.SMTP_MAIL_FROM,
       redirectRelationships: ['pages'],
       uploadCollections: ['media'],
+      formSubmissionOverrides: {
+        hooks: {
+          beforeChange: [validateTurnstile],
+        },
+      },
     }),
     nestedDocsPlugin({
       collections: ['pages'], // Specify the collections to enable nesting
