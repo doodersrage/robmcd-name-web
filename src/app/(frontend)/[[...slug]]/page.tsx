@@ -87,10 +87,10 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
             )}
 
             {post && (
-              <div className="mt-8">
+              <>
                 <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{post?.title}</h1>
                 <RichTextConverter data={post?.content} />
-              </div>
+              </>
             )}
 
             {page.layout && (

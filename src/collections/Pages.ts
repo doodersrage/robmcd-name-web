@@ -9,6 +9,7 @@ import {
   lexicalEditor,
   FixedToolbarFeature,
   InlineToolbarFeature,
+  InlineCodeFeature,
 } from '@payloadcms/richtext-lexical'
 import { FormBlock } from '@/blocks/FormBlock'
 
@@ -59,6 +60,7 @@ export const Pages: CollectionConfig = {
           ParagraphFeature(),
           LinkFeature(),
           EXPERIMENTAL_TableFeature(),
+          InlineCodeFeature(),
           BlocksFeature({
             blocks: [
               {

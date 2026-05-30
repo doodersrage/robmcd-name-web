@@ -9,6 +9,7 @@ import {
   lexicalEditor,
   FixedToolbarFeature,
   InlineToolbarFeature,
+  InlineCodeFeature,
 } from '@payloadcms/richtext-lexical'
 
 export const Posts: CollectionConfig = {
@@ -52,6 +53,7 @@ export const Posts: CollectionConfig = {
           ParagraphFeature(),
           LinkFeature(),
           EXPERIMENTAL_TableFeature(),
+          InlineCodeFeature(),
           BlocksFeature({
             blocks: [
               {
