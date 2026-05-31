@@ -2,8 +2,8 @@ import { getPayload } from 'payload'
 import React from 'react'
 import configPromise from '@payload-config'
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
-import MyForm from '@/app/components/myForm'
-import { CodeBlockComponent } from '@/app/components/codeBlock'
+import MyForm from '@/app/components/blocks/myForm'
+import { CodeBlockComponent } from '@/app/components/blocks/codeBlock'
 
 export type paramsType = Promise<{ slug: string[] }>
 
@@ -94,7 +94,7 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
               </>
             )}
 
-            {post.layout && (
+            {post && post.layout && (
               <div className="mt-8">
                 {post.layout.map((block: any, index: number) => {
                   switch (block.blockType) {
@@ -116,7 +116,7 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
               </div>
             )}
 
-            {page.layout && (
+            {page && page.layout && (
               <div className="mt-8">
                 {page.layout.map((block: any, index: number) => {
                   switch (block.blockType) {
