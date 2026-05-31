@@ -3,6 +3,7 @@ import React from 'react'
 import configPromise from '@payload-config'
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
 import MyForm from '@/app/components/myForm'
+import { CodeBlockComponent } from '@/app/components/codeBlock'
 
 export type paramsType = Promise<{ slug: string[] }>
 
@@ -52,7 +53,7 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
           },
         },
       })
-      console.log('postGet', postGet)
+
       if (!postGet.docs.length) return <div>Post Not Found</div>
       post = postGet.docs[0]
     }
@@ -93,16 +94,45 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
               </>
             )}
 
+            {post.layout && (
+              <div className="mt-8">
+                {post.layout.map((block: any, index: number) => {
+                  switch (block.blockType) {
+                    case 'formBlock':
+                      return (
+                        <div key={index} className="my-8">
+                          <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
+                          <MyForm formId={block.form.id} />
+                        </div>
+                      )
+                    case 'codeBlock':
+                      return (
+                        <div key={index} className="my-8">
+                          <CodeBlockComponent code={block.code} language={block.language} />
+                        </div>
+                      )
+                  }
+                })}
+              </div>
+            )}
+
             {page.layout && (
               <div className="mt-8">
                 {page.layout.map((block: any, index: number) => {
-                  if (block.blockType === 'formBlock') {
-                    return (
-                      <div key={index} className="my-8">
-                        <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
-                        <MyForm formId={block.form.id} />
-                      </div>
-                    )
+                  switch (block.blockType) {
+                    case 'formBlock':
+                      return (
+                        <div key={index} className="my-8">
+                          <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
+                          <MyForm formId={block.form.id} />
+                        </div>
+                      )
+                    case 'codeBlock':
+                      return (
+                        <div key={index} className="my-8">
+                          <CodeBlockComponent code={block.code} language={block.language} />
+                        </div>
+                      )
                   }
                 })}
               </div>

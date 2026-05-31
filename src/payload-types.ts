@@ -209,13 +209,35 @@ export interface Page {
   } | null;
   pageMeta?: Meta;
   layout?:
-    | {
-        form: number | Form;
-        enableIntro?: boolean | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'formBlock';
-      }[]
+    | (
+        | {
+            language:
+              | 'typescript'
+              | 'javascript'
+              | 'html'
+              | 'css'
+              | 'ruby'
+              | 'python'
+              | 'go'
+              | 'java'
+              | 'csharp'
+              | 'cpp'
+              | 'php'
+              | 'shell'
+              | 'sql';
+            code: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'codeBlock';
+          }
+        | {
+            form: number | Form;
+            enableIntro?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'formBlock';
+          }
+      )[]
     | null;
   parent?: (number | null) | Page;
   breadcrumbs?:
@@ -443,6 +465,37 @@ export interface Post {
     [k: string]: unknown;
   } | null;
   pageMeta?: Meta;
+  layout?:
+    | (
+        | {
+            language:
+              | 'typescript'
+              | 'javascript'
+              | 'html'
+              | 'css'
+              | 'ruby'
+              | 'python'
+              | 'go'
+              | 'java'
+              | 'csharp'
+              | 'cpp'
+              | 'php'
+              | 'shell'
+              | 'sql';
+            code: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'codeBlock';
+          }
+        | {
+            form: number | Form;
+            enableIntro?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'formBlock';
+          }
+      )[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -809,6 +862,14 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        codeBlock?:
+          | T
+          | {
+              language?: T;
+              code?: T;
+              id?: T;
+              blockName?: T;
+            };
         formBlock?:
           | T
           | {
@@ -850,6 +911,26 @@ export interface PostsSelect<T extends boolean = true> {
   sortOrder?: T;
   content?: T;
   pageMeta?: T | MetaSelect<T>;
+  layout?:
+    | T
+    | {
+        codeBlock?:
+          | T
+          | {
+              language?: T;
+              code?: T;
+              id?: T;
+              blockName?: T;
+            };
+        formBlock?:
+          | T
+          | {
+              form?: T;
+              enableIntro?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
 }

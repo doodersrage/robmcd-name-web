@@ -11,6 +11,8 @@ import {
   InlineToolbarFeature,
   InlineCodeFeature,
 } from '@payloadcms/richtext-lexical'
+import { FormBlock } from '@/blocks/FormBlock'
+import { CodeBlock } from '@/blocks/CodeBlock'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -94,12 +96,14 @@ export const Posts: CollectionConfig = {
         },
       ],
     },
-    // {
-    //   name: 'layout', // Often used for building dynamic page layouts
-    //   type: 'blocks',
-    //   blocks: [
-    //     // Define your layout blocks here (e.g., Hero, Content, Media)
-    //   ],
-    // },
+    {
+      name: 'layout', // Often used for building dynamic page layouts
+      type: 'blocks',
+      blocks: [
+        // Define your layout blocks here (e.g., Hero, Content, Media)
+        CodeBlock,
+        FormBlock,
+      ],
+    },
   ],
 }

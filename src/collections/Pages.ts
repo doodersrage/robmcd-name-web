@@ -12,6 +12,7 @@ import {
   InlineCodeFeature,
 } from '@payloadcms/richtext-lexical'
 import { FormBlock } from '@/blocks/FormBlock'
+import { CodeBlock } from '@/blocks/CodeBlock'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -106,6 +107,7 @@ export const Pages: CollectionConfig = {
       type: 'blocks',
       blocks: [
         // Define your layout blocks here (e.g., Hero, Content, Media)
+        CodeBlock,
         FormBlock,
       ],
     },
