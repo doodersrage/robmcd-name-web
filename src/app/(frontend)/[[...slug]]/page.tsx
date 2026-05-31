@@ -77,84 +77,82 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
           </>
         )}
       </head>
-      <main>
-        <div className="relative h-20 w-full flex">
-          <div className="relative flex h-[calc(100vh-20rem)] w-full grow flex-col rounded-xl bg-clip-border p-4">
-            {page && !post && (
-              <>
-                <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{page.title}</h1>
-                <RichTextConverter data={page.content} />
-              </>
-            )}
+      <main className="max-w-340 mx-auto flex flex-col md:flex-row gap-4 py-5">
+        <div className="flex-1 grow rounded-xl bg-clip-border p-4">
+          {page && !post && (
+            <>
+              <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{page.title}</h1>
+              <RichTextConverter data={page.content} />
+            </>
+          )}
 
-            {post && (
-              <>
-                <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{post?.title}</h1>
-                <RichTextConverter data={post?.content} />
-              </>
-            )}
+          {post && (
+            <>
+              <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{post?.title}</h1>
+              <RichTextConverter data={post?.content} />
+            </>
+          )}
 
-            {post && post.layout && (
-              <div className="mt-8">
-                {post.layout.map((block: any, index: number) => {
-                  switch (block.blockType) {
-                    case 'formBlock':
-                      return (
-                        <div key={index} className="my-8">
-                          <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
-                          <MyForm formId={block.form.id} />
-                        </div>
-                      )
-                    case 'codeBlock':
-                      return (
-                        <div key={index} className="my-8">
-                          <CodeBlockComponent code={block.code} language={block.language} />
-                        </div>
-                      )
-                  }
-                })}
-              </div>
-            )}
+          {post && post.layout && (
+            <div className="mt-8">
+              {post.layout.map((block: any, index: number) => {
+                switch (block.blockType) {
+                  case 'formBlock':
+                    return (
+                      <div key={index} className="my-8">
+                        <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
+                        <MyForm formId={block.form.id} />
+                      </div>
+                    )
+                  case 'codeBlock':
+                    return (
+                      <div key={index} className="my-8">
+                        <CodeBlockComponent code={block.code} language={block.language} />
+                      </div>
+                    )
+                }
+              })}
+            </div>
+          )}
 
-            {page && page.layout && (
-              <div className="mt-8">
-                {page.layout.map((block: any, index: number) => {
-                  switch (block.blockType) {
-                    case 'formBlock':
-                      return (
-                        <div key={index} className="my-8">
-                          <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
-                          <MyForm formId={block.form.id} />
-                        </div>
-                      )
-                    case 'codeBlock':
-                      return (
-                        <div key={index} className="my-8">
-                          <CodeBlockComponent code={block.code} language={block.language} />
-                        </div>
-                      )
-                  }
-                })}
-              </div>
-            )}
-          </div>
-
-          {posts.docs.length > 0 && (
-            <div className="relative h-[calc(100vh-20rem)] w-full max-w-[20rem] flex flex-col rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5">
-              <div className="p-4 mb-2">
-                <h3>Posts</h3>
-                {posts.docs.map((post) => (
-                  <div key={post.id} className="mb-6">
-                    <a href={`/blog/${post.slug}`} className="text-xl font-semibold text-shadow-md">
-                      {post.title}
-                    </a>
-                    <p className="text-gray-600">{post.pageMeta?.metaDescription}</p>
-                  </div>
-                ))}
-              </div>
+          {page && page.layout && (
+            <div className="mt-8">
+              {page.layout.map((block: any, index: number) => {
+                switch (block.blockType) {
+                  case 'formBlock':
+                    return (
+                      <div key={index} className="my-8">
+                        <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
+                        <MyForm formId={block.form.id} />
+                      </div>
+                    )
+                  case 'codeBlock':
+                    return (
+                      <div key={index} className="my-8">
+                        <CodeBlockComponent code={block.code} language={block.language} />
+                      </div>
+                    )
+                }
+              })}
             </div>
           )}
         </div>
+
+        {posts.docs.length > 0 && (
+          <div className="flex-1 w-full max-w-[20rem] rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5">
+            <div className="p-4 mb-2">
+              <h3>Posts</h3>
+              {posts.docs.map((post) => (
+                <div key={post.id} className="mb-6">
+                  <a href={`/blog/${post.slug}`} className="text-xl font-semibold text-shadow-md">
+                    {post.title}
+                  </a>
+                  <p className="text-gray-600">{post.pageMeta?.metaDescription}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </main>
     </>
   )

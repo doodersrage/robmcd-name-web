@@ -25,8 +25,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       </head>
       <body>
         <Header />
-        <main id="content" className="shrink-0">
-          <div className="max-w-340 min-h-160 mx-auto py-10 px-4 sm:px-6 lg:px-8">{children}</div>
+        <main id="content" className="">
+          {children}
         </main>
         <Footer />
       </body>

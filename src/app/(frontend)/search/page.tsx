@@ -37,7 +37,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
       console.error('Search API error:', data)
       return (
         <>
-          <main>
+          <main className="max-w-340 mx-auto">
             <h1>Search Results for {query}</h1>
             <p>Error fetching search results. Please try again later.</p>
           </main>
@@ -47,7 +47,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
 
     return (
       <>
-        <main>
+        <main className="max-w-340 mx-auto">
           <h1>Search Results for &quot;{query}&quot;</h1>
           {query && data?.docs ? (
             <ul>
@@ -72,7 +72,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
     console.error('Network error:', error)
     return (
       <>
-        <main>
+        <main className="max-w-340 mx-auto">
           <h1>Search Results for {query}</h1>
           <p>
             Network error while fetching search results. Please check your connection and try again.

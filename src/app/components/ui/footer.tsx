@@ -1,11 +1,32 @@
+import Link from 'next/dist/client/link'
 import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] mt-auto py-3 bg-footer-inverse text-center">
-      <div className="max-w-340 mx-auto px-4 sm:px-6 lg:px-8">
-        <p>&copy; {new Date().getFullYear()} Robmcd.name. All rights reserved.</p>
-      </div>
+    <footer className="mt-auto relative w-full p-4 bg-neutral-primary-soft border-t border-default shadow-sm md:flex md:items-center md:justify-between md:p-6">
+      <span className="text-sm text-body sm:text-center">
+        &copy; {new Date().getFullYear()}{' '}
+        <Link href="/" className="hover:underline">
+          Robmcd.name
+        </Link>
+      </span>
+      <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-body sm:mt-0">
+        <li>
+          <Link href="/about" className="hover:underline me-4 md:me-6">
+            About
+          </Link>
+        </li>
+        <li>
+          <Link href="/privacy" className="hover:underline me-4 md:me-6">
+            Privacy Policy
+          </Link>
+        </li>
+        <li>
+          <Link href="/contact" className="hover:underline">
+            Contact
+          </Link>
+        </li>
+      </ul>
     </footer>
   )
 }

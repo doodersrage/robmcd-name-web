@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Nav from '@/app/components/nav'
+import Nav from '@/app/components/ui/nav'
 import Search from '@/app/components/search'
 import Hamburger from '@/app/components/ui/hamburger'
 import Link from 'next/link'

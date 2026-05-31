@@ -144,7 +144,7 @@ export default buildConfig({
             ...searchDoc,
             // Use the author's name as the title
             title: originalDoc.title,
-            slug: originalDoc.slug,
+            slug: `/blog/${originalDoc.slug}`,
 
             // Extract plain text from the bio for consistent searching
             description: extractPlainText(originalDoc.content),
