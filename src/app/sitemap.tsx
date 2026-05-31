@@ -29,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...posts.docs.map(({ slug, updatedAt }) => ({
-      url: `${url}/${slug}`,
+      url: `${url}/blog/${slug}`,
       lastModified: new Date(updatedAt),
     })),
     ...pages.docs.map(({ slug, updatedAt }) => ({
