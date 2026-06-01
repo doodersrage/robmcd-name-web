@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Nav from '@/app/components/ui/nav'
-import Search from '@/app/components/search'
-import Hamburger from '@/app/components/ui/hamburger'
+import Nav from '@/app/components/ui/Nav'
+import Search from '@/app/components/Search'
+import Hamburger from '@/app/components/ui/Hamburger'
 import Link from 'next/link'
 
 const Header = () => {

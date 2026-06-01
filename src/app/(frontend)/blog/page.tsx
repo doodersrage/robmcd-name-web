@@ -4,25 +4,17 @@ import configPromise from '@payload-config'
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
 import MyForm from '@/app/components/blocks/MyForm'
 import { CodeBlockComponent } from '@/app/components/blocks/CodeBlock'
+import BlogSidebar from '@/app/components/blog/BlogSidebar'
 
-export type paramsType = Promise<{ slug: string[] }>
-
-type Props = {
-  params: paramsType
-}
-
-export default async function Page({ params }: Props): Promise<React.ReactNode> {
+export default async function Page(): Promise<React.ReactNode> {
   const payload = await getPayload({ config: configPromise })
 
-  const { slug } = await params
-  const pathArray = slug || []
-
-  // Fetch the page by slug
+  // Fetch default blog page
   const pages = await payload.find({
     collection: 'pages',
     where: {
       slug: {
-        equals: pathArray.join('/') || 'home', // Fallback to home page
+        equals: 'blog', // Fallback to home page
       },
     },
   })
@@ -73,6 +65,8 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
             </div>
           )}
         </div>
+
+        <BlogSidebar pageNumber={1} />
       </main>
     </>
   )
