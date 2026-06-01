@@ -7,6 +7,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  if (request.nextUrl.pathname.startsWith('/search')) {
+    return NextResponse.next()
+  }
+
+  if (request.nextUrl.pathname.startsWith('/sitemap.xml')) {
+    return NextResponse.next()
+  }
+
   // Rewrite everything else to the catch-all page
   return NextResponse.rewrite(new URL(`${request.nextUrl.pathname}`, request.url))
 }
