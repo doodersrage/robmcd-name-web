@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic'
 
+import { Suspense } from 'react'
 import React from 'react'
 import Link from 'next/link'
 import qs from 'qs'
@@ -37,7 +38,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
       console.error('Search API error:', data)
       return (
         <>
-          <main className="max-w-340 mx-auto">
+          <main className="max-w-340 mx-auto py-5 sm:px-6 lg:px-8">
             <h1>Search Results for {query}</h1>
             <p>Error fetching search results. Please try again later.</p>
           </main>
@@ -47,24 +48,26 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
 
     return (
       <>
-        <main className="max-w-340 mx-auto">
+        <main className="max-w-340 mx-auto py-5 sm:px-6 lg:px-8">
           <h1>Search Results for &quot;{query}&quot;</h1>
-          {query && data?.docs ? (
-            <ul>
-              {data.docs.map((result: any) => (
-                <li key={result.id}>
-                  <h2>
-                    <Link target="_blank" href={result.slug}>
-                      {result.title}
-                    </Link>
-                  </h2>
-                  <p>{result.description}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No results found.</p>
-          )}
+          <Suspense fallback={<p>Loading results...</p>}>
+            {query && data?.docs ? (
+              <ul>
+                {data.docs.map((result: any) => (
+                  <li key={result.id}>
+                    <h2>
+                      <Link target="_blank" href={result.slug}>
+                        {result.title}
+                      </Link>
+                    </h2>
+                    <p>{result.description}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No results found.</p>
+            )}
+          </Suspense>
         </main>
       </>
     )
@@ -72,7 +75,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
     console.error('Network error:', error)
     return (
       <>
-        <main className="max-w-340 mx-auto">
+        <main className="max-w-340 mx-auto py-5 sm:px-6 lg:px-8">
           <h1>Search Results for {query}</h1>
           <p>
             Network error while fetching search results. Please check your connection and try again.
