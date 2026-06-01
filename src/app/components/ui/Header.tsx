@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import Nav from '@/app/components/ui/Nav'
 import Search from '@/app/components/Search'
 import Hamburger from '@/app/components/ui/Hamburger'
@@ -20,7 +20,9 @@ const Header = () => {
             <Hamburger />
           </div>
           <Nav />
-          <Search />
+          <Suspense fallback={<div>Loading search...</div>}>
+            <Search />
+          </Suspense>
         </nav>
       </header>
     </>

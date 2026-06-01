@@ -43,7 +43,7 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
           </>
         )}
       </head>
-      <main className="max-w-340 mx-auto flex flex-col md:flex-row gap-4 py-5">
+      <main className="max-w-340 mx-auto flex flex-col md:flex-row gap-4 py-5 sm:px-6 lg:px-8">
         <div className="flex-1 grow rounded-xl bg-clip-border p-4">
           <Suspense fallback={<div>Loading blog...</div>}>
             {post && (
