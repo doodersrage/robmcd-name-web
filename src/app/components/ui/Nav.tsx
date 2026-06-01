@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import React from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
@@ -29,22 +30,24 @@ const Nav = async () => {
       >
         <div className="dd-menu flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
-            {pages.docs.map((page) =>
-              page.hideInMenu ? null : (
-                <li key={page.id}>
-                  <a
-                    className="text-lg capitalize font-semibold text-shadow-md"
-                    href={`/${page.slug}`}
-                  >
-                    {page.title}
-                  </a>
-                  {getPages(page.id).then((childPages) => {
-                    const childPage = childPages
-                    return childPage ? childPage : ''
-                  })}
-                </li>
-              ),
-            )}
+            <Suspense fallback={<div className="animate-pulse">Loading menu...</div>}>
+              {pages.docs.map((page) =>
+                page.hideInMenu ? null : (
+                  <li key={page.id}>
+                    <a
+                      className="text-lg capitalize font-semibold text-shadow-md"
+                      href={`/${page.slug}`}
+                    >
+                      {page.title}
+                    </a>
+                    {getPages(page.id).then((childPages) => {
+                      const childPage = childPages
+                      return childPage ? childPage : ''
+                    })}
+                  </li>
+                ),
+              )}
+            </Suspense>
           </ul>
         </div>
       </div>

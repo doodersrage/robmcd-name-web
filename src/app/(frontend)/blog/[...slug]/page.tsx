@@ -1,5 +1,5 @@
 import { getPayload } from 'payload'
-import React from 'react'
+import React, { Suspense } from 'react'
 import configPromise from '@payload-config'
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
 import MyForm from '@/app/components/blocks/MyForm'
@@ -45,34 +45,36 @@ export default async function Page({ params }: Props): Promise<React.ReactNode> 
       </head>
       <main className="max-w-340 mx-auto flex flex-col md:flex-row gap-4 py-5">
         <div className="flex-1 grow rounded-xl bg-clip-border p-4">
-          {post && (
-            <>
-              <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{post?.title}</h1>
-              <RichTextConverter data={post?.content} />
-            </>
-          )}
+          <Suspense fallback={<div>Loading blog...</div>}>
+            {post && (
+              <>
+                <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{post?.title}</h1>
+                <RichTextConverter data={post?.content} />
+              </>
+            )}
 
-          {post && post.layout && (
-            <div className="mt-8">
-              {post.layout.map((block: any, index: number) => {
-                switch (block.blockType) {
-                  case 'formBlock':
-                    return (
-                      <div key={index} className="my-8">
-                        <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
-                        <MyForm formId={block.form.id} />
-                      </div>
-                    )
-                  case 'codeBlock':
-                    return (
-                      <div key={index} className="my-8">
-                        <CodeBlockComponent code={block.code} language={block.language} />
-                      </div>
-                    )
-                }
-              })}
-            </div>
-          )}
+            {post && post.layout && (
+              <div className="mt-8">
+                {post.layout.map((block: any, index: number) => {
+                  switch (block.blockType) {
+                    case 'formBlock':
+                      return (
+                        <div key={index} className="my-8">
+                          <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
+                          <MyForm formId={block.form.id} />
+                        </div>
+                      )
+                    case 'codeBlock':
+                      return (
+                        <div key={index} className="my-8">
+                          <CodeBlockComponent code={block.code} language={block.language} />
+                        </div>
+                      )
+                  }
+                })}
+              </div>
+            )}
+          </Suspense>
         </div>
 
         <BlogSidebar pageNumber={1} />

@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import React from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
@@ -24,14 +25,16 @@ export default async function BlogSidebar({
           <div className="p-4 mb-2">
             <h3>Posts</h3>
             <ol>
-              {posts.docs.map((post, idx) => (
-                <li key={post.id} className="mb-2">
-                  {idx + 1}.{' '}
-                  <a href={`/blog/${post.slug}`} className="text-xl font-semibold text-shadow-md">
-                    {post.title}
-                  </a>
-                </li>
-              ))}
+              <Suspense fallback={<div className="animate-pulse">Loading posts...</div>}>
+                {posts.docs.map((post, idx) => (
+                  <li key={post.id} className="mb-2">
+                    {idx + 1}.{' '}
+                    <a href={`/blog/${post.slug}`} className="text-xl font-semibold text-shadow-md">
+                      {post.title}
+                    </a>
+                  </li>
+                ))}
+              </Suspense>
             </ol>
           </div>
         </div>
