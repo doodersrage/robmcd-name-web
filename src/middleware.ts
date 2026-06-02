@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
   }
 
   // Rewrite everything else to the catch-all page
-  return NextResponse.rewrite(new URL(`${request.nextUrl.pathname}`, request.url))
+  return NextResponse.rewrite(new URL(`/page${request.nextUrl.pathname}`, request.url))
 }
 
 export const config = {
