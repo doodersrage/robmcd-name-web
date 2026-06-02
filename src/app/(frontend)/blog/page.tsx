@@ -7,7 +7,9 @@ import MyForm from '@/app/components/blocks/MyForm'
 import { CodeBlockComponent } from '@/app/components/blocks/CodeBlock'
 import BlogSidebar from '@/app/components/blog/BlogSidebar'
 
-export default async function Page(): Promise<React.ReactNode> {
+export type paramsType = Promise<{ slug: string[] }>
+
+export default async function Page({ params }: { params: Promise<paramsType> }) {
   const payload = await getPayload({ config: configPromise })
 
   // Fetch default blog page

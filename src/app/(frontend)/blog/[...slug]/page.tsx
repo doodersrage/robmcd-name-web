@@ -8,11 +8,7 @@ import BlogSidebar from '@/app/components/blog/BlogSidebar'
 
 export type paramsType = Promise<{ slug: string[] }>
 
-type Props = {
-  params: paramsType
-}
-
-export default async function Page({ params }: Props): Promise<React.ReactNode> {
+export default async function Page({ params }: { params: Promise<paramsType> }) {
   const payload = await getPayload({ config: configPromise })
 
   const { slug } = await params
