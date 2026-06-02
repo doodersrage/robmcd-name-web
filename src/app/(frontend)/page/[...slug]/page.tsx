@@ -40,36 +40,38 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
       </head>
       <main className="max-w-340 mx-auto flex flex-col md:flex-row gap-4 py-5 sm:px-6 lg:px-8">
         <div className="flex-1 grow rounded-xl bg-clip-border p-4">
-          <Suspense fallback={<div>Loading page...</div>}>
-            {page && (
-              <>
-                <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{page.title}</h1>
-                <RichTextConverter data={page.content} />
-              </>
-            )}
+          {page && (
+            <>
+              <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{page.title}</h1>
+              <RichTextConverter data={page.content} />
+            </>
+          )}
 
-            {page && page.layout && (
-              <div className="mt-8">
-                {page.layout.map((block: any, index: number) => {
-                  switch (block.blockType) {
-                    case 'formBlock':
-                      return (
-                        <div key={index} className="my-8">
-                          <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
+          {page && page.layout && (
+            <div className="mt-8">
+              {page.layout.map((block: any, index: number) => {
+                switch (block.blockType) {
+                  case 'formBlock':
+                    return (
+                      <div key={index} className="my-8">
+                        <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
+                        <Suspense fallback={<div>Loading form...</div>}>
                           <MyForm formId={block.form.id} />
-                        </div>
-                      )
-                    case 'codeBlock':
-                      return (
-                        <div key={index} className="my-8">
+                        </Suspense>
+                      </div>
+                    )
+                  case 'codeBlock':
+                    return (
+                      <div key={index} className="my-8">
+                        <Suspense fallback={<div>Loading code block...</div>}>
                           <CodeBlockComponent code={block.code} language={block.language} />
-                        </div>
-                      )
-                  }
-                })}
-              </div>
-            )}
-          </Suspense>
+                        </Suspense>
+                      </div>
+                    )
+                }
+              })}
+            </div>
+          )}
         </div>
       </main>
     </>
