@@ -12,21 +12,39 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
   const payload = await getPayload({ config: configPromise })
 
   const { slug } = await params
-  const pathArray: string = slug[0]?.replace('/blog/', '') || ''
+  let post = null
 
-  // Fetch selected blog page
-  const postGet = await payload.find({
-    collection: 'posts',
-    where: {
-      slug: {
-        equals: pathArray,
+  if (!slug) {
+    // Fetch default blog page
+    const pages = await payload.find({
+      collection: 'pages',
+      where: {
+        slug: {
+          equals: 'blog',
+        },
       },
-    },
-  })
+    })
 
-  const post = postGet.docs[0]
+    post = pages.docs[0] || null
 
-  if (!post) return <div>Post Not Found</div>
+    if (!post) return <div>Post Not Found</div>
+  } else {
+    const pathArray: string = slug[0]?.replace('/blog/', '') || ''
+
+    // Fetch selected blog page
+    const postGet = await payload.find({
+      collection: 'posts',
+      where: {
+        slug: {
+          equals: pathArray,
+        },
+      },
+    })
+
+    post = postGet.docs[0]
+
+    if (!post) return <div>Post Not Found</div>
+  }
 
   return (
     <>
