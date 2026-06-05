@@ -31,11 +31,11 @@ export async function generateMetadata({
   const page = pages.docs[0]
 
   return {
-    title: page.pageMeta?.headerTitle || page.title,
-    description: page.pageMeta?.metaDescription || '',
-    keywords: [page.pageMeta?.metaKeywords],
+    title: page?.pageMeta?.headerTitle || page?.title,
+    description: page?.pageMeta?.metaDescription || '',
+    keywords: [page?.pageMeta?.metaKeywords],
     alternates: {
-      canonical: `/${page.slug}`,
+      canonical: `/${page?.slug}`,
     },
   }
 }

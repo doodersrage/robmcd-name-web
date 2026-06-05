@@ -11,7 +11,7 @@ const Hamburger = () => {
       <div className="md:hidden">
         <button
           type="button"
-          className="w-10 h-10 flex justify-center items-center text-[#EFF6E0] rounded-lg bg-[#598392] hover:bg-[#AEC3B0] transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#AEC3B0] focus:ring-opacity-50"
+          className="{`${isOpen ? 'open' : ''}'} hamburger w-10 h-10 flex justify-center items-center text-[#EFF6E0] rounded-lg bg-[#598392] hover:bg-[#AEC3B0] transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#AEC3B0] focus:ring-opacity-50"
           id="hs-navbar-sticky-footer-collapse"
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
@@ -53,13 +53,15 @@ const Hamburger = () => {
         </button>
       </div>
       <Script id="nav-toggle" strategy="beforeInteractive">
-        {`const menuBtn = document.querySelector('[aria-controls="hs-navbar-sticky-footer"]');
-          const menu = document.getElementById('hs-navbar-sticky-footer');
+        {`const menuBtn = document.getElementById('hs-navbar-sticky-footer-collapse');
+      const menu = document.querySelectorAll('.hs-navbar-sticky-footer');
 
-          menuBtn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-          });
-        `}
+      menuBtn.addEventListener('click', () => {
+      console.log(menu.classList);
+        menu.forEach(element => {
+          element.classList.toggle('hidden');
+        });
+      });`}
       </Script>
     </>
   )

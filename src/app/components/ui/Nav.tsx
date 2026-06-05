@@ -24,7 +24,7 @@ const Nav = async () => {
     <>
       <div
         id="hs-navbar-sticky-footer"
-        className="w-full md:w-auto"
+        className="hidden hs-collapse hs-navbar-sticky-footer overflow-hidden transition-all duration-300 sm:block w-full md:w-auto"
         aria-labelledby="hs-navbar-sticky-footer-collapse"
         role="region"
       >
@@ -65,7 +65,10 @@ const Nav = async () => {
             background: linear-gradient(to right, #AEC3B0, #EFF6E0);
             transition: width 0.3s ease;
           }
-
+          {/* Mobile Navigation */}
+          <div className="md:hidden mt-4">
+            <Nav />
+          </div>
           .nav-menu a:hover::after {
             width: 100%;
           }

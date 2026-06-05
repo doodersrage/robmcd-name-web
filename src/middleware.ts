@@ -11,6 +11,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    return NextResponse.next()
+  }
+
   if (request.nextUrl.pathname.startsWith('/sitemap.xml')) {
     return NextResponse.next()
   }
