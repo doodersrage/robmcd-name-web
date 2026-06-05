@@ -58,28 +58,41 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
 
   const page = pages.docs[0]
 
-  if (!page) return <div>Page Not Found</div>
+  if (!page) return <div className="text-center py-12">Page Not Found</div>
 
   return (
     <>
-      <main className="max-w-340 mx-auto flex flex-col md:flex-row gap-4 py-5 sm:px-6 lg:px-8">
-        <div className="flex-1 grow rounded-xl bg-clip-border p-4">
+      <article className="max-w-4xl mx-auto">
+        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-[#AEC3B0] border-opacity-20">
           {page && (
             <>
-              <h1 className="capitalize text-shadow-md text-2xl font-bold mb-4">{page.title}</h1>
-              <RichTextConverter data={page.content} />
+              <h1 className="text-4xl md:text-5xl font-bold text-[#01161E] mb-6 leading-tight">
+                {page.title}
+              </h1>
+              <div className="prose prose-lg max-w-none">
+                <RichTextConverter data={page.content} />
+              </div>
             </>
           )}
 
           {page && page.layout && (
-            <div className="mt-8">
+            <div className="mt-12 pt-8 border-t border-[#AEC3B0] border-opacity-30">
               {page.layout.map((block: any, index: number) => {
                 switch (block.blockType) {
                   case 'formBlock':
                     return (
-                      <div key={index} className="my-8">
-                        <h2 className="text-xl font-semibold mb-4">{block.form.title}</h2>
-                        <Suspense fallback={<div>Loading form...</div>}>
+                      <div
+                        key={index}
+                        className="my-8 p-6 rounded-xl bg-gradient-to-r from-[#EFF6E0] to-[#f5f9ec] border border-[#AEC3B0] border-opacity-30"
+                      >
+                        <h2 className="text-2xl font-bold text-[#01161E] mb-6">
+                          {block.form.title}
+                        </h2>
+                        <Suspense
+                          fallback={
+                            <div className="text-center py-4 text-[#598392]">Loading form...</div>
+                          }
+                        >
                           <MyForm formId={block.form.id} />
                         </Suspense>
                       </div>
@@ -87,7 +100,13 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
                   case 'codeBlock':
                     return (
                       <div key={index} className="my-8">
-                        <Suspense fallback={<div>Loading code block...</div>}>
+                        <Suspense
+                          fallback={
+                            <div className="text-center py-4 text-[#598392]">
+                              Loading code block...
+                            </div>
+                          }
+                        >
                           <CodeBlockComponent code={block.code} language={block.language} />
                         </Suspense>
                       </div>
@@ -97,7 +116,7 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
             </div>
           )}
         </div>
-      </main>
+      </article>
     </>
   )
 }

@@ -123,8 +123,8 @@ function validateFormFields(
 }
 
 const inputClassName =
-  'flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2'
-const inputErrorClassName = `${inputClassName} border-red-500`
+  'w-full px-4 py-2 bg-white border-2 border-[#AEC3B0] border-opacity-40 text-[#01161E] rounded-lg focus:outline-none focus:border-[#124559] focus:border-opacity-100 focus:ring-2 focus:ring-[#598392] focus:ring-opacity-30 transition-all duration-300'
+const inputErrorClassName = `${inputClassName} border-red-500 border-opacity-100 focus:border-red-500`
 
 const MyForm = ({ formId }: { formId: string }) => {
   const [cmsForm, setCmsForm] = useState<CmsForm | null>(null)
@@ -395,17 +395,20 @@ const MyForm = ({ formId }: { formId: string }) => {
       )}
       <div>
         {error && (
-          <p role="alert" style={{ color: '#b91c1c', marginBottom: '1rem' }}>
+          <p
+            role="alert"
+            className="bg-red-50 text-red-700 px-4 py-3 rounded-lg mb-6 border border-red-300"
+          >
             {error}
           </p>
         )}
-        <form onSubmit={handleSubmit} ref={formRef} noValidate>
+        <form onSubmit={handleSubmit} ref={formRef} noValidate className="space-y-6">
           {cmsForm.fields?.map((field) => {
             if (field.blockType === 'message') {
               return (
                 <div
                   key={field.id ?? field.blockName ?? 'message'}
-                  style={{ marginBottom: '1rem' }}
+                  className="prose prose-sm max-w-none mb-6"
                 >
                   {renderField(field)}
                 </div>
@@ -413,26 +416,17 @@ const MyForm = ({ formId }: { formId: string }) => {
             }
 
             return (
-              <div
-                key={field.id ?? field.name}
-                style={{
-                  marginTop: '1rem',
-                  marginBottom: '1rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.5rem',
-                }}
-              >
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={field.name}>
+              <div key={field.id ?? field.name} className="flex flex-col gap-2">
+                <label className="block text-[#01161E] font-semibold text-sm" htmlFor={field.name}>
                   {getFieldLabel(field)}
-                  {field.required ? ' *' : ''}
+                  {field.required ? <span className="text-red-500"> *</span> : ''}
                 </label>
-                {renderField(field)}
+                <div style={{ width: '100%' }}>{renderField(field)}</div>
                 {fieldErrors[field.name] && (
                   <p
                     id={`${field.name}-error`}
                     role="alert"
-                    style={{ color: '#b91c1c', fontSize: '0.875rem' }}
+                    className="text-red-600 text-sm font-medium"
                   >
                     {fieldErrors[field.name]}
                   </p>
@@ -441,27 +435,21 @@ const MyForm = ({ formId }: { formId: string }) => {
             )
           })}
           {cmsForm.hasAttachment && (
-            <div
-              style={{
-                marginTop: '1rem',
-                marginBottom: '1rem',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.5rem',
-              }}
-            >
-              <label htmlFor="file">{cmsForm.hasAttachmentLabel || 'Attachment'}</label>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="file" className="block text-[#01161E] font-semibold text-sm">
+                {cmsForm.hasAttachmentLabel || 'Attachment'}
+              </label>
               <input
-                className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                className="w-full px-4 py-2 bg-white border-2 border-[#AEC3B0] border-opacity-40 text-[#01161E] rounded-lg focus:outline-none focus:border-[#124559] focus:border-opacity-100 focus:ring-2 focus:ring-[#598392] focus:ring-opacity-30 transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#124559] file:text-[#EFF6E0] file:cursor-pointer hover:file:bg-[#598392]"
                 type="file"
                 name="file"
                 id="file"
               />
             </div>
           )}
-          {turnstileSiteKey && <div ref={turnstileContainerRef} style={{ marginBottom: '1rem' }} />}
+          {turnstileSiteKey && <div ref={turnstileContainerRef} className="mb-6" />}
           <button
-            className="inline-block rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            className="mt-8 px-8 py-3 rounded-lg bg-gradient-to-r from-[#124559] to-[#0d3447] text-[#EFF6E0] font-semibold border-2 border-[#598392] border-opacity-50 transition-all duration-300 hover:border-[#AEC3B0] hover:border-opacity-100 hover:shadow-lg hover:shadow-[#124559]/30 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[#AEC3B0] focus:ring-opacity-30"
             type="submit"
             disabled={Boolean(turnstileSiteKey && !turnstileToken)}
           >

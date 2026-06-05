@@ -24,25 +24,26 @@ const Nav = async () => {
     <>
       <div
         id="hs-navbar-sticky-footer"
-        className="hidden hs-collapse overflow-hidden transition-all duration-300 basis-full grow sm:block"
+        className="w-full md:w-auto"
         aria-labelledby="hs-navbar-sticky-footer-collapse"
         role="region"
       >
-        <div className="dd-menu flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
-            <Suspense fallback={<div className="animate-pulse">Loading menu...</div>}>
+        <div className="nav-menu flex flex-col md:flex-row gap-1 md:gap-8">
+          <ul className="flex flex-col md:flex-row gap-1 md:gap-6">
+            <Suspense
+              fallback={<div className="animate-pulse text-[#AEC3B0]">Loading menu...</div>}
+            >
               {pages.docs.map((page) =>
                 page.hideInMenu ? null : (
                   <li key={page.id}>
                     <a
-                      className="text-lg capitalize font-semibold text-shadow-md"
+                      className="block py-2 px-3 md:p-0 text-[#EFF6E0] font-semibold capitalize text-sm md:text-base transition-all duration-300 hover:text-[#AEC3B0] hover:translate-x-1 md:hover:translate-x-0 md:border-b-2 md:border-transparent md:hover:border-[#AEC3B0] relative"
                       href={`/${page.slug}`}
                     >
                       {page.title}
                     </a>
                     {getPages(page.id).then((childPages) => {
-                      const childPage = childPages
-                      return childPage ? childPage : ''
+                      return childPages ? childPages : ''
                     })}
                   </li>
                 ),
@@ -51,16 +52,48 @@ const Nav = async () => {
           </ul>
         </div>
       </div>
+
       <style>
         {`
-            .dd-menu ul > li:hover ul {
-              display: block;
-              position: absolute;
-              background-color: #1f2937; /* Tailwind's gray-800 */
-              padding: 0.5rem;
-              border-radius: 0.25rem;
-              margin-top: 0;
+          .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #AEC3B0, #EFF6E0);
+            transition: width 0.3s ease;
+          }
+
+          .nav-menu a:hover::after {
+            width: 100%;
+          }
+
+          @media (min-width: 768px) {
+            .nav-menu a::after {
+              display: none;
             }
+
+            .nav-menu a:hover::after {
+              display: none;
+            }
+          }
+
+          .dd-menu ul > li:hover ul {
+            display: block;
+            position: absolute;
+            background-color: #0d3447;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            margin-top: 0.25rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(89, 131, 146, 0.3);
+          }
+
+          .dd-menu ul > li:hover ul li a {
+            color: #EFF6E0;
+          }
         `}
       </style>
     </>
@@ -88,14 +121,16 @@ const getPages = async (id: number | string) => {
 
   return (
     <>
-      <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 hidden">
+      <ul className="flex flex-col gap-1 p-2 md:p-0 md:mt-0 hidden">
         {pages.docs.map((page) => (
           <li key={page.id}>
-            <a className="text-lg capitalize font-semibold text-shadow-md" href={`/${page.slug}`}>
+            <a
+              className="block py-2 px-3 md:p-0 text-[#EFF6E0] font-semibold text-sm capitalize transition-all duration-300 hover:text-[#AEC3B0]"
+              href={`/${page.slug}`}
+            >
               {page.title}
               {getPages(page.id).then((childPages) => {
-                const childPage = childPages
-                return childPage ? childPage : ''
+                return childPages ? childPages : ''
               })}
             </a>
           </li>

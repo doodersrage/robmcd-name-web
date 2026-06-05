@@ -8,19 +8,19 @@ const Hamburger = () => {
 
   return (
     <>
-      <div className="sm:hidden">
+      <div className="md:hidden">
         <button
           type="button"
-          className="{`${isOpen ? 'open' : ''}'} hamburger hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-lg bg-layer border border-layer-line text-layer-foreground hover:bg-layer-hover focus:outline-hidden focus:bg-layer-focus disabled:opacity-50 disabled:pointer-events-none"
+          className="w-10 h-10 flex justify-center items-center text-[#EFF6E0] rounded-lg bg-[#598392] hover:bg-[#AEC3B0] transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#AEC3B0] focus:ring-opacity-50"
           id="hs-navbar-sticky-footer-collapse"
           onClick={() => setIsOpen(!isOpen)}
-          aria-expanded="false"
+          aria-expanded={isOpen}
           aria-controls="hs-navbar-sticky-footer"
           aria-label="Toggle navigation"
           data-hs-collapse="#hs-navbar-sticky-footer"
         >
           <svg
-            className="hs-collapse-open:hidden shrink-0 size-4"
+            className={`w-5 h-5 transition-all duration-300 ${isOpen ? 'hidden' : 'block'}`}
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -36,7 +36,7 @@ const Hamburger = () => {
             <line x1="3" x2="21" y1="18" y2="18" />
           </svg>
           <svg
-            className="hs-collapse-open:block hidden shrink-0 size-4"
+            className={`w-5 h-5 transition-all duration-300 ${isOpen ? 'block' : 'hidden'}`}
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -53,16 +53,11 @@ const Hamburger = () => {
         </button>
       </div>
       <Script id="nav-toggle" strategy="beforeInteractive">
-        {`const menuBtn = document.querySelector('.hamburger');
-          const menuBtnState = document.querySelector('.hamburger.open');
+        {`const menuBtn = document.querySelector('[aria-controls="hs-navbar-sticky-footer"]');
           const menu = document.getElementById('hs-navbar-sticky-footer');
 
           menuBtn.addEventListener('click', () => {
-            if (menuBtnState) {
-              menu.classList.add('open');
-            } else {
-              menu.classList.toggle('hidden');
-            }
+            menu.classList.toggle('hidden');
           });
         `}
       </Script>
