@@ -3,8 +3,26 @@ export const dynamic = 'force-dynamic'
 import React from 'react'
 import Link from 'next/link'
 import qs from 'qs'
+import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 
 export type paramsType = Promise<{ query: string }>
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<paramsType>
+}): Promise<Metadata> {
+  const { query } = await searchParams
+
+  return {
+    title: 'Search results for ' + query,
+    description: 'Search results for ' + query,
+    keywords: ['search', query],
+    alternates: {
+      canonical: `/search?query=${encodeURIComponent(query)}`,
+    },
+  }
+}
 
 export default async function Page({ searchParams }: { searchParams: Promise<paramsType> }) {
   const { query } = await searchParams

@@ -20,7 +20,7 @@ export default async function BlogSidebar({
   return (
     <>
       {posts.docs.length > 0 && (
-        <div className="flex-1 w-full max-w-[20rem] rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5">
+        <div className="flex-1 w-full max-w-[20rem] rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 sm:mx-auto">
           <div className="p-4 mb-2">
             <h3>Posts</h3>
             <ol>

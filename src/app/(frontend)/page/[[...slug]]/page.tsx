@@ -1,11 +1,44 @@
 import { getPayload } from 'payload'
 import React, { Suspense } from 'react'
+import { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
 import MyForm from '@/app/components/blocks/MyForm'
 import { CodeBlockComponent } from '@/app/components/blocks/CodeBlock'
 
 export type paramsType = Promise<{ slug: string[] }>
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<paramsType>
+}): Promise<Metadata> {
+  const payload = await getPayload({ config: configPromise })
+
+  const { slug } = await params
+  const pathArray = slug || []
+
+  // Fetch the page by slug
+  const pages = await payload.find({
+    collection: 'pages',
+    where: {
+      slug: {
+        equals: pathArray.join('/') || 'home', // Fallback to home page
+      },
+    },
+  })
+
+  const page = pages.docs[0]
+
+  return {
+    title: page.pageMeta?.headerTitle || page.title,
+    description: page.pageMeta?.metaDescription || '',
+    keywords: [page.pageMeta?.metaKeywords],
+    alternates: {
+      canonical: `/${page.slug}`,
+    },
+  }
+}
 
 export default async function Page({ params }: { params: Promise<paramsType> }) {
   const payload = await getPayload({ config: configPromise })
@@ -29,15 +62,6 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
 
   return (
     <>
-      <head>
-        {page && (
-          <>
-            <title>{page.pageMeta?.headerTitle || page.title}</title>
-            <meta name="description" content={page.pageMeta?.metaDescription || ''} />
-            <meta name="keywords" content={page.pageMeta?.metaKeywords || ''} />
-          </>
-        )}
-      </head>
       <main className="max-w-340 mx-auto flex flex-col md:flex-row gap-4 py-5 sm:px-6 lg:px-8">
         <div className="flex-1 grow rounded-xl bg-clip-border p-4">
           {page && (

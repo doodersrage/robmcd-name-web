@@ -5,8 +5,59 @@ import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/reac
 import MyForm from '@/app/components/blocks/MyForm'
 import { CodeBlockComponent } from '@/app/components/blocks/CodeBlock'
 import BlogSidebar from '@/app/components/blog/BlogSidebar'
+import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 
 export type paramsType = Promise<{ slug: string[] }>
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<paramsType>
+}): Promise<Metadata> {
+  const payload = await getPayload({ config: configPromise })
+
+  const { slug } = await params
+  const pathArray = slug || []
+
+  let post = null
+
+  if (!slug) {
+    // Fetch default blog page
+    const pages = await payload.find({
+      collection: 'pages',
+      where: {
+        slug: {
+          equals: 'blog',
+        },
+      },
+    })
+
+    post = pages.docs[0] || null
+  } else {
+    const pathArray: string = slug[0]?.replace('/blog/', '') || ''
+
+    // Fetch selected blog page
+    const postGet = await payload.find({
+      collection: 'posts',
+      where: {
+        slug: {
+          equals: pathArray,
+        },
+      },
+    })
+
+    post = postGet.docs[0]
+  }
+
+  return {
+    title: post?.pageMeta?.headerTitle || post?.title,
+    description: post?.pageMeta?.metaDescription || '',
+    keywords: [post?.pageMeta?.metaKeywords],
+    alternates: {
+      canonical: `/blog/${post?.slug}`,
+    },
+  }
+}
 
 export default async function Page({ params }: { params: Promise<paramsType> }) {
   const payload = await getPayload({ config: configPromise })
@@ -48,15 +99,6 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
 
   return (
     <>
-      <head>
-        {post && (
-          <>
-            <title>{post?.pageMeta?.headerTitle || post?.title}</title>
-            <meta name="description" content={post?.pageMeta?.metaDescription || ''} />
-            <meta name="keywords" content={post?.pageMeta?.metaKeywords || ''} />
-          </>
-        )}
-      </head>
       <main className="max-w-340 mx-auto flex flex-col md:flex-row gap-4 py-5 sm:px-6 lg:px-8">
         <div className="flex-1 grow rounded-xl bg-clip-border p-4">
           {post && (
