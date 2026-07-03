@@ -1,5 +1,4 @@
-import { CollectionConfig } from 'payload'
-import { createBreadcrumbsField } from '@payloadcms/plugin-nested-docs'
+import { CollectionConfig, Field } from 'payload'
 import {
   BlocksFeature,
   EXPERIMENTAL_TableFeature,
@@ -15,27 +14,92 @@ import {
 import { FormBlock } from '@/blocks/FormBlock'
 import { CodeBlock } from '@/blocks/CodeBlock'
 
-/** Normalize nested-docs breadcrumb relationship IDs before validation. */
-function sanitizeBreadcrumbs(
-  data: Record<string, unknown>,
-  pageId: number | string | undefined,
-): void {
-  if (!Array.isArray(data.breadcrumbs) || pageId == null) return
+/** Coerce relationship values to numeric IDs (D1/SQLite expects numbers). */
+function normalizeRelationshipId(value: unknown): number | undefined {
+  if (value == null || value === '') return undefined
+
+  if (typeof value === 'object' && 'id' in value) {
+    return normalizeRelationshipId((value as { id: unknown }).id)
+  }
+
+  if (typeof value === 'number' && !Number.isNaN(value)) return value
+
+  if (typeof value === 'string') {
+    const parsed = parseInt(value, 10)
+    return Number.isNaN(parsed) ? undefined : parsed
+  }
+
+  return undefined
+}
+
+/** Normalize nested-docs breadcrumb rows after populateBreadcrumbs runs. */
+function sanitizeBreadcrumbs(data: Record<string, unknown>, pageId: unknown): void {
+  const normalizedPageId = normalizeRelationshipId(pageId)
+  if (!Array.isArray(data.breadcrumbs) || normalizedPageId == null) return
 
   data.breadcrumbs = data.breadcrumbs
     .map((crumb: Record<string, unknown>, index: number, crumbs: unknown[]) => {
-      const docValue = crumb?.doc
       const docId =
-        typeof docValue === 'object' && docValue != null && 'id' in docValue
-          ? (docValue as { id: number | string }).id
-          : docValue
+        normalizeRelationshipId(crumb?.doc) ??
+        (index === crumbs.length - 1 ? normalizedPageId : undefined)
 
-      return {
-        ...crumb,
-        doc: docId ?? (index === crumbs.length - 1 ? pageId : docId),
-      }
+      if (docId == null) return null
+
+      return { ...crumb, doc: docId }
     })
-    .filter((crumb: Record<string, unknown>) => crumb.doc != null)
+    .filter(Boolean)
+}
+
+/**
+ * Breadcrumbs for nested-docs. Custom field so we can skip validation on the
+ * server-managed `doc` relationship (populated objects fail publish validation).
+ */
+const breadcrumbsField: Field = {
+  name: 'breadcrumbs',
+  type: 'array',
+  localized: false,
+  admin: {
+    readOnly: true,
+  },
+  fields: [
+    {
+      name: 'doc',
+      type: 'relationship',
+      relationTo: 'pages',
+      maxDepth: 0,
+      admin: {
+        disabled: true,
+        readOnly: true,
+      },
+      validate: (): true => true,
+      hooks: {
+        beforeChange: [
+          ({ value, data, originalDoc }) => {
+            return (
+              normalizeRelationshipId(value) ??
+              normalizeRelationshipId(originalDoc?.id ?? data?.id)
+            )
+          },
+        ],
+      },
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'url',
+          type: 'text',
+          admin: { width: '50%' },
+          label: 'URL',
+        },
+        {
+          name: 'label',
+          type: 'text',
+          admin: { width: '50%' },
+        },
+      ],
+    },
+  ],
 }
 
 export const Pages: CollectionConfig = {
@@ -152,8 +216,6 @@ export const Pages: CollectionConfig = {
         FormBlock,
       ],
     },
-    // Defined here (not by nested-docs) so breadcrumbs are not localized — avoids
-    // draft/version validation errors when localization is not enabled.
-    createBreadcrumbsField('pages', { localized: false }),
+    breadcrumbsField,
   ],
 }
