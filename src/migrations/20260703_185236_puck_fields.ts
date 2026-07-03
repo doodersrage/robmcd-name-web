@@ -191,6 +191,33 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_puck_templates_id_idx\` ON \`payload_locked_documents_rels\` (\`puck_templates_id\`);`)
   // Clean up invalid JSON that may have been written before migration (e.g. CSV import headers)
   await db.run(sql`UPDATE \`pages\` SET \`puck_data\` = NULL WHERE \`puck_data\` IS NOT NULL AND (\`puck_data\` = 'puck_data' OR \`puck_data\` = '' OR \`puck_data\` NOT LIKE '{%' AND \`puck_data\` NOT LIKE '[%');`)
+
+  // Backfill version rows so pre-existing pages appear in the admin list (draft queries use _pages_v)
+  await db.run(sql`
+    INSERT INTO \`_pages_v\` (
+      \`parent_id\`, \`version_title\`, \`version_slug\`, \`version_sort_order\`, \`version_hide_in_menu\`,
+      \`version_content\`, \`version_page_meta_header_title\`, \`version_page_meta_meta_description\`,
+      \`version_page_meta_meta_keywords\`, \`version_page_meta_meta_extra\`, \`version_puck_data\`,
+      \`version_editor_version\`, \`version_page_layout\`, \`version_is_homepage\`, \`version_meta_title\`,
+      \`version_meta_description\`, \`version_meta_image_id\`, \`version_meta_noindex\`, \`version_meta_nofollow\`,
+      \`version_meta_exclude_from_sitemap\`, \`version_conversion_tracking_is_conversion_page\`,
+      \`version_conversion_tracking_conversion_type\`, \`version_conversion_tracking_conversion_value\`,
+      \`version_parent_id\`, \`version_updated_at\`, \`version_created_at\`, \`version__status\`, \`latest\`,
+      \`created_at\`, \`updated_at\`
+    )
+    SELECT
+      p.\`id\`, p.\`title\`, p.\`slug\`, p.\`sort_order\`, p.\`hide_in_menu\`, p.\`content\`,
+      p.\`page_meta_header_title\`, p.\`page_meta_meta_description\`, p.\`page_meta_meta_keywords\`,
+      p.\`page_meta_meta_extra\`, p.\`puck_data\`, p.\`editor_version\`, p.\`page_layout\`, p.\`is_homepage\`,
+      p.\`meta_title\`, p.\`meta_description\`, p.\`meta_image_id\`, p.\`meta_noindex\`, p.\`meta_nofollow\`,
+      p.\`meta_exclude_from_sitemap\`, p.\`conversion_tracking_is_conversion_page\`,
+      p.\`conversion_tracking_conversion_type\`, p.\`conversion_tracking_conversion_value\`, p.\`parent_id\`,
+      p.\`updated_at\`, p.\`created_at\`, COALESCE(p.\`_status\`, 'published'), 1, p.\`created_at\`, p.\`updated_at\`
+    FROM \`pages\` p
+    WHERE NOT EXISTS (
+      SELECT 1 FROM \`_pages_v\` v WHERE v.\`parent_id\` = p.\`id\` AND v.\`latest\` = 1
+    );
+  `)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {

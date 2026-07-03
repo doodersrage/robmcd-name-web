@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload'
+import { createBreadcrumbsField } from '@payloadcms/plugin-nested-docs'
 import {
   BlocksFeature,
   EXPERIMENTAL_TableFeature,
@@ -14,12 +15,52 @@ import {
 import { FormBlock } from '@/blocks/FormBlock'
 import { CodeBlock } from '@/blocks/CodeBlock'
 
+/** Normalize nested-docs breadcrumb relationship IDs before validation. */
+function sanitizeBreadcrumbs(
+  data: Record<string, unknown>,
+  pageId: number | string | undefined,
+): void {
+  if (!Array.isArray(data.breadcrumbs) || pageId == null) return
+
+  data.breadcrumbs = data.breadcrumbs
+    .map((crumb: Record<string, unknown>, index: number, crumbs: unknown[]) => {
+      const docValue = crumb?.doc
+      const docId =
+        typeof docValue === 'object' && docValue != null && 'id' in docValue
+          ? (docValue as { id: number | string }).id
+          : docValue
+
+      return {
+        ...crumb,
+        doc: docId ?? (index === crumbs.length - 1 ? pageId : docId),
+      }
+    })
+    .filter((crumb: Record<string, unknown>) => crumb.doc != null)
+}
+
 export const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
     useAsTitle: 'title',
   },
   defaultSort: ['title'],
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        // Breadcrumbs are computed by nested-docs; never validate client-provided values.
+        if (data && 'breadcrumbs' in data) {
+          delete data.breadcrumbs
+        }
+        return data
+      },
+    ],
+    beforeChange: [
+      ({ data, originalDoc }) => {
+        sanitizeBreadcrumbs(data, originalDoc?.id ?? data?.id)
+        return data
+      },
+    ],
+  },
   fields: [
     {
       name: 'title',
@@ -111,5 +152,8 @@ export const Pages: CollectionConfig = {
         FormBlock,
       ],
     },
+    // Defined here (not by nested-docs) so breadcrumbs are not localized — avoids
+    // draft/version validation errors when localization is not enabled.
+    createBreadcrumbsField('pages', { localized: false }),
   ],
 }

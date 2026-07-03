@@ -241,6 +241,14 @@ export interface Page {
           }
       )[]
     | null;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Page;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Puck editor data - managed via visual editor
    */
@@ -309,14 +317,6 @@ export interface Page {
     conversionValue?: number | null;
   };
   parent?: (number | null) | Page;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Page;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -992,6 +992,14 @@ export interface PagesSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
   puckData?: T;
   editorVersion?: T;
   pageLayout?: T;
@@ -1014,14 +1022,6 @@ export interface PagesSelect<T extends boolean = true> {
         conversionValue?: T;
       };
   parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
