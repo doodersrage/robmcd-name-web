@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@source "@/node_modules/@delmaredigital/payload-puck";
 
 $ink-black: #01161E;
 $dark-teal: #124559;

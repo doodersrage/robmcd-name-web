@@ -1,4 +1,5 @@
 import { withPayload } from '@payloadcms/next/withPayload'
+import { withPuckCSS } from '@delmaredigital/payload-puck/next'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -34,4 +35,6 @@ const nextConfig = {
   },
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+export default withPuckCSS({
+  cssInput: 'src/app/(frontend)/globals.scss',
+})(withPayload(nextConfig, { devBundleServerPackages: false }))

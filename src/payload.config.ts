@@ -15,6 +15,7 @@ import { extractPlainText } from './utilities/extractPlainText'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { importExportPlugin } from '@payloadcms/plugin-import-export'
+import { createPuckPlugin } from '@delmaredigital/payload-puck/plugin'
 
 import { validateTurnstile } from './hooks/validateTurnstile'
 import { Users } from './collections/Users'
@@ -58,6 +59,9 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      providers: ['@/components/admin/PuckProvider'],
+    },
   },
   collections: [Users, Media, Pages, Posts],
   editor: lexicalEditor(),
@@ -77,6 +81,19 @@ export default buildConfig({
     ],
   },
   plugins: [
+    createPuckPlugin({
+      pagesCollection: 'pages',
+      previewUrl: (page) => {
+        const slug = page.slug as string
+        if (slug === 'home') return '/'
+        return `/${slug}`
+      },
+      editorStylesheet: 'src/app/(frontend)/globals.scss',
+      editorStylesheetCompiled: '/puck-editor-styles.css',
+      editorStylesheetUrls: [
+        'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap',
+      ],
+    }),
     importExportPlugin({
       collections: [{ slug: 'users' }, { slug: 'pages' }, { slug: 'posts' }, { slug: 'media' }],
       // see below for a list of available options
