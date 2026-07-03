@@ -88,7 +88,11 @@ export default buildConfig({
         if (slug === 'home') return '/'
         return `/${slug}`
       },
-      editorStylesheet: 'src/app/(frontend)/globals.scss',
+      // Runtime PostCSS compilation uses native Tailwind binaries and cannot run on
+      // Cloudflare Workers. Dev uses the endpoint; production uses the pre-built file.
+      ...(isProduction
+        ? {}
+        : { editorStylesheet: 'src/app/(frontend)/globals.scss' }),
       editorStylesheetCompiled: '/puck-editor-styles.css',
       editorStylesheetUrls: [
         'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap',
