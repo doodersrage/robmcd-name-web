@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
   const { slug } = await params
   const page = await getPage(slug)
 
-  if (!page) return <div className="text-center py-12">Page Not Found</div>
+  if (!page) return <div className="py-12 text-center text-foreground-muted">Page Not Found</div>
 
   return (
     <HybridPageRenderer

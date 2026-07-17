@@ -78,7 +78,7 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
 
     post = pages.docs[0] || null
 
-    if (!post) return <div>Post Not Found</div>
+    if (!post) return <div className="py-12 text-center text-foreground-muted">Post Not Found</div>
   } else {
     const pathArray: string = slug[0]?.replace('/blog/', '') || ''
 
@@ -94,22 +94,21 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
 
     post = postGet.docs[0]
 
-    if (!post) return <div>Post Not Found</div>
+    if (!post) return <div className="py-12 text-center text-foreground-muted">Post Not Found</div>
   }
 
   return (
     <>
       <div className="flex flex-col lg:flex-row gap-8">
-        <article className="flex-1 min-w-0">
-          <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-[#AEC3B0] border-opacity-20">
+        <article className="min-w-0 flex-1">
+          <div className="card">
+            <div className="card-content">
             {post && (
               <>
-                <h1 className="text-4xl md:text-5xl font-bold text-[#01161E] mb-6 leading-tight">
-                  {post?.title}
-                </h1>
+                <h1 className="page-title">{post?.title}</h1>
 
                 {post?.createdAt && (
-                  <div className="flex items-center gap-2 text-[#598392] mb-8 text-sm">
+                  <div className="page-meta">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                       <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -122,23 +121,21 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
                   </div>
                 )}
 
-                <div className="prose prose-lg max-w-none">
+                <div className="prose-site">
                   <RichTextConverter data={post?.content} />
                 </div>
               </>
             )}
 
             {post && post.layout && (
-              <div className="mt-12 pt-8 border-t border-[#AEC3B0] border-opacity-30">
+              <div className="mt-12 border-t border-[color:var(--color-border)] pt-8">
                 {post.layout.map((block: any, index: number) => {
                   switch (block.blockType) {
                     case 'formBlock':
                       return (
-                        <div
-                          key={index}
-                          className="my-8 p-6 rounded-xl bg-gradient-to-r from-[#EFF6E0] to-[#f5f9ec] border border-[#AEC3B0] border-opacity-30"
-                        >
-                          <h2 className="text-2xl font-bold text-[#01161E] mb-6">
+                        <div key={index} className="card my-8">
+                          <div className="card-content">
+                          <h2 className="mb-6 text-2xl font-bold text-foreground">
                             {block.form.title}
                           </h2>
                           <Suspense
@@ -146,6 +143,7 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
                           >
                             <MyForm formId={block.form.id} />
                           </Suspense>
+                          </div>
                         </div>
                       )
                     case 'codeBlock':
@@ -162,13 +160,14 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
                 })}
               </div>
             )}
+            </div>
           </div>
         </article>
 
         <aside className="lg:w-80">
           <Suspense
             fallback={
-              <div className="bg-white rounded-2xl p-6 animate-pulse h-96">Loading sidebar...</div>
+              <div className="card sidebar-card h-96 animate-pulse">Loading sidebar...</div>
             }
           >
             <BlogSidebar pageNumber={1} />

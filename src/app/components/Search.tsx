@@ -12,7 +12,7 @@ export default function Search() {
       <form method="GET" action="/search" className="flex gap-2">
         <div className="relative flex-1 md:flex-none">
           <input
-            className="w-full md:w-64 px-4 py-2 rounded-lg bg-[#0a0f17] border-2 border-[#598392] border-opacity-50 text-[#EFF6E0] placeholder:text-[#AEC3B0] placeholder:opacity-70 focus:outline-none focus:border-[#AEC3B0] focus:border-opacity-100 focus:ring-2 focus:ring-[#598392] focus:ring-opacity-30 transition-all duration-300"
+            className="input-field md:w-64"
             type="text"
             name="query"
             placeholder="Search posts..."
@@ -20,7 +20,7 @@ export default function Search() {
             aria-label="Search"
           />
           <svg
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#598392] opacity-60 pointer-events-none"
+            className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-subtle opacity-60"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -33,11 +33,20 @@ export default function Search() {
             />
           </svg>
         </div>
-        <button
-          className="px-6 py-2 rounded-lg bg-gradient-to-r from-[#124559] to-[#0d3447] text-[#EFF6E0] font-semibold text-sm md:text-base border-2 border-[#598392] border-opacity-50 transition-all duration-300 hover:border-[#AEC3B0] hover:border-opacity-100 hover:shadow-lg hover:shadow-[#124559]/30 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[#AEC3B0] focus:ring-opacity-30 whitespace-nowrap"
-          type="submit"
-        >
+        <button className="group btn btn-primary whitespace-nowrap" type="submit">
           Search
+          <svg
+            aria-hidden="true"
+            className="btn-icon h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
         </button>
       </form>
     </div>

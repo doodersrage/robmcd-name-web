@@ -1,9 +1,16 @@
 import React from 'react'
 import Script from 'next/script'
+import { Inter } from 'next/font/google'
 import Footer from '@/app/components/ui/Footer'
 import Header from '@/app/components/ui/Header'
 import './globals.scss'
 import { Metadata } from 'next'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -40,7 +47,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
         <Script
           async
@@ -56,14 +63,24 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         </Script>
       </head>
       <body>
-        <Header />
-        <main
-          id="content"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 w-full flex-1"
-        >
-          {children}
-        </main>
-        <Footer />
+        <div className="site-shell">
+          <div aria-hidden="true" className="site-bg">
+            <div className="site-bg__mesh" />
+            <div className="site-bg__noise" />
+            <div className="site-bg__pattern" />
+            <div className="site-bg__grid" />
+            <div className="site-bg__glow site-bg__glow--primary" />
+            <div className="site-bg__glow site-bg__glow--secondary" />
+            <div className="site-bg__glow site-bg__glow--tertiary" />
+            <div className="site-bg__vignette" />
+          </div>
+
+          <Header />
+          <main id="content" className="site-main">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   )

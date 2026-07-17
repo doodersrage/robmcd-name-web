@@ -6,60 +6,59 @@ import { CodeBlockComponent } from '@/app/components/blocks/CodeBlock'
 
 export function LegacyPageContent({ page }: { page: Page }) {
   return (
-    <article className="max-w-4xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-[#AEC3B0] border-opacity-20">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#01161E] mb-6 leading-tight">
-          {page.title}
-        </h1>
+    <article className="mx-auto max-w-4xl">
+      <div className="card">
+        <div className="card-content">
+          <h1 className="page-title">{page.title}</h1>
 
-        {page.content && (
-          <div className="prose prose-lg max-w-none">
-            <RichTextConverter data={page.content} />
-          </div>
-        )}
+          {page.content && (
+            <div className="prose-site">
+              <RichTextConverter data={page.content} />
+            </div>
+          )}
 
-        {page.layout && page.layout.length > 0 && (
-          <div className="mt-12 pt-8 border-t border-[#AEC3B0] border-opacity-30">
-            {page.layout.map((block, index) => {
-              switch (block.blockType) {
-                case 'formBlock':
-                  return (
-                    <div
-                      key={index}
-                      className="my-8 p-6 rounded-xl bg-gradient-to-r from-[#EFF6E0] to-[#f5f9ec] border border-[#AEC3B0] border-opacity-30"
-                    >
-                      <h2 className="text-2xl font-bold text-[#01161E] mb-6">
-                        {typeof block.form === 'object' ? block.form.title : ''}
-                      </h2>
-                      <Suspense
-                        fallback={
-                          <div className="text-center py-4 text-[#598392]">Loading form...</div>
-                        }
-                      >
-                        <MyForm formId={String(typeof block.form === 'object' ? block.form.id : block.form)} />
-                      </Suspense>
-                    </div>
-                  )
-                case 'codeBlock':
-                  return (
-                    <div key={index} className="my-8">
-                      <Suspense
-                        fallback={
-                          <div className="text-center py-4 text-[#598392]">
-                            Loading code block...
-                          </div>
-                        }
-                      >
-                        <CodeBlockComponent code={block.code} language={block.language} />
-                      </Suspense>
-                    </div>
-                  )
-                default:
-                  return null
-              }
-            })}
-          </div>
-        )}
+          {page.layout && page.layout.length > 0 && (
+            <div className="mt-12 border-t border-[color:var(--color-border)] pt-8">
+              {page.layout.map((block, index) => {
+                switch (block.blockType) {
+                  case 'formBlock':
+                    return (
+                      <div key={index} className="card my-8">
+                        <div className="card-content">
+                          <h2 className="mb-6 text-2xl font-bold text-foreground">
+                            {typeof block.form === 'object' ? block.form.title : ''}
+                          </h2>
+                          <Suspense
+                            fallback={
+                              <div className="py-4 text-center text-foreground-subtle">Loading form...</div>
+                            }
+                          >
+                            <MyForm
+                              formId={String(typeof block.form === 'object' ? block.form.id : block.form)}
+                            />
+                          </Suspense>
+                        </div>
+                      </div>
+                    )
+                  case 'codeBlock':
+                    return (
+                      <div key={index} className="my-8">
+                        <Suspense
+                          fallback={
+                            <div className="py-4 text-center text-foreground-subtle">Loading code block...</div>
+                          }
+                        >
+                          <CodeBlockComponent code={block.code} language={block.language} />
+                        </Suspense>
+                      </div>
+                    )
+                  default:
+                    return null
+                }
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </article>
   )

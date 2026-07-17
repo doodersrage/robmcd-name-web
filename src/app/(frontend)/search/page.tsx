@@ -54,49 +54,49 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
     if (!response.ok) {
       console.error('Search API error:', data)
       return (
-        <>
-          <main className="max-w-340 mx-auto py-5 sm:px-6 lg:px-8">
-            <h1>Search Results for {query}</h1>
-            <p>Error fetching search results. Please try again later.</p>
-          </main>
-        </>
+        <div className="card">
+          <div className="card-content">
+            <h1 className="page-title">Search Results for &quot;{query}&quot;</h1>
+            <p className="text-foreground-muted">Error fetching search results. Please try again later.</p>
+          </div>
+        </div>
       )
     }
 
     return (
-      <>
-        <main className="max-w-340 mx-auto py-5 sm:px-6 lg:px-8">
-          <h1>Search Results for &quot;{query}&quot;</h1>
+      <div className="card">
+        <div className="card-content">
+          <h1 className="page-title">Search Results for &quot;{query}&quot;</h1>
           {query && data?.docs ? (
-            <ul>
+            <ul className="space-y-6">
               {data.docs.map((result: any) => (
-                <li key={result.id}>
-                  <h2>
-                    <Link target="_blank" href={result.slug}>
+                <li key={result.id} className="border-b border-[color:var(--color-border)] pb-6 last:border-0">
+                  <h2 className="mb-2 text-xl font-semibold text-foreground">
+                    <Link className="text-accent-hover hover:text-accent" href={result.slug}>
                       {result.title}
                     </Link>
                   </h2>
-                  <p>{result.description}</p>
+                  <p className="text-foreground-muted">{result.description}</p>
                 </li>
               ))}
             </ul>
           ) : (
-            <p>No results found.</p>
+            <p className="text-foreground-muted">No results found.</p>
           )}
-        </main>
-      </>
+        </div>
+      </div>
     )
   } catch (error) {
     console.error('Network error:', error)
     return (
-      <>
-        <main className="max-w-340 mx-auto py-5 sm:px-6 lg:px-8">
-          <h1>Search Results for {query}</h1>
-          <p>
+      <div className="card">
+        <div className="card-content">
+          <h1 className="page-title">Search Results for {query}</h1>
+          <p className="text-foreground-muted">
             Network error while fetching search results. Please check your connection and try again.
           </p>
-        </main>
-      </>
+        </div>
+      </div>
     )
   }
 }

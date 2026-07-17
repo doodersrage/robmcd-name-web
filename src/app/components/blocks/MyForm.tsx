@@ -122,9 +122,8 @@ function validateFormFields(
   return errors
 }
 
-const inputClassName =
-  'w-full px-4 py-2 bg-white border-2 border-[#AEC3B0] border-opacity-40 text-[#01161E] rounded-lg focus:outline-none focus:border-[#124559] focus:border-opacity-100 focus:ring-2 focus:ring-[#598392] focus:ring-opacity-30 transition-all duration-300'
-const inputErrorClassName = `${inputClassName} border-red-500 border-opacity-100 focus:border-red-500`
+const inputClassName = 'input-field w-full md:max-w-md'
+const inputErrorClassName = 'input-field input-field--error w-full md:max-w-md'
 
 const MyForm = ({ formId }: { formId: string }) => {
   const [cmsForm, setCmsForm] = useState<CmsForm | null>(null)
@@ -375,7 +374,7 @@ const MyForm = ({ formId }: { formId: string }) => {
     }
   }
 
-  if (!cmsForm) return <div>Loading...</div>
+  if (!cmsForm) return <div className="text-foreground-subtle">Loading...</div>
 
   if (success && cmsForm.confirmationMessage) {
     setTimeout(() => {
@@ -395,10 +394,7 @@ const MyForm = ({ formId }: { formId: string }) => {
       )}
       <div>
         {error && (
-          <p
-            role="alert"
-            className="bg-red-50 text-red-700 px-4 py-3 rounded-lg mb-6 border border-red-300"
-          >
+          <p role="alert" className="form-error mb-6">
             {error}
           </p>
         )}
@@ -408,7 +404,7 @@ const MyForm = ({ formId }: { formId: string }) => {
               return (
                 <div
                   key={field.id ?? field.blockName ?? 'message'}
-                  className="prose prose-sm max-w-none mb-6"
+                  className="prose-site prose-sm mb-6 max-w-none"
                 >
                   {renderField(field)}
                 </div>
@@ -417,7 +413,7 @@ const MyForm = ({ formId }: { formId: string }) => {
 
             return (
               <div key={field.id ?? field.name} className="flex flex-col gap-2">
-                <label className="block text-[#01161E] font-semibold text-sm" htmlFor={field.name}>
+                <label className="form-label" htmlFor={field.name}>
                   {getFieldLabel(field)}
                   {field.required ? <span className="text-red-500"> *</span> : ''}
                 </label>
@@ -426,7 +422,7 @@ const MyForm = ({ formId }: { formId: string }) => {
                   <p
                     id={`${field.name}-error`}
                     role="alert"
-                    className="text-red-600 text-sm font-medium"
+                    className="form-field-error"
                   >
                     {fieldErrors[field.name]}
                   </p>
@@ -436,20 +432,15 @@ const MyForm = ({ formId }: { formId: string }) => {
           })}
           {cmsForm.hasAttachment && (
             <div className="flex flex-col gap-2">
-              <label htmlFor="file" className="block text-[#01161E] font-semibold text-sm">
+              <label htmlFor="file" className="form-label">
                 {cmsForm.hasAttachmentLabel || 'Attachment'}
               </label>
-              <input
-                className="w-full px-4 py-2 bg-white border-2 border-[#AEC3B0] border-opacity-40 text-[#01161E] rounded-lg focus:outline-none focus:border-[#124559] focus:border-opacity-100 focus:ring-2 focus:ring-[#598392] focus:ring-opacity-30 transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#124559] file:text-[#EFF6E0] file:cursor-pointer hover:file:bg-[#598392]"
-                type="file"
-                name="file"
-                id="file"
-              />
+              <input className="input-field w-full file:mr-4 file:cursor-pointer file:rounded-lg file:border-0 file:bg-accent file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-accent-hover" type="file" name="file" id="file" />
             </div>
           )}
           {turnstileSiteKey && <div ref={turnstileContainerRef} className="mb-6" />}
           <button
-            className="mt-8 px-8 py-3 rounded-lg bg-gradient-to-r from-[#124559] to-[#0d3447] text-[#EFF6E0] font-semibold border-2 border-[#598392] border-opacity-50 transition-all duration-300 hover:border-[#AEC3B0] hover:border-opacity-100 hover:shadow-lg hover:shadow-[#124559]/30 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[#AEC3B0] focus:ring-opacity-30"
+            className="group btn btn-primary mt-8 disabled:cursor-not-allowed disabled:opacity-50"
             type="submit"
             disabled={Boolean(turnstileSiteKey && !turnstileToken)}
           >

@@ -11,7 +11,7 @@ const Hamburger = () => {
       <div className="md:hidden">
         <button
           type="button"
-          className="{`${isOpen ? 'open' : ''}'} hamburger w-10 h-10 flex justify-center items-center text-[#EFF6E0] rounded-lg bg-[#598392] hover:bg-[#AEC3B0] transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#AEC3B0] focus:ring-opacity-50"
+          className="btn-icon-toggle"
           id="hs-navbar-sticky-footer-collapse"
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
@@ -20,7 +20,7 @@ const Hamburger = () => {
           data-hs-collapse="#hs-navbar-sticky-footer"
         >
           <svg
-            className={`w-5 h-5 transition-all duration-300 ${isOpen ? 'hidden' : 'block'}`}
+            className={`h-5 w-5 transition-all duration-300 ${isOpen ? 'hidden' : 'block'}`}
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -36,7 +36,7 @@ const Hamburger = () => {
             <line x1="3" x2="21" y1="18" y2="18" />
           </svg>
           <svg
-            className={`w-5 h-5 transition-all duration-300 ${isOpen ? 'block' : 'hidden'}`}
+            className={`h-5 w-5 transition-all duration-300 ${isOpen ? 'block' : 'hidden'}`}
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -57,7 +57,6 @@ const Hamburger = () => {
       const menu = document.querySelectorAll('.hs-navbar-sticky-footer');
 
       menuBtn.addEventListener('click', () => {
-      console.log(menu.classList);
         menu.forEach(element => {
           element.classList.toggle('hidden');
         });
