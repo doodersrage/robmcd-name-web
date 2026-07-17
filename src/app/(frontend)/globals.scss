@@ -16,6 +16,8 @@
   --color-foreground-muted: #94a3b8;
   --color-foreground-subtle: #64748b;
   --color-foreground-body: #cbd5e1;
+  --color-link: #e0e7ff;
+  --color-link-hover: #ffffff;
 
   --color-accent: #6366f1;
   --color-accent-hover: #818cf8;
@@ -546,14 +548,17 @@
 
     .prose {
       @apply prose prose-lg max-w-none;
+    }
+
+    .prose {
       max-width: none;
       color: var(--color-foreground-body);
 
       --tw-prose-body: var(--color-foreground-body);
-      --tw-prose-headings: var(--color-foreground);
+      --tw-prose-headings: #ffffff;
       --tw-prose-lead: var(--color-foreground-body);
-      --tw-prose-links: var(--color-accent-hover);
-      --tw-prose-bold: var(--color-foreground);
+      --tw-prose-links: var(--color-link);
+      --tw-prose-bold: #ffffff;
       --tw-prose-counters: var(--color-foreground-muted);
       --tw-prose-bullets: var(--color-foreground-muted);
       --tw-prose-hr: var(--color-border);
@@ -567,39 +572,46 @@
       --tw-prose-td-borders: var(--color-border);
     }
 
-    .prose :where(p, li, td, th, blockquote, dd, dt, figcaption) {
+    /* Match typography plugin specificity so these colors actually win */
+    .prose
+      :is(p, li, td, th, blockquote, dd, dt, figcaption):not(
+        :where([class~='not-prose'], [class~='not-prose'] *)
+      ) {
       color: var(--color-foreground-body);
     }
 
-    .prose :where(h1, h2, h3, h4, h5, h6) {
-      color: var(--color-foreground);
+    .prose
+      :is(h1, h2, h3, h4, h5, h6):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+      color: #ffffff;
+      font-weight: 700;
+      letter-spacing: -0.015em;
     }
 
-    .prose :where(a) {
-      color: var(--color-accent-hover);
+    .prose :is(h3, h4):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+      font-weight: 600;
+    }
+
+    .prose :is(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+      color: var(--color-link);
+      font-weight: 500;
       text-decoration: underline;
-      text-underline-offset: 0.15em;
+      text-decoration-color: rgb(224 231 255 / 0.45);
+      text-underline-offset: 0.2em;
+      word-break: break-word;
 
       &:hover {
-        color: var(--color-accent);
+        color: var(--color-link-hover);
+        text-decoration-color: rgb(255 255 255 / 0.8);
       }
     }
 
-    .prose :where(strong, b) {
-      color: var(--color-foreground);
+    .prose :is(strong, b):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+      color: #ffffff;
+      font-weight: 600;
     }
 
     p {
       color: var(--color-foreground-body);
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      @apply text-foreground;
     }
 
     .text-muted-foreground {
