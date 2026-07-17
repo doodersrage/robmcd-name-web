@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import Nav from '@/app/components/ui/Nav'
+import Nav, { NavFallback } from '@/app/components/ui/Nav'
 import Search from '@/app/components/Search'
 import Hamburger from '@/app/components/ui/Hamburger'
 import Link from 'next/link'
@@ -14,7 +14,9 @@ const Header = () => {
           </Link>
 
           <div className="hidden md:flex md:flex-1 md:items-center md:justify-end md:gap-6">
-            <Nav />
+            <Suspense fallback={<NavFallback />}>
+              <Nav />
+            </Suspense>
             <Suspense fallback={<div className="animate-pulse text-foreground-subtle">Loading...</div>}>
               <Search />
             </Suspense>
@@ -29,7 +31,9 @@ const Header = () => {
         </div>
 
         <div className="mt-4 md:hidden">
-          <Nav />
+          <Suspense fallback={<NavFallback />}>
+            <Nav />
+          </Suspense>
         </div>
       </nav>
     </header>

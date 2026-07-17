@@ -1,23 +1,90 @@
-import { Suspense } from 'react'
-import React from 'react'
+import React, { cache } from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import type { Page } from '@/payload-types'
 
-const Nav = async () => {
+const getNavPages = cache(async () => {
   const payload = await getPayload({ config: configPromise })
 
-  const pages = await payload.find({
+  const { docs } = await payload.find({
     collection: 'pages',
     where: {
-      parent: {
-        equals: null,
-      },
-      hideInMenu: {
-        equals: false,
-      },
+      and: [
+        { hideInMenu: { equals: false } },
+        {
+          or: [{ _status: { equals: 'published' } }, { _status: { exists: false } }],
+        },
+      ],
     },
     sort: ['-sortOrder', 'title'],
+    limit: 100,
+    depth: 0,
   })
+
+  return docs
+})
+
+function getParentId(page: Page): number | null {
+  if (!page.parent) return null
+  if (typeof page.parent === 'number') return page.parent
+  return page.parent.id ?? null
+}
+
+function pageHref(slug: string): string {
+  return slug === 'home' ? '/' : `/${slug}`
+}
+
+function NavList({
+  pages,
+  parentId = null,
+  nested = false,
+}: {
+  pages: Page[]
+  parentId?: number | null
+  nested?: boolean
+}) {
+  const items = pages.filter((page) => getParentId(page) === parentId)
+
+  if (items.length === 0) return null
+
+  return (
+    <ul
+      className={
+        nested
+          ? 'hidden flex-col gap-1 p-2 md:mt-0 md:p-0'
+          : 'flex flex-col gap-1 md:flex-row md:gap-6'
+      }
+    >
+      {items.map((page) => (
+        <li key={page.id}>
+          <a className="nav-link md:hover:-translate-y-px" href={pageHref(page.slug)}>
+            {page.title}
+          </a>
+          <NavList pages={pages} parentId={page.id} nested />
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+export function NavFallback() {
+  return (
+    <div className="nav-menu flex flex-col gap-1 md:flex-row md:gap-8" aria-hidden="true">
+      <ul className="flex flex-col gap-1 md:flex-row md:gap-6">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <li key={index}>
+            <span className="nav-link inline-block">
+              <span className="inline-block h-4 w-14 animate-pulse rounded bg-highlight" />
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+const Nav = async () => {
+  const pages = await getNavPages()
 
   return (
     <div
@@ -27,58 +94,9 @@ const Nav = async () => {
       role="region"
     >
       <div className="nav-menu flex flex-col gap-1 md:flex-row md:gap-8">
-        <ul className="flex flex-col gap-1 md:flex-row md:gap-6">
-          <Suspense fallback={<div className="animate-pulse text-foreground-subtle">Loading menu...</div>}>
-            {pages.docs.map((page) =>
-              page.hideInMenu ? null : (
-                <li key={page.id}>
-                  <a className="nav-link md:hover:-translate-y-px" href={`/${page.slug}`}>
-                    {page.title}
-                  </a>
-                  {getPages(page.id).then((childPages) => {
-                    return childPages ? childPages : ''
-                  })}
-                </li>
-              ),
-            )}
-          </Suspense>
-        </ul>
+        <NavList pages={pages} />
       </div>
     </div>
-  )
-}
-
-const getPages = async (id: number | string) => {
-  const payload = await getPayload({ config: configPromise })
-
-  const pages = await payload.find({
-    collection: 'pages',
-    where: {
-      parent: {
-        equals: id,
-      },
-      hideInMenu: {
-        equals: false,
-      },
-    },
-    sort: ['-sortOrder', 'title'],
-  })
-
-  if (!pages.docs[0]) return null
-
-  return (
-    <ul className="hidden flex-col gap-1 p-2 md:mt-0 md:p-0">
-      {pages.docs.map((page) => (
-        <li key={page.id}>
-          <a className="nav-link" href={`/${page.slug}`}>
-            {page.title}
-            {getPages(page.id).then((childPages) => {
-              return childPages ? childPages : ''
-            })}
-          </a>
-        </li>
-      ))}
-    </ul>
   )
 }
 
