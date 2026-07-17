@@ -7,6 +7,7 @@ import type { HybridPageDataInput } from '@delmaredigital/payload-puck/render'
 import { baseConfig } from '@delmaredigital/payload-puck/config'
 import type { Page } from '@/payload-types'
 import { LegacyPageContent } from '@/app/components/pages/LegacyPageContent'
+import { createPuckPageWrapper } from '@/app/components/pages/PageShell'
 
 export type paramsType = Promise<{ slug: string[] }>
 
@@ -58,6 +59,7 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
     <HybridPageRenderer
       page={toHybridPageData(page as unknown as HybridPageDataInput)}
       config={baseConfig}
+      wrapper={createPuckPageWrapper(page.title)}
       legacyRenderer={() => <LegacyPageContent page={page} />}
       fallback={<LegacyPageContent page={page} />}
     />
