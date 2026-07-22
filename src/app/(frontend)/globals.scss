@@ -2,6 +2,8 @@
 @plugin '@tailwindcss/typography';
 @source '@/node_modules/@delmaredigital/payload-puck';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, 'Cascadia Code', 'Roboto Mono', monospace;
@@ -418,6 +420,8 @@
   }
 
   .puck-page {
+    @apply text-base leading-relaxed text-slate-600 dark:text-zinc-400;
+
     [class*='puck-section-']:not([class*='content']) {
       padding-inline: 0 !important;
     }
@@ -435,9 +439,58 @@
       padding-inline: 0 !important;
     }
 
+    /* Heading + Text blocks (outside .prose) */
+    :where(h1, h2, h3, h4, h5, h6) {
+      @apply font-bold tracking-tight text-slate-900 dark:text-zinc-100;
+    }
+
+    :where(p, li, td, th, blockquote, dd, dt, figcaption, label, span) {
+      @apply text-slate-600 dark:text-zinc-400;
+    }
+
+    :where(a:not([class*='btn'])) {
+      @apply font-medium text-indigo-600 underline decoration-indigo-400/40 underline-offset-2 transition-colors duration-300 dark:text-indigo-400 dark:decoration-indigo-500/40;
+
+      &:hover {
+        @apply text-indigo-700 decoration-indigo-500/70 dark:text-indigo-300;
+      }
+    }
+
+    :where(strong, b) {
+      @apply font-semibold text-slate-900 dark:text-zinc-100;
+    }
+
     .bg-card {
       @apply hover-lift rounded-2xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-900/80;
     }
+
+    /* RichText uses prose + dark:prose-invert — force readable tokens in dark mode */
+    .prose {
+      --tw-prose-body: #a1a1aa;
+      --tw-prose-headings: #f4f4f5;
+      --tw-prose-lead: #a1a1aa;
+      --tw-prose-links: #818cf8;
+      --tw-prose-bold: #f4f4f5;
+      --tw-prose-counters: #71717a;
+      --tw-prose-bullets: #71717a;
+      --tw-prose-hr: rgb(255 255 255 / 0.08);
+      --tw-prose-quotes: #a1a1aa;
+      --tw-prose-quote-borders: rgb(255 255 255 / 0.08);
+      --tw-prose-captions: #71717a;
+      --tw-prose-code: #818cf8;
+      --tw-prose-pre-code: #a1a1aa;
+      --tw-prose-pre-bg: rgb(24 24 27 / 0.8);
+      --tw-prose-th-borders: rgb(255 255 255 / 0.08);
+      --tw-prose-td-borders: rgb(255 255 255 / 0.08);
+    }
+  }
+
+  :root:not(.dark) .puck-page .prose {
+    --tw-prose-body: #475569;
+    --tw-prose-headings: #0f172a;
+    --tw-prose-bold: #0f172a;
+    --tw-prose-links: #4f46e5;
+    --tw-prose-code: #4f46e5;
   }
 }
 
