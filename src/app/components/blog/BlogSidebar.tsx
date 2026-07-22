@@ -37,15 +37,13 @@ export default async function BlogSidebar({
           </ol>
 
           {posts.totalPages && posts.totalPages > 1 && (
-            <div className="mt-6 border-t border-[color:var(--color-border)] pt-4">
-              <div className="flex gap-2">
+            <div className="mt-6 border-t border-slate-200/80 pt-4 dark:border-zinc-800/80">
+              <div className="flex flex-wrap gap-2">
                 {Array.from({ length: posts.totalPages }, (_, i) => i + 1).map((page) => (
                   <button
                     key={page}
-                    className={`rounded px-3 py-1 text-sm font-semibold transition-all duration-250 ${
-                      pageNumber === page
-                        ? 'btn-primary'
-                        : 'btn-secondary'
+                    className={`rounded-xl px-3 py-1.5 text-sm font-semibold transition-all duration-300 ${
+                      pageNumber === page ? 'btn-primary' : 'btn-secondary'
                     }`}
                   >
                     {page}

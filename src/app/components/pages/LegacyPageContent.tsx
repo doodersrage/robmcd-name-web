@@ -15,19 +15,21 @@ export function LegacyPageContent({ page }: { page: Page }) {
       )}
 
       {page.layout && page.layout.length > 0 && (
-        <div className="mt-12 border-t border-[color:var(--color-border)] pt-8">
+        <div className="space-y-8 border-t border-slate-200/80 pt-8 dark:border-zinc-800/80">
           {page.layout.map((block, index) => {
             switch (block.blockType) {
               case 'formBlock':
                 return (
-                  <div key={index} className="card my-8">
+                  <div key={index} className="card">
                     <div className="card-content">
-                      <h2 className="mb-6 text-2xl font-bold text-foreground">
+                      <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
                         {typeof block.form === 'object' ? block.form.title : ''}
                       </h2>
                       <Suspense
                         fallback={
-                          <div className="py-4 text-center text-foreground-subtle">Loading form...</div>
+                          <div className="py-4 text-center text-sm text-slate-500 dark:text-zinc-500">
+                            Loading form...
+                          </div>
                         }
                       >
                         <MyForm
@@ -39,10 +41,12 @@ export function LegacyPageContent({ page }: { page: Page }) {
                 )
               case 'codeBlock':
                 return (
-                  <div key={index} className="my-8">
+                  <div key={index}>
                     <Suspense
                       fallback={
-                        <div className="py-4 text-center text-foreground-subtle">Loading code block...</div>
+                        <div className="py-4 text-center text-sm text-slate-500 dark:text-zinc-500">
+                          Loading code block...
+                        </div>
                       }
                     >
                       <CodeBlockComponent code={block.code} language={block.language} />

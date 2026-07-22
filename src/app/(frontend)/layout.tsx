@@ -3,8 +3,17 @@ import Script from 'next/script'
 import { Inter } from 'next/font/google'
 import Footer from '@/app/components/ui/Footer'
 import Header from '@/app/components/ui/Header'
+import { ThemeScript } from '@/app/components/ui/ThemeToggle'
 import './globals.scss'
 import { Metadata } from 'next'
+import {
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_OWNER,
+  SITE_TAGLINE,
+  SITE_URL,
+} from '@/lib/site'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -13,42 +22,74 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    template: '%s | Robert McDowell',
-    default: "Robert McDowell's Website",
+    template: `%s | ${SITE_OWNER}`,
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
   },
-  description:
-    "Hello, I'm Robert. I'm a software developer specializing in web development. I share my knowledge and experiences through this blog, covering topics like JavaScript, React, Node.js, and more. Join me on this journey of learning and growth in the world of coding.",
-  applicationName: "Robert McDowell's Web Development Blog",
-  authors: [{ name: 'Robert McDowell' }],
-  generator: 'Next.js',
-  keywords: [
-    'robert mcdowell',
-    'code',
-    'web development',
-    'php',
-    'C#',
-    'javascript',
-    'react',
-    'node.js',
-    'next.js',
-    'web dev',
-    'html',
-    'css',
-    'python',
-  ],
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_OWNER, url: SITE_URL }],
+  creator: SITE_OWNER,
+  publisher: SITE_OWNER,
+  keywords: SITE_KEYWORDS,
   referrer: 'origin-when-cross-origin',
-  creator: 'Robert McDowell',
-  publisher: 'Robert McDowell',
-  metadataBase: new URL('https://robmcd.name/'),
+  alternates: {
+    canonical: '/',
+    types: {
+      'application/rss+xml': `${SITE_URL}/feed.xml`,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+  icons: {
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+  },
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: SITE_NAME,
+      description: SITE_DESCRIPTION,
+      publisher: { '@id': `${SITE_URL}/#person` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${SITE_URL}/#person`,
+      name: SITE_OWNER,
+      url: SITE_URL,
+    },
+  ],
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en" className={`${inter.variable} dark`}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
+        <ThemeScript />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-ETMLWXCT6M"
@@ -63,15 +104,13 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         </Script>
       </head>
       <body>
+        <a href="#content" className="skip-link">
+          Skip to content
+        </a>
         <div className="site-shell">
           <div aria-hidden="true" className="site-bg">
             <div className="site-bg__mesh" />
             <div className="site-bg__noise" />
-            <div className="site-bg__pattern" />
-            <div className="site-bg__grid" />
-            <div className="site-bg__glow site-bg__glow--primary" />
-            <div className="site-bg__glow site-bg__glow--secondary" />
-            <div className="site-bg__glow site-bg__glow--tertiary" />
             <div className="site-bg__vignette" />
           </div>
 

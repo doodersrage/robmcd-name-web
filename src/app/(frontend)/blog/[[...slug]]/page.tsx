@@ -6,6 +6,8 @@ import MyForm from '@/app/components/blocks/MyForm'
 import { CodeBlockComponent } from '@/app/components/blocks/CodeBlock'
 import BlogSidebar from '@/app/components/blog/BlogSidebar'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
+import { notFound } from 'next/navigation'
+import { SITE_OWNER } from '@/lib/site'
 
 export type paramsType = Promise<{ slug: string[] }>
 
@@ -64,6 +66,7 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
 
   const { slug } = await params
   let post = null
+  const isPostView = Boolean(slug?.length)
 
   if (!slug) {
     // Fetch default blog page
@@ -78,7 +81,9 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
 
     post = pages.docs[0] || null
 
-    if (!post) return <div className="py-12 text-center text-foreground-muted">Post Not Found</div>
+    if (!post) {
+      notFound()
+    }
   } else {
     const pathArray: string = slug[0]?.replace('/blog/', '') || ''
 
@@ -94,12 +99,14 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
 
     post = postGet.docs[0]
 
-    if (!post) return <div className="py-12 text-center text-foreground-muted">Post Not Found</div>
+    if (!post) {
+      notFound()
+    }
   }
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
         <article className="min-w-0 flex-1">
           <div className="card">
             <div className="card-content">
@@ -107,19 +114,38 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
               <>
                 <h1 className="page-title">{post?.title}</h1>
 
-                {post?.createdAt && (
+                {isPostView ? (
                   <div className="page-meta">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                      <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    {new Date(post?.createdAt).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
+                    <span>{SITE_OWNER}</span>
+                    {post?.createdAt ? (
+                      <>
+                        <span aria-hidden="true">·</span>
+                        <time dateTime={post.createdAt}>
+                          {new Date(post.createdAt).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}
+                        </time>
+                      </>
+                    ) : null}
+                    {post?.updatedAt && post.updatedAt !== post.createdAt ? (
+                      <>
+                        <span aria-hidden="true">·</span>
+                        <span>
+                          Updated{' '}
+                          <time dateTime={post.updatedAt}>
+                            {new Date(post.updatedAt).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric',
+                            })}
+                          </time>
+                        </span>
+                      </>
+                    ) : null}
                   </div>
-                )}
+                ) : null}
 
                 <div className="prose-site">
                   <RichTextConverter data={post?.content} />
@@ -128,14 +154,14 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
             )}
 
             {post && post.layout && (
-              <div className="mt-12 border-t border-[color:var(--color-border)] pt-8">
+              <div className="space-y-8 border-t border-slate-200/80 pt-8 dark:border-zinc-800/80">
                 {post.layout.map((block: any, index: number) => {
                   switch (block.blockType) {
                     case 'formBlock':
                       return (
-                        <div key={index} className="card my-8">
+                        <div key={index} className="card">
                           <div className="card-content">
-                          <h2 className="mb-6 text-2xl font-bold text-foreground">
+                          <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
                             {block.form.title}
                           </h2>
                           <Suspense

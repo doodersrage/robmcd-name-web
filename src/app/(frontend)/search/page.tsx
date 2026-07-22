@@ -24,6 +24,17 @@ export async function generateMetadata({
   }
 }
 
+function SearchResultsShell({ query, children }: { query: string; children: React.ReactNode }) {
+  return (
+    <div className="card">
+      <div className="card-content space-y-8">
+        <h1 className="page-title">Search Results for &quot;{query}&quot;</h1>
+        {children}
+      </div>
+    </div>
+  )
+}
+
 export default async function Page({ searchParams }: { searchParams: Promise<paramsType> }) {
   const { query } = await searchParams
 
@@ -54,49 +65,52 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
     if (!response.ok) {
       console.error('Search API error:', data)
       return (
-        <div className="card">
-          <div className="card-content">
-            <h1 className="page-title">Search Results for &quot;{query}&quot;</h1>
-            <p className="text-foreground-muted">Error fetching search results. Please try again later.</p>
-          </div>
-        </div>
+        <SearchResultsShell query={query}>
+          <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">
+            Error fetching search results. Please try again later.
+          </p>
+        </SearchResultsShell>
       )
     }
 
     return (
-      <div className="card">
-        <div className="card-content">
-          <h1 className="page-title">Search Results for &quot;{query}&quot;</h1>
-          {query && data?.docs ? (
-            <ul className="space-y-6">
-              {data.docs.map((result: any) => (
-                <li key={result.id} className="border-b border-[color:var(--color-border)] pb-6 last:border-0">
-                  <h2 className="mb-2 text-xl font-semibold text-foreground">
-                    <Link className="text-accent-hover hover:text-accent" href={result.slug}>
-                      {result.title}
-                    </Link>
-                  </h2>
-                  <p className="text-foreground-muted">{result.description}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-foreground-muted">No results found.</p>
-          )}
-        </div>
-      </div>
+      <SearchResultsShell query={query}>
+        {query && data?.docs ? (
+          <ul className="space-y-8">
+            {data.docs.map((result: any) => (
+              <li
+                key={result.id}
+                className="border-b border-slate-200/80 pb-8 last:border-0 dark:border-zinc-800/80"
+              >
+                <h2 className="mb-2 text-xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
+                  <Link
+                  className="text-link text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                    href={result.slug}
+                  >
+                    {result.title}
+                  </Link>
+                </h2>
+                <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">
+                  {result.description}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">
+            No results found.
+          </p>
+        )}
+      </SearchResultsShell>
     )
   } catch (error) {
     console.error('Network error:', error)
     return (
-      <div className="card">
-        <div className="card-content">
-          <h1 className="page-title">Search Results for {query}</h1>
-          <p className="text-foreground-muted">
-            Network error while fetching search results. Please check your connection and try again.
-          </p>
-        </div>
-      </div>
+      <SearchResultsShell query={query}>
+        <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">
+          Network error while fetching search results. Please check your connection and try again.
+        </p>
+      </SearchResultsShell>
     )
   }
 }

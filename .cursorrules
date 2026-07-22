@@ -1,0 +1,8 @@
+Refactor the UI of the attached components to implement a modern Tailwind CSS design system.
+
+Rules & Tailwind Classes:
+- Background & Canvas: Use slate or zinc neutrals (`bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-100`). Avoid pure pure white (`#fff`) or pure black (`#000`).
+- Typography: Use strong hierarchy with Tailwind weights (`font-bold tracking-tight text-3xl md:text-5xl` for headers, `text-slate-600 dark:text-zinc-400 text-base leading-relaxed` for body text).
+- Translucent Borders: Replace solid borders with soft alpha borders (`border border-slate-200/80 dark:border-zinc-800/80`).
+- Consistent Cards: Apply unified rounded corners and ambient shadows (`bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300`).
+- Spacing Scale: Use generous, mobile-first spacing (`space-y-12 md:space-y-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto`).

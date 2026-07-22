@@ -374,7 +374,7 @@ const MyForm = ({ formId }: { formId: string }) => {
     }
   }
 
-  if (!cmsForm) return <div className="text-foreground-subtle">Loading...</div>
+  if (!cmsForm) return <div className="text-base text-slate-600 dark:text-zinc-400">Loading...</div>
 
   if (success && cmsForm.confirmationMessage) {
     setTimeout(() => {

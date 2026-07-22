@@ -1,11 +1,13 @@
 import { getPayload } from 'payload'
 import React from 'react'
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import configPromise from '@payload-config'
 import { HybridPageRenderer, toHybridPageData } from '@delmaredigital/payload-puck/render'
 import type { HybridPageDataInput } from '@delmaredigital/payload-puck/render'
-import { baseConfig } from '@delmaredigital/payload-puck/config'
+import { siteConfig } from '@/puck/config'
 import type { Page } from '@/payload-types'
+import { DefaultHomePage } from '@/app/components/pages/DefaultHomePage'
 import { LegacyPageContent } from '@/app/components/pages/LegacyPageContent'
 import { createPuckPageWrapper } from '@/app/components/pages/PageShell'
 
@@ -31,6 +33,10 @@ async function getPage(slug?: string[]): Promise<Page | null> {
   return docs[0] || null
 }
 
+function shouldUseDefaultHome(page: Page) {
+  return page.slug === 'home' && page.editorVersion !== 'puck' && !page.puckData
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -53,12 +59,16 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
   const { slug } = await params
   const page = await getPage(slug)
 
-  if (!page) return <div className="py-12 text-center text-foreground-muted">Page Not Found</div>
+  if (!page) notFound()
+
+  if (shouldUseDefaultHome(page)) {
+    return <DefaultHomePage />
+  }
 
   return (
     <HybridPageRenderer
       page={toHybridPageData(page as unknown as HybridPageDataInput)}
-      config={baseConfig}
+      config={siteConfig}
       wrapper={createPuckPageWrapper(page.title)}
       legacyRenderer={() => <LegacyPageContent page={page} />}
       fallback={<LegacyPageContent page={page} />}

@@ -10,7 +10,7 @@ export default function Search() {
   return (
     <div className="w-full md:w-auto">
       <form method="GET" action="/search" className="flex gap-2">
-        <div className="relative flex-1 md:flex-none">
+        <div className="relative min-w-0 flex-1 md:flex-none">
           <input
             className="input-field md:w-64"
             type="text"
@@ -20,7 +20,7 @@ export default function Search() {
             aria-label="Search"
           />
           <svg
-            className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-subtle opacity-60"
+            className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 dark:text-zinc-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
