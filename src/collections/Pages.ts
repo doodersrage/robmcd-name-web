@@ -13,6 +13,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 import { FormBlock } from '@/blocks/FormBlock'
 import { CodeBlock } from '@/blocks/CodeBlock'
+import { RawHtmlBlock } from '@/blocks/RawHtmlBlock'
 
 /** Coerce relationship values to numeric IDs (D1/SQLite expects numbers). */
 function normalizeRelationshipId(value: unknown): number | undefined {
@@ -76,8 +77,7 @@ const breadcrumbsField: Field = {
         beforeChange: [
           ({ value, data, originalDoc }) => {
             return (
-              normalizeRelationshipId(value) ??
-              normalizeRelationshipId(originalDoc?.id ?? data?.id)
+              normalizeRelationshipId(value) ?? normalizeRelationshipId(originalDoc?.id ?? data?.id)
             )
           },
         ],
@@ -214,6 +214,7 @@ export const Pages: CollectionConfig = {
         // Define your layout blocks here (e.g., Hero, Content, Media)
         CodeBlock,
         FormBlock,
+        RawHtmlBlock,
       ],
     },
     breadcrumbsField,

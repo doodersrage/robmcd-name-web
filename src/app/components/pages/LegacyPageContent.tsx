@@ -3,6 +3,7 @@ import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/reac
 import type { Page } from '@/payload-types'
 import MyForm from '@/app/components/blocks/MyForm'
 import { CodeBlockComponent } from '@/app/components/blocks/CodeBlock'
+import { RawHtmlBlockComponent } from '@/app/components/blocks/RawHtmlBlock'
 import { PageShell } from '@/app/components/pages/PageShell'
 
 export function LegacyPageContent({ page }: { page: Page }) {
@@ -33,7 +34,9 @@ export function LegacyPageContent({ page }: { page: Page }) {
                         }
                       >
                         <MyForm
-                          formId={String(typeof block.form === 'object' ? block.form.id : block.form)}
+                          formId={String(
+                            typeof block.form === 'object' ? block.form.id : block.form,
+                          )}
                         />
                       </Suspense>
                     </div>
@@ -50,6 +53,20 @@ export function LegacyPageContent({ page }: { page: Page }) {
                       }
                     >
                       <CodeBlockComponent code={block.code} language={block.language} />
+                    </Suspense>
+                  </div>
+                )
+              case 'rawHtmlBlock':
+                return (
+                  <div key={index}>
+                    <Suspense
+                      fallback={
+                        <div className="py-4 text-center text-sm text-slate-500 dark:text-zinc-500">
+                          Loading HTML block...
+                        </div>
+                      }
+                    >
+                      <RawHtmlBlockComponent html={block.html} />
                     </Suspense>
                   </div>
                 )

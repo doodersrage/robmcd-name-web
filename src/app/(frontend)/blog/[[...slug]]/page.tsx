@@ -4,6 +4,7 @@ import configPromise from '@payload-config'
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
 import MyForm from '@/app/components/blocks/MyForm'
 import { CodeBlockComponent } from '@/app/components/blocks/CodeBlock'
+import { RawHtmlBlockComponent } from '@/app/components/blocks/RawHtmlBlock'
 import BlogSidebar from '@/app/components/blog/BlogSidebar'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import { notFound } from 'next/navigation'
@@ -110,82 +111,96 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
         <article className="min-w-0 flex-1">
           <div className="card">
             <div className="card-content">
-            {post && (
-              <>
-                <h1 className="page-title">{post?.title}</h1>
+              {post && (
+                <>
+                  <h1 className="page-title">{post?.title}</h1>
 
-                {isPostView ? (
-                  <div className="page-meta">
-                    <span>{SITE_OWNER}</span>
-                    {post?.createdAt ? (
-                      <>
-                        <span aria-hidden="true">·</span>
-                        <time dateTime={post.createdAt}>
-                          {new Date(post.createdAt).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          })}
-                        </time>
-                      </>
-                    ) : null}
-                    {post?.updatedAt && post.updatedAt !== post.createdAt ? (
-                      <>
-                        <span aria-hidden="true">·</span>
-                        <span>
-                          Updated{' '}
-                          <time dateTime={post.updatedAt}>
-                            {new Date(post.updatedAt).toLocaleDateString('en-US', {
+                  {isPostView ? (
+                    <div className="page-meta">
+                      <span>{SITE_OWNER}</span>
+                      {post?.createdAt ? (
+                        <>
+                          <span aria-hidden="true">·</span>
+                          <time dateTime={post.createdAt}>
+                            {new Date(post.createdAt).toLocaleDateString('en-US', {
                               year: 'numeric',
-                              month: 'short',
+                              month: 'long',
                               day: 'numeric',
                             })}
                           </time>
-                        </span>
-                      </>
-                    ) : null}
+                        </>
+                      ) : null}
+                      {post?.updatedAt && post.updatedAt !== post.createdAt ? (
+                        <>
+                          <span aria-hidden="true">·</span>
+                          <span>
+                            Updated{' '}
+                            <time dateTime={post.updatedAt}>
+                              {new Date(post.updatedAt).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                              })}
+                            </time>
+                          </span>
+                        </>
+                      ) : null}
+                    </div>
+                  ) : null}
+
+                  <div className="prose-site">
+                    <RichTextConverter data={post?.content} />
                   </div>
-                ) : null}
+                </>
+              )}
 
-                <div className="prose-site">
-                  <RichTextConverter data={post?.content} />
-                </div>
-              </>
-            )}
-
-            {post && post.layout && (
-              <div className="space-y-8 border-t border-slate-200/80 pt-8 dark:border-zinc-800/80">
-                {post.layout.map((block: any, index: number) => {
-                  switch (block.blockType) {
-                    case 'formBlock':
-                      return (
-                        <div key={index} className="card">
-                          <div className="card-content">
-                          <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
-                            {block.form.title}
-                          </h2>
-                          <Suspense
-                            fallback={<div className="text-center py-4">Loading form...</div>}
-                          >
-                            <MyForm formId={block.form.id} />
-                          </Suspense>
+              {post && post.layout && (
+                <div className="space-y-8 border-t border-slate-200/80 pt-8 dark:border-zinc-800/80">
+                  {post.layout.map((block: any, index: number) => {
+                    switch (block.blockType) {
+                      case 'formBlock':
+                        return (
+                          <div key={index} className="card">
+                            <div className="card-content">
+                              <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
+                                {block.form.title}
+                              </h2>
+                              <Suspense
+                                fallback={<div className="text-center py-4">Loading form...</div>}
+                              >
+                                <MyForm formId={block.form.id} />
+                              </Suspense>
+                            </div>
                           </div>
-                        </div>
-                      )
-                    case 'codeBlock':
-                      return (
-                        <div key={index} className="my-8">
-                          <Suspense
-                            fallback={<div className="text-center py-4">Loading code block...</div>}
-                          >
-                            <CodeBlockComponent code={block.code} language={block.language} />
-                          </Suspense>
-                        </div>
-                      )
-                  }
-                })}
-              </div>
-            )}
+                        )
+                      case 'codeBlock':
+                        return (
+                          <div key={index} className="my-8">
+                            <Suspense
+                              fallback={
+                                <div className="text-center py-4">Loading code block...</div>
+                              }
+                            >
+                              <CodeBlockComponent code={block.code} language={block.language} />
+                            </Suspense>
+                          </div>
+                        )
+                      case 'rawHtmlBlock':
+                        return (
+                          <div key={index} className="my-8">
+                            <Suspense
+                              fallback={
+                                <div className="text-center py-4">Loading HTML block...</div>
+                              }
+                            >
+                              <RawHtmlBlockComponent html={block.html} />
+                            </Suspense>
+                          </div>
+                        )
+                    }
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </article>
