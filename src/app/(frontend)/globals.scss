@@ -462,6 +462,27 @@
 
     .bg-card {
       @apply hover-lift rounded-2xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-900/80;
+
+      /* Ensure headings and links in cards match regular page styling */
+      :where(h1, h2, h3, h4, h5, h6) {
+        @apply font-bold tracking-tight text-slate-900 dark:text-zinc-100;
+      }
+
+      :where(a:not([class*='btn'])) {
+        @apply font-medium text-indigo-600 underline decoration-indigo-400/40 underline-offset-2 transition-colors duration-300 dark:text-indigo-400 dark:decoration-indigo-500/40;
+
+        &:hover {
+          @apply text-indigo-700 decoration-indigo-500/70 dark:text-indigo-300;
+        }
+      }
+
+      :where(p, li, td, th, blockquote, dd, dt, figcaption, label, span) {
+        @apply text-slate-600 dark:text-zinc-400;
+      }
+
+      :where(strong, b) {
+        @apply font-semibold text-slate-900 dark:text-zinc-100;
+      }
     }
 
     /* RichText uses prose + dark:prose-invert — force readable tokens in dark mode */

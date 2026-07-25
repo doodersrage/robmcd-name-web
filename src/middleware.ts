@@ -3,6 +3,10 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   // If the user visits /blog, let it reach your specific blog file
+  if (request.nextUrl.pathname.startsWith('/comfyui-prompt-studio')) {
+    return NextResponse.next()
+  }
+
   if (request.nextUrl.pathname.startsWith('/blog')) {
     return NextResponse.next()
   }
