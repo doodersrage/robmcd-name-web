@@ -4,7 +4,7 @@ import configPromise from '@payload-config'
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
 import MyForm from '@/app/components/blocks/MyForm'
 import { CodeBlockComponent } from '@/app/components/blocks/CodeBlock'
-import { RawHtmlBlockComponent } from '@/app/components/blocks/RawHtmlBlock'
+// import { RawHtmlBlockComponent } from '@/app/components/blocks/RawHtmlBlock'
 import BlogSidebar from '@/app/components/blog/BlogSidebar'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import { notFound } from 'next/navigation'
@@ -185,18 +185,18 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
                             </Suspense>
                           </div>
                         )
-                      case 'rawHtmlBlock':
-                        return (
-                          <div key={index} className="my-8">
-                            <Suspense
-                              fallback={
-                                <div className="text-center py-4">Loading HTML block...</div>
-                              }
-                            >
-                              <RawHtmlBlockComponent html={block.html} />
-                            </Suspense>
-                          </div>
-                        )
+                      // case 'rawHtmlBlock':
+                      //   return (
+                      //     <div key={index} className="my-8">
+                      //       <Suspense
+                      //         fallback={
+                      //           <div className="text-center py-4">Loading HTML block...</div>
+                      //         }
+                      //       >
+                      //         <RawHtmlBlockComponent html={block.html} />
+                      //       </Suspense>
+                      //     </div>
+                      //   )
                     }
                   })}
                 </div>

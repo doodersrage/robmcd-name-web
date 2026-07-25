@@ -239,12 +239,6 @@ export interface Page {
             blockName?: string | null;
             blockType: 'formBlock';
           }
-        | {
-            html: string;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'rawHtmlBlock';
-          }
       )[]
     | null;
   breadcrumbs?:
@@ -994,13 +988,6 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               form?: T;
               enableIntro?: T;
-              id?: T;
-              blockName?: T;
-            };
-        rawHtmlBlock?:
-          | T
-          | {
-              html?: T;
               id?: T;
               blockName?: T;
             };

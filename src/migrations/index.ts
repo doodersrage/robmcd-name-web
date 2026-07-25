@@ -8,6 +8,7 @@ import * as migration_20260531_181948 from './20260531_181948';
 import * as migration_20260703_185236_puck_fields from './20260703_185236_puck_fields';
 import * as migration_20260703_190500_backfill_page_versions from './20260703_190500_backfill_page_versions';
 import * as migration_20260703_191600_fix_page_breadcrumbs from './20260703_191600_fix_page_breadcrumbs';
+import * as migration_20260725_235612 from './20260725_235612';
 
 export const migrations = [
   {
@@ -48,16 +49,21 @@ export const migrations = [
   {
     up: migration_20260703_185236_puck_fields.up,
     down: migration_20260703_185236_puck_fields.down,
-    name: '20260703_185236_puck_fields'
+    name: '20260703_185236_puck_fields',
   },
   {
     up: migration_20260703_190500_backfill_page_versions.up,
     down: migration_20260703_190500_backfill_page_versions.down,
-    name: '20260703_190500_backfill_page_versions'
+    name: '20260703_190500_backfill_page_versions',
   },
   {
     up: migration_20260703_191600_fix_page_breadcrumbs.up,
     down: migration_20260703_191600_fix_page_breadcrumbs.down,
-    name: '20260703_191600_fix_page_breadcrumbs'
+    name: '20260703_191600_fix_page_breadcrumbs',
+  },
+  {
+    up: migration_20260725_235612.up,
+    down: migration_20260725_235612.down,
+    name: '20260725_235612'
   },
 ];
