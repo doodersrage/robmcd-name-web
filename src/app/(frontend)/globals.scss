@@ -42,13 +42,6 @@
   --color-ring: #6366f1;
 }
 
-@utility interactive-focus {
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 active:scale-[0.98];
-}
-
-@utility hover-lift {
-  @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-500/5 dark:hover:shadow-black/20;
-}
 
 @layer base {
   html {
@@ -139,11 +132,6 @@
     background-size: 128px 128px;
   }
 
-  .site-bg__pattern,
-  .site-bg__grid,
-  .site-bg__glow {
-    @apply hidden;
-  }
 
   .site-bg__vignette {
     @apply absolute inset-0;
@@ -163,7 +151,7 @@
   }
 
   .site-brand {
-    @apply interactive-focus flex-none rounded-lg transition-opacity duration-300 ease-out;
+    @apply flex-none rounded-lg transition-opacity duration-300 ease-out;
   }
 
   .site-brand:hover {
@@ -194,16 +182,8 @@
     @apply text-sm font-bold sm:text-base;
   }
 
-  .site-brand-logo__wordmark--sm {
-    @apply text-base sm:text-lg;
-  }
-
   .site-brand-logo__tagline {
     @apply max-w-[14rem] text-[0.65rem] font-medium leading-snug text-slate-500 sm:max-w-none sm:text-xs dark:text-zinc-400;
-  }
-
-  .site-brand-logo__tagline--sm {
-    @apply text-[0.6rem] sm:text-[0.65rem];
   }
 
   .site-footer {
@@ -231,7 +211,7 @@
   }
 
   .nav-link {
-    @apply interactive-focus block rounded-lg py-2 text-sm font-medium capitalize text-slate-600 transition-all duration-300 ease-out dark:text-zinc-400;
+    @apply block rounded-lg py-2 text-sm font-medium capitalize text-slate-600 transition-all duration-300 ease-out dark:text-zinc-400;
   }
 
   .nav-link:hover {
@@ -262,7 +242,7 @@
   }
 
   .btn {
-    @apply interactive-focus inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-300 ease-out;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-300 ease-out;
   }
 
   .btn-primary {
@@ -303,14 +283,13 @@
   }
 
   .btn-icon-toggle {
-    @apply interactive-focus hover-lift flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200/80 bg-white/80 text-slate-700 dark:border-zinc-800/80 dark:bg-zinc-900/80 dark:text-zinc-200;
+    @apply flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200/80 bg-white/80 text-slate-700 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-500/5 dark:border-zinc-800/80 dark:bg-zinc-900/80 dark:text-zinc-200 dark:hover:shadow-black/20;
   }
 
   .btn-icon-toggle:hover {
     @apply bg-slate-50 dark:bg-zinc-800/80;
   }
 
-  .badge,
   .skill-pill {
     @apply inline-flex items-center gap-1.5 rounded-full border border-slate-200/50 bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 transition-all duration-300 ease-out dark:border-zinc-700/50 dark:bg-zinc-800/60 dark:text-zinc-300;
   }
@@ -319,9 +298,6 @@
     @apply -translate-y-px bg-slate-200/80 shadow-sm shadow-slate-500/5 dark:bg-zinc-700/60 dark:shadow-black/20;
   }
 
-  .text-link {
-    @apply interactive-focus rounded-md transition-all duration-300 ease-out hover:-translate-y-px;
-  }
 
   .sidebar-card {
     @apply w-full max-w-sm;
@@ -336,7 +312,7 @@
   }
 
   .sidebar-link {
-    @apply interactive-focus hover-lift flex items-start gap-3 rounded-xl border border-transparent p-3 text-slate-600 dark:text-zinc-400;
+    @apply flex items-start gap-3 rounded-xl border border-transparent p-3 text-slate-600 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-500/5 dark:text-zinc-400 dark:hover:shadow-black/20;
   }
 
   .sidebar-link:hover {
@@ -347,13 +323,11 @@
     @apply flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-zinc-50;
   }
 
-  .prose-site,
-  .puck-page .prose {
+  .prose-site {
     @apply prose prose-lg max-w-none;
   }
 
-  .prose-site,
-  .puck-page .prose {
+  .prose-site {
     @apply text-base leading-relaxed text-slate-600 dark:text-zinc-400;
 
     --tw-prose-body: var(--color-muted-foreground);
@@ -374,8 +348,7 @@
     --tw-prose-td-borders: rgb(255 255 255 / 0.08);
   }
 
-  :root:not(.dark) .prose-site,
-  :root:not(.dark) .puck-page .prose {
+  :root:not(.dark) .prose-site {
     @apply text-slate-600;
 
     --tw-prose-headings: #0f172a;
@@ -385,8 +358,7 @@
     --tw-prose-code: #4f46e5;
   }
 
-  .prose-site,
-  .puck-page .prose {
+  .prose-site {
     :is(p, li, td, th, blockquote, dd, dt, figcaption):not(
         :where([class~='not-prose'], [class~='not-prose'] *)
       ) {
@@ -422,23 +394,6 @@
   .puck-page {
     @apply text-base leading-relaxed text-slate-600 dark:text-zinc-400;
 
-    [class*='puck-section-']:not([class*='content']) {
-      padding-inline: 0 !important;
-    }
-
-    > [class*='puck-section-']:first-child {
-      padding-top: 0 !important;
-    }
-
-    > [class*='puck-section-']:last-child {
-      padding-bottom: 0 !important;
-    }
-
-    [class*='puck-section-content-'] {
-      max-width: 100% !important;
-      padding-inline: 0 !important;
-    }
-
     /* Heading + Text blocks (outside .prose) */
     :where(h1, h2, h3, h4, h5, h6) {
       @apply font-bold tracking-tight text-slate-900 dark:text-zinc-100;
@@ -458,31 +413,6 @@
 
     :where(strong, b) {
       @apply font-semibold text-slate-900 dark:text-zinc-100;
-    }
-
-    .bg-card {
-      @apply hover-lift rounded-2xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-900/80;
-
-      /* Ensure headings and links in cards match regular page styling */
-      :where(h1, h2, h3, h4, h5, h6) {
-        @apply font-bold tracking-tight text-slate-900 dark:text-zinc-100;
-      }
-
-      :where(a:not([class*='btn'])) {
-        @apply font-medium text-indigo-600 underline decoration-indigo-400/40 underline-offset-2 transition-colors duration-300 dark:text-indigo-400 dark:decoration-indigo-500/40;
-
-        &:hover {
-          @apply text-indigo-700 decoration-indigo-500/70 dark:text-indigo-300;
-        }
-      }
-
-      :where(p, li, td, th, blockquote, dd, dt, figcaption, label, span) {
-        @apply text-slate-600 dark:text-zinc-400;
-      }
-
-      :where(strong, b) {
-        @apply font-semibold text-slate-900 dark:text-zinc-100;
-      }
     }
 
     /* RichText uses prose + dark:prose-invert — force readable tokens in dark mode */
@@ -513,6 +443,7 @@
     --tw-prose-links: #4f46e5;
     --tw-prose-code: #4f46e5;
   }
+
 }
 
 @keyframes site-mesh-shift {
@@ -531,55 +462,12 @@
   }
 
   .card:hover,
-  .hover-lift:hover,
   .btn-primary:hover,
   .btn-secondary:hover,
   .nav-link:hover,
   .skill-pill:hover,
-  .sidebar-link:hover,
-  .text-link:hover {
-    transform: none;
-  }
-
-  .interactive-focus:active {
-    transform: none;
-  }
-
-  .hover-lift:hover {
+  .sidebar-link:hover {
     transform: none;
   }
 }
 
-main .payload-richtext {
-  ol {
-    list-style: decimal;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  li {
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    margin-bottom: 1rem;
-  }
-
-  code {
-    @apply rounded-md bg-indigo-500/10 px-1.5 py-0.5 text-sm text-indigo-700 dark:text-indigo-300;
-  }
-
-  pre {
-    @apply mb-4 overflow-x-auto rounded-xl border border-slate-200/80 bg-zinc-900/90 p-4 text-zinc-100 dark:border-zinc-800/80;
-
-    code {
-      @apply bg-transparent p-0 text-inherit;
-    }
-  }
-}

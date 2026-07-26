@@ -9,7 +9,7 @@ import { siteConfig } from '@/puck/config'
 import type { Page } from '@/payload-types'
 import { DefaultHomePage } from '@/app/components/pages/DefaultHomePage'
 import { LegacyPageContent } from '@/app/components/pages/LegacyPageContent'
-import { createPuckPageWrapper } from '@/app/components/pages/PageShell'
+import { PuckPageWrapper } from '@/app/components/pages/PuckPageWrapper'
 
 export type paramsType = Promise<{ slug: string[] }>
 
@@ -65,11 +65,15 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
     return <DefaultHomePage />
   }
 
+  const PuckWrapper = ({ children }: { children: React.ReactNode }) => (
+    <PuckPageWrapper title={page.title}>{children}</PuckPageWrapper>
+  )
+
   return (
     <HybridPageRenderer
       page={toHybridPageData(page as unknown as HybridPageDataInput)}
       config={siteConfig}
-      wrapper={createPuckPageWrapper(page.title)}
+      wrapper={PuckWrapper}
       legacyRenderer={() => <LegacyPageContent page={page} />}
       fallback={<LegacyPageContent page={page} />}
     />

@@ -22,13 +22,3 @@ export function PageShell({ title, showTitle = true, children }: PageShellProps)
 export function LandingShell({ children }: { children: React.ReactNode }) {
   return <article className="mx-auto w-full max-w-5xl space-y-12 md:space-y-24">{children}</article>
 }
-
-export function createPuckPageWrapper(title?: string | null) {
-  return function PuckPageWrapper({ children }: { children: React.ReactNode }) {
-    return (
-      <PageShell title={title} showTitle={false}>
-        <div className="puck-page">{children}</div>
-      </PageShell>
-    )
-  }
-}
