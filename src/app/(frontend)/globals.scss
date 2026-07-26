@@ -448,6 +448,15 @@
       color: #0f172a !important;
     }
 
+    .dark h1,
+    .dark h2,
+    .dark h3,
+    .dark h4,
+    .dark h5,
+    .dark h6 {
+      color: #f4f4f5 !important;
+    }
+
     h2 {
       @apply text-2xl md:text-3xl;
       font-size: 1.5rem !important;
@@ -559,6 +568,14 @@
       --tw-prose-th-borders: rgb(255 255 255 / 0.08);
       --tw-prose-td-borders: rgb(255 255 255 / 0.08);
     }
+
+    .dark .puck-page .prose {
+      --tw-prose-headings: #f4f4f5 !important;
+      --tw-prose-bold: #f4f4f5 !important;
+      --tw-prose-links: #818cf8 !important;
+      --tw-prose-body: #a1a1aa !important;
+      --tw-prose-code: #818cf8 !important;
+    }
   }
 
   :root:not(.dark) .puck-page .prose {
@@ -567,6 +584,43 @@
     --tw-prose-bold: #0f172a;
     --tw-prose-links: #4f46e5;
     --tw-prose-code: #4f46e5;
+  }
+
+  /* Universal dark mode heading override for all contexts */
+  .dark h1,
+  .dark h2,
+  .dark h3,
+  .dark h4,
+  .dark h5,
+  .dark h6 {
+    color: #f4f4f5 !important;
+  }
+
+  .dark .prose h1,
+  .dark .prose h2,
+  .dark .prose h3,
+  .dark .prose h4,
+  .dark .prose h5,
+  .dark .prose h6 {
+    color: #f4f4f5 !important;
+  }
+
+  .dark .prose-site h1,
+  .dark .prose-site h2,
+  .dark .prose-site h3,
+  .dark .prose-site h4,
+  .dark .prose-site h5,
+  .dark .prose-site h6 {
+    color: #f4f4f5 !important;
+  }
+
+  .dark .puck-page h1,
+  .dark .puck-page h2,
+  .dark .puck-page h3,
+  .dark .puck-page h4,
+  .dark .puck-page h5,
+  .dark .puck-page h6 {
+    color: #f4f4f5 !important;
   }
 
 }
