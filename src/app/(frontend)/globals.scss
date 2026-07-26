@@ -224,14 +224,32 @@
 
   .input-field {
     @apply w-full rounded-xl border border-slate-200/80 bg-white/80 text-slate-800 transition-all duration-300 dark:border-zinc-800/80 dark:bg-zinc-900/80 dark:text-zinc-100 py-3 px-4 text-base leading-6;
+    background-color: rgb(255 255 255 / 0.8) !important;
+    color: #1e293b !important;
+  }
+
+  .dark .input-field {
+    background-color: rgb(24 24 27 / 0.9) !important;
+    border-color: rgb(63 63 70 / 0.8) !important;
+    color: #f4f4f5 !important;
   }
 
   .input-field::placeholder {
     @apply text-slate-400 dark:text-zinc-500;
+    color: #94a3b8 !important;
+  }
+
+  .dark .input-field::placeholder {
+    color: #71717a !important;
   }
 
   .input-field:focus {
     @apply border-indigo-400/60 outline-none ring-2 ring-indigo-500/20 dark:border-indigo-500/40;
+    border-color: rgb(99 102 241 / 0.6) !important;
+  }
+
+  .dark .input-field:focus {
+    border-color: rgb(99 102 241 / 0.5) !important;
   }
 
   .btn {
@@ -261,18 +279,39 @@
 
   .form-label {
     @apply block text-sm font-semibold text-slate-800 dark:text-zinc-100 mb-1;
+    color: #1e293b !important;
+  }
+
+  .dark .form-label {
+    color: #f4f4f5 !important;
   }
 
   .form-error {
     @apply rounded-xl border border-red-300/60 bg-red-50/80 px-4 py-3 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-950/40 dark:text-red-300;
   }
 
+  .dark .form-error {
+    background-color: rgb(127 29 29 / 0.4) !important;
+    border-color: rgb(239 68 68 / 0.5) !important;
+    color: #fca5a5 !important;
+  }
+
   .form-field-error {
     @apply text-sm font-medium text-red-600 dark:text-red-400 mt-1;
+    color: #dc2626 !important;
+  }
+
+  .dark .form-field-error {
+    color: #f87171 !important;
   }
 
   .input-field--error {
     @apply border-red-400/60 dark:border-red-500/50;
+    border-color: rgb(248 113 113 / 0.6) !important;
+  }
+
+  .dark .input-field--error {
+    border-color: rgb(239 68 68 / 0.5) !important;
   }
 
   .btn-icon-toggle {
@@ -441,22 +480,51 @@
     /* Heading + Text blocks (outside .prose) */
     :where(h1, h2, h3, h4, h5, h6) {
       @apply font-bold tracking-tight text-slate-900 dark:text-zinc-100;
+      color: #0f172a !important;
+    }
+
+    .dark :where(h1, h2, h3, h4, h5, h6) {
+      color: #f4f4f5 !important;
     }
 
     :where(p, li, td, th, blockquote, dd, dt, figcaption, label, span) {
       @apply text-slate-600 dark:text-zinc-400;
+      color: #475569 !important;
+    }
+
+    .dark :where(p, li, td, th, blockquote, dd, dt, figcaption, label, span) {
+      color: #a1a1aa !important;
     }
 
     :where(a:not([class*='btn'])) {
       @apply font-medium text-indigo-600 underline decoration-indigo-400/40 underline-offset-2 transition-colors duration-300 dark:text-indigo-400 dark:decoration-indigo-500/40;
+      color: #4f46e5 !important;
+      text-decoration-color: rgb(99 102 241 / 0.4) !important;
 
       &:hover {
         @apply text-indigo-700 decoration-indigo-500/70 dark:text-indigo-300;
+        color: #4338ca !important;
+        text-decoration-color: rgb(99 102 241 / 0.7) !important;
+      }
+    }
+
+    .dark :where(a:not([class*='btn'])) {
+      color: #818cf8 !important;
+      text-decoration-color: rgb(129 140 248 / 0.4) !important;
+
+      &:hover {
+        color: #a5b4fc !important;
+        text-decoration-color: rgb(129 140 248 / 0.7) !important;
       }
     }
 
     :where(strong, b) {
       @apply font-semibold text-slate-900 dark:text-zinc-100;
+      color: #0f172a !important;
+    }
+
+    .dark :where(strong, b) {
+      color: #f4f4f5 !important;
     }
 
     /* RichText uses prose + dark:prose-invert — force readable tokens in dark mode */
