@@ -69,10 +69,7 @@
   }
 
   body {
-    @apply bg-slate-50 font-sans text-slate-800 antialiased dark:bg-zinc-950 dark:text-zinc-100;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    @apply bg-slate-50 font-sans text-slate-800 antialiased dark:bg-zinc-950 dark:text-zinc-100 flex flex-col min-h-screen;
     font-size: var(--text-body);
     line-height: var(--leading-body);
     font-weight: 400;
@@ -82,8 +79,7 @@
   input,
   textarea,
   select {
-    @apply rounded-xl border border-slate-200/80 bg-white/80 text-slate-800 dark:border-zinc-800/80 dark:bg-zinc-900/80 dark:text-zinc-100;
-    padding: 0.625rem 1rem;
+    @apply rounded-xl border border-slate-200/80 bg-white/80 text-slate-800 dark:border-zinc-800/80 dark:bg-zinc-900/80 dark:text-zinc-100 py-2.5 px-4;
     font-size: var(--text-caption);
     line-height: var(--leading-caption);
     transition:
@@ -120,22 +116,20 @@
 
   .site-bg__mesh {
     @apply absolute inset-0;
-    background:
-      radial-gradient(ellipse 55% 40% at 18% 18%, rgb(99 102 241 / 0.07), transparent 65%),
-      radial-gradient(ellipse 45% 35% at 82% 78%, rgb(79 70 229 / 0.05), transparent 60%);
+    @apply bg-[radial-gradient(ellipse_55%_40%_at_18%_18%,rgb(99_102_241_/_0.07),transparent_65%),radial-gradient(ellipse_45%_35%_at_82%_78%,rgb(79_70_229_/_0.05),transparent_60%)];
     animation: site-mesh-shift 80s ease-in-out infinite alternate;
   }
 
   .site-bg__noise {
     @apply absolute inset-0 opacity-[0.025];
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 128px 128px;
+    @apply bg-[length:128px_128px];
   }
 
 
   .site-bg__vignette {
     @apply absolute inset-0;
-    background: radial-gradient(ellipse 100% 85% at 50% 45%, transparent 35%, rgb(9 9 11 / 0.4) 100%);
+    @apply bg-[radial-gradient(ellipse_100%_85%_at_50%_45%,transparent_35%,rgb(9_9_11_/_0.4)_100%)];
   }
 
   .site-main {
@@ -229,8 +223,7 @@
   }
 
   .input-field {
-    @apply w-full rounded-xl border border-slate-200/80 bg-white/80 text-slate-800 transition-all duration-300 dark:border-zinc-800/80 dark:bg-zinc-900/80 dark:text-zinc-100;
-    padding: 0.625rem 1rem;
+    @apply w-full rounded-xl border border-slate-200/80 bg-white/80 text-slate-800 transition-all duration-300 dark:border-zinc-800/80 dark:bg-zinc-900/80 dark:text-zinc-100 py-3 px-4 text-base leading-6;
   }
 
   .input-field::placeholder {
@@ -263,11 +256,11 @@
 
   .group:hover .btn-icon,
   .group:focus-visible .btn-icon {
-    transform: translateX(4px);
+    @apply translate-x-1;
   }
 
   .form-label {
-    @apply block text-sm font-semibold text-slate-800 dark:text-zinc-100;
+    @apply block text-sm font-semibold text-slate-800 dark:text-zinc-100 mb-1;
   }
 
   .form-error {
@@ -275,7 +268,7 @@
   }
 
   .form-field-error {
-    @apply text-sm font-medium text-red-600 dark:text-red-400;
+    @apply text-sm font-medium text-red-600 dark:text-red-400 mt-1;
   }
 
   .input-field--error {
@@ -388,6 +381,38 @@
 
     :is(strong, b):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
       @apply font-semibold text-slate-900 dark:text-zinc-100;
+    }
+
+    /* More specific overrides for prose elements */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply !font-bold !tracking-tight !text-slate-900 dark:!text-zinc-100;
+    }
+
+    h2 {
+      @apply !text-2xl md:!text-3xl;
+    }
+
+    h3 {
+      @apply !text-xl md:!text-2xl;
+    }
+
+    a {
+      @apply !font-medium !text-indigo-600 !underline !decoration-indigo-400/40 !underline-offset-2 !transition-colors !duration-300 dark:!text-indigo-400 dark:!decoration-indigo-500/40;
+      word-break: break-word;
+
+      &:hover {
+        @apply !text-indigo-700 !decoration-indigo-500/70 dark:!text-indigo-300;
+      }
+    }
+
+    strong,
+    b {
+      @apply !font-semibold !text-slate-900 dark:!text-zinc-100;
     }
   }
 
