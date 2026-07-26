@@ -390,29 +390,48 @@
     h4,
     h5,
     h6 {
-      @apply !font-bold !tracking-tight !text-slate-900 dark:!text-zinc-100;
+      @apply font-bold tracking-tight text-slate-900 dark:text-zinc-100;
+      font-weight: 700 !important;
+      letter-spacing: -0.025em !important;
+      color: #0f172a !important;
     }
 
     h2 {
-      @apply !text-2xl md:!text-3xl;
+      @apply text-2xl md:text-3xl;
+      font-size: 1.5rem !important;
+      @media (min-width: 768px) {
+        font-size: 1.875rem !important;
+      }
     }
 
     h3 {
-      @apply !text-xl md:!text-2xl;
+      @apply text-xl md:text-2xl;
+      font-size: 1.25rem !important;
+      @media (min-width: 768px) {
+        font-size: 1.5rem !important;
+      }
     }
 
     a {
-      @apply !font-medium !text-indigo-600 !underline !decoration-indigo-400/40 !underline-offset-2 !transition-colors !duration-300 dark:!text-indigo-400 dark:!decoration-indigo-500/40;
+      @apply font-medium text-indigo-600 underline decoration-indigo-400/40 underline-offset-2 transition-colors duration-300 dark:text-indigo-400 dark:decoration-indigo-500/40;
       word-break: break-word;
+      font-weight: 500 !important;
+      color: #4f46e5 !important;
+      text-decoration: underline !important;
+      text-decoration-color: rgb(99 102 241 / 0.4) !important;
 
       &:hover {
-        @apply !text-indigo-700 !decoration-indigo-500/70 dark:!text-indigo-300;
+        @apply text-indigo-700 decoration-indigo-500/70 dark:text-indigo-300;
+        color: #4338ca !important;
+        text-decoration-color: rgb(99 102 241 / 0.7) !important;
       }
     }
 
     strong,
     b {
-      @apply !font-semibold !text-slate-900 dark:!text-zinc-100;
+      @apply font-semibold text-slate-900 dark:text-zinc-100;
+      font-weight: 600 !important;
+      color: #0f172a !important;
     }
   }
 
