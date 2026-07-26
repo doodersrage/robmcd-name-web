@@ -390,6 +390,14 @@
     --tw-prose-code: #4f46e5;
   }
 
+  .dark .prose-site {
+    --tw-prose-headings: #f4f4f5 !important;
+    --tw-prose-bold: #f4f4f5 !important;
+    --tw-prose-links: #818cf8 !important;
+    --tw-prose-body: #a1a1aa !important;
+    --tw-prose-code: #818cf8 !important;
+  }
+
   .prose-site {
     :is(p, li, td, th, blockquote, dd, dt, figcaption):not(
         :where([class~='not-prose'], [class~='not-prose'] *)
@@ -399,6 +407,11 @@
 
     :is(h1, h2, h3, h4, h5, h6):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
       @apply font-bold tracking-tight text-slate-900 dark:text-zinc-100;
+      color: #0f172a !important;
+    }
+
+    .dark :is(h1, h2, h3, h4, h5, h6):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+      color: #f4f4f5 !important;
     }
 
     :is(h2):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
