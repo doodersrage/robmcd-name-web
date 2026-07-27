@@ -1,30 +1,24 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+const DIRECT_APP_PREFIXES = [
+  '/comfyui-prompt-studio',
+  '/blog',
+  '/search',
+  '/admin',
+  '/feed.xml',
+  '/sitemap.xml',
+]
+
 export function middleware(request: NextRequest) {
-  // If the user visits /blog, let it reach your specific blog file
-  if (request.nextUrl.pathname.startsWith('/comfyui-prompt-studio')) {
+  const { pathname } = request.nextUrl
+
+  if (DIRECT_APP_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) {
     return NextResponse.next()
   }
 
-  if (request.nextUrl.pathname.startsWith('/blog')) {
-    return NextResponse.next()
-  }
-
-  if (request.nextUrl.pathname.startsWith('/search')) {
-    return NextResponse.next()
-  }
-
-  if (request.nextUrl.pathname.startsWith('/admin')) {
-    return NextResponse.next()
-  }
-
-  if (request.nextUrl.pathname.startsWith('/sitemap.xml')) {
-    return NextResponse.next()
-  }
-
-  // Rewrite everything else to the catch-all page
-  return NextResponse.rewrite(new URL(`/page${request.nextUrl.pathname}`, request.url))
+  // Rewrite CMS pages to the catch-all Payload route
+  return NextResponse.rewrite(new URL(`/page${pathname}`, request.url))
 }
 
 export const config = {

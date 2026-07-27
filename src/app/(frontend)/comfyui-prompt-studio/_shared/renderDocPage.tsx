@@ -7,27 +7,10 @@ import { DocPageNav } from '@/app/components/comfyui-prompt-studio/DocPageNav'
 import { DocsBreadcrumbs } from '@/app/components/comfyui-prompt-studio/DocsBreadcrumbs'
 import { LandingShell } from '@/app/components/pages/PageShell'
 import { Hero } from '@/app/components/ui/Hero'
-import { CPS_GITHUB, CPS_LIVE, DOC_PAGES, getPageBySlug } from '@/content/comfyui-prompt-studio/pages'
+import { CPS_GITHUB, getPageBySlug } from '@/content/comfyui-prompt-studio/pages'
+import type { DocPage } from '@/content/comfyui-prompt-studio/types'
 
-type PageProps = {
-  params: Promise<{ slug?: string[] }>
-}
-
-export async function generateStaticParams() {
-  const params: { slug?: string[] }[] = [{}]
-  for (const page of DOC_PAGES) {
-    if (page.slug.length > 0) {
-      params.push({ slug: page.slug })
-    }
-  }
-  return params
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params
-  const page = getPageBySlug(slug)
-  if (!page) return {}
-
+export function buildDocMetadata(page: DocPage): Metadata {
   const isHub = page.slug.length === 0
 
   return {
@@ -40,14 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default async function ComfyuiPromptStudioDocPage({ params }: PageProps) {
-  const { slug } = await params
-  const page = getPageBySlug(slug)
-
-  if (!page) {
-    notFound()
-  }
-
+export function renderDocPage(page: DocPage) {
   const isHub = page.slug.length === 0
   const isMarketing = page.layout === 'marketing'
 
@@ -109,4 +85,8 @@ export default async function ComfyuiPromptStudioDocPage({ params }: PageProps) 
   )
 }
 
-export const dynamicParams = false
+export function requireDocPage(slug: string[] | undefined): DocPage {
+  const page = getPageBySlug(slug)
+  if (!page) notFound()
+  return page
+}
