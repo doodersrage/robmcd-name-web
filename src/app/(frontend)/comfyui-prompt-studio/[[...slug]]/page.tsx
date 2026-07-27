@@ -1,0 +1,112 @@
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import React from 'react'
+
+import { DocPageContent } from '@/app/components/comfyui-prompt-studio/DocPageContent'
+import { DocPageNav } from '@/app/components/comfyui-prompt-studio/DocPageNav'
+import { DocsBreadcrumbs } from '@/app/components/comfyui-prompt-studio/DocsBreadcrumbs'
+import { LandingShell } from '@/app/components/pages/PageShell'
+import { Hero } from '@/app/components/ui/Hero'
+import { CPS_GITHUB, CPS_LIVE, DOC_PAGES, getPageBySlug } from '@/content/comfyui-prompt-studio/pages'
+
+type PageProps = {
+  params: Promise<{ slug?: string[] }>
+}
+
+export async function generateStaticParams() {
+  const params: { slug?: string[] }[] = [{}]
+  for (const page of DOC_PAGES) {
+    if (page.slug.length > 0) {
+      params.push({ slug: page.slug })
+    }
+  }
+  return params
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
+  const page = getPageBySlug(slug)
+  if (!page) return {}
+
+  const isHub = page.slug.length === 0
+
+  return {
+    title: isHub ? 'ComfyUI Prompt Studio' : `${page.title} — ComfyUI Prompt Studio`,
+    description: page.description,
+    openGraph: {
+      title: page.title,
+      description: page.description,
+    },
+  }
+}
+
+export default async function ComfyuiPromptStudioDocPage({ params }: PageProps) {
+  const { slug } = await params
+  const page = getPageBySlug(slug)
+
+  if (!page) {
+    notFound()
+  }
+
+  const isHub = page.slug.length === 0
+  const isMarketing = page.layout === 'marketing'
+
+  if (isMarketing) {
+    return (
+      <LandingShell>
+        <section className="card overflow-hidden">
+          <div className="card-content border-l-4 border-slate-800 pl-6 dark:border-zinc-300">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-500">
+              {page.section}
+            </p>
+            <h1 className="page-title mt-2">{page.title}</h1>
+            <p className="mt-3 text-lg leading-relaxed text-slate-600 dark:text-zinc-400">{page.description}</p>
+          </div>
+        </section>
+        <section className="card">
+          <div className="card-content">
+            <DocPageContent page={page} showLead={false} />
+            <DocPageNav order={page.order} />
+          </div>
+        </section>
+      </LandingShell>
+    )
+  }
+
+  if (isHub) {
+    return (
+      <LandingShell>
+        <Hero
+          showStatus
+          statusLabel="Open source · ComfyUI"
+          title="ComfyUI Prompt Studio"
+          description={page.description}
+          skills={['Prompt generation', 'Gallery review', 'Workflow takeover', 'SQLite', 'TypeScript']}
+          primaryCta={{ label: 'Why Prompt Studio?', href: '/comfyui-prompt-studio/stories/sales-pitch' }}
+          secondaryCta={{ label: 'View on GitHub', href: CPS_GITHUB }}
+        />
+        <section className="card">
+          <div className="card-content">
+            <DocPageContent page={page} showLead={false} />
+            <DocPageNav order={page.order} />
+          </div>
+        </section>
+      </LandingShell>
+    )
+  }
+
+  return (
+    <article className="space-y-8 pb-16 md:space-y-12">
+      <div className="card">
+        <div className="card-content">
+          <DocsBreadcrumbs slug={page.slug} title={page.title} />
+          <h1 className="page-title">{page.title}</h1>
+          <DocPageContent page={page} />
+          <DocPageNav order={page.order} />
+        </div>
+      </div>
+    </article>
+  )
+}
+
+export const dynamicParams = false

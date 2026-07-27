@@ -6,6 +6,7 @@ import type { MetadataRoute } from 'next'
 import { getPayload, PaginatedDocs } from 'payload'
 import configPromise from '@payload-config'
 import { Page, Post } from '@/payload-types'
+import { DOC_PAGES, slugToPath } from '@/content/comfyui-prompt-studio/pages'
 import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -35,6 +36,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...pages.docs.map(({ slug, updatedAt }) => ({
       url: `${url}/${slug}`,
       lastModified: new Date(updatedAt),
+    })),
+    ...DOC_PAGES.map((page) => ({
+      url: `${url}${slugToPath(page.slug)}`,
+      lastModified: new Date(),
     })),
   ]
 }
