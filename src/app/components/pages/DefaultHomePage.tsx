@@ -41,7 +41,7 @@ export function DefaultHomePage() {
         statusLabel="20 Years of Cross-Platform Engineering & Systems Expertise"
         title="Resilient Infrastructure. Modern Codebases. Built to Last."
         gradientTitle
-        description="Hi, I'm Rob McDonald. With two decades of hands-on experience across Linux and Windows environments, I specialize in full-stack engineering, database management, and rescuing, repairing, and modernizing complex software stacks."
+        description="Hi, I'm Rob McDowell. With two decades of hands-on experience across Linux and Windows environments, I specialize in full-stack engineering, database management, and rescuing, repairing, and modernizing complex software stacks."
         primaryCta={{ label: 'Explore Capabilities', href: '#capabilities' }}
         secondaryCta={{ label: 'Get in Touch', href: SITE_LINKS.contact }}
         badgeText="Linux · Windows · Full-Stack"
