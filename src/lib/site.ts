@@ -1,20 +1,20 @@
 export const SITE_NAME = 'Robmcd.name'
 export const SITE_OWNER = 'Robert McDowell'
 export const SITE_URL = 'https://robmcd.name'
-export const SITE_TAGLINE = 'Website development · Programming · Electronics'
+export const SITE_TAGLINE = 'Cross-Platform Engineering · Legacy Modernization · Infrastructure'
 export const SITE_DESCRIPTION =
-  'Projects, tutorials, and notes on website development, programming, and electronics by Robert McDowell.'
+  'Robert McDowell — 20 years of full-stack engineering across Linux and Windows. Legacy repair, server administration, database optimization, and modern Next.js architectures.'
 export const SITE_KEYWORDS = [
   'robert mcdowell',
-  'website development',
-  'web development',
-  'programming',
-  'electronics',
-  'javascript',
-  'react',
+  'full-stack engineer',
+  'legacy modernization',
+  'linux server administration',
+  'windows server',
+  'mysql mssql',
   'next.js',
-  'node.js',
-  'embedded systems',
+  'c# dotnet',
+  'php wordpress',
+  'database administration',
 ]
 
 export const SITE_LINKS = {

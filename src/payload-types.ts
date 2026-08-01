@@ -185,6 +185,8 @@ export interface Media {
   height?: number | null;
 }
 /**
+ * Site pages. Switch a page to the Puck visual editor in the sidebar (editor version). Layout JSON is stored in puckData via the Payload Puck plugin.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */

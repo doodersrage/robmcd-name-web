@@ -33,8 +33,8 @@ async function getPage(slug?: string[]): Promise<Page | null> {
   return docs[0] || null
 }
 
-function shouldUseDefaultHome(page: Page) {
-  return page.slug === 'home' && page.editorVersion !== 'puck' && !page.puckData
+function isCodedHomePage(page: Page) {
+  return page.slug === 'home'
 }
 
 export async function generateMetadata({
@@ -44,6 +44,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const page = await getPage(slug)
+
+  if (page?.slug === 'home') {
+    return {
+      title: 'Robert McDowell — Cross-Platform Engineering & Legacy Modernization',
+      description:
+        'Resilient infrastructure and modern codebases built to last. 20 years of Linux & Windows engineering, database administration, and legacy stack repair.',
+      alternates: { canonical: '/' },
+    }
+  }
 
   return {
     title: page?.pageMeta?.headerTitle || page?.title,
@@ -61,7 +70,7 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
 
   if (!page) notFound()
 
-  if (shouldUseDefaultHome(page)) {
+  if (isCodedHomePage(page)) {
     return <DefaultHomePage />
   }
 
