@@ -66,7 +66,9 @@ export default async function Page({ params }: { params: Promise<paramsType> }) 
   }
 
   const PuckWrapper = ({ children }: { children: React.ReactNode }) => (
-    <PuckPageWrapper title={page.title}>{children}</PuckPageWrapper>
+    <PuckPageWrapper title={page.title} pageLayout={page.pageLayout ?? 'default'}>
+      {children}
+    </PuckPageWrapper>
   )
 
   return (

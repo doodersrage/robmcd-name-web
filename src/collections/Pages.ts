@@ -106,6 +106,8 @@ export const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
     useAsTitle: 'title',
+    description:
+      'Site pages. Switch a page to the Puck visual editor in the sidebar (editor version). Layout JSON is stored in puckData via the Payload Puck plugin.',
   },
   defaultSort: ['title'],
   hooks: {

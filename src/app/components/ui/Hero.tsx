@@ -1,5 +1,8 @@
-import Link from 'next/link'
 import React from 'react'
+
+import { CtaLink } from '@/app/components/ui/CtaLink'
+import { MotionReveal } from '@/app/components/ui/MotionReveal'
+import { cn } from '@/lib/cn'
 
 export type HeroCta = {
   label: string
@@ -10,61 +13,38 @@ export type HeroProps = {
   showStatus?: boolean
   statusLabel?: string
   title: string
+  gradientTitle?: boolean
   description?: string
   skills?: string[]
   primaryCta?: HeroCta | null
   secondaryCta?: HeroCta | null
   imageUrl?: string
   imageAlt?: string
-}
-
-const interactiveClasses =
-  'transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 active:scale-[0.98]'
-
-const primaryCtaClasses =
-  `inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-medium text-sm bg-slate-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-slate-800 dark:hover:bg-white hover:-translate-y-px hover:shadow-lg hover:shadow-slate-500/5 dark:hover:shadow-black/20 shadow-sm ${interactiveClasses}`
-
-const secondaryCtaClasses =
-  `inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-zinc-300 bg-transparent hover:bg-slate-100 dark:hover:bg-zinc-800/60 hover:-translate-y-px border border-slate-200 dark:border-zinc-800 ${interactiveClasses}`
-
-function HeroCtaLink({ cta, className }: { cta: HeroCta; className: string }) {
-  const isExternal = /^https?:\/\//.test(cta.href)
-
-  if (isExternal) {
-    return (
-      <a href={cta.href} className={className} target="_blank" rel="noopener noreferrer">
-        {cta.label}
-      </a>
-    )
-  }
-
-  return (
-    <Link href={cta.href} className={className}>
-      {cta.label}
-    </Link>
-  )
+  badgeText?: string
 }
 
 export function Hero({
   showStatus = true,
   statusLabel,
   title,
+  gradientTitle = false,
   description,
   skills = [],
   primaryCta,
   secondaryCta,
   imageUrl,
   imageAlt,
+  badgeText,
 }: HeroProps) {
   const hasCtas = Boolean(primaryCta?.label && primaryCta.href) || Boolean(secondaryCta?.label && secondaryCta.href)
   const visibleSkills = skills.map((skill) => skill.trim()).filter(Boolean)
 
   return (
-    <section className="not-prose">
+    <MotionReveal as="section" className="not-prose" stagger={false}>
       <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
         <div className="space-y-6 lg:col-span-7">
           {showStatus && statusLabel ? (
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600 backdrop-blur-md dark:text-emerald-400">
               <span aria-hidden="true" className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -73,12 +53,18 @@ export function Hero({
             </div>
           ) : null}
 
-          <h1 className="page-title">{title}</h1>
+          <h1
+            className={cn(
+              'page-title',
+              gradientTitle &&
+                'bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 bg-clip-text text-transparent dark:from-indigo-400 dark:via-violet-400 dark:to-purple-400',
+            )}
+          >
+            {title}
+          </h1>
 
           {description ? (
-            <p className="max-w-xl text-base leading-relaxed text-slate-600 dark:text-zinc-400">
-              {description}
-            </p>
+            <p className="max-w-xl text-base leading-relaxed text-slate-600 dark:text-zinc-400">{description}</p>
           ) : null}
 
           {visibleSkills.length > 0 ? (
@@ -94,18 +80,23 @@ export function Hero({
           {hasCtas ? (
             <div className="flex flex-wrap items-center gap-3 pt-1">
               {primaryCta?.label && primaryCta.href ? (
-                <HeroCtaLink cta={primaryCta} className={primaryCtaClasses} />
+                <CtaLink label={primaryCta.label} href={primaryCta.href} variant="gradient" />
               ) : null}
               {secondaryCta?.label && secondaryCta.href ? (
-                <HeroCtaLink cta={secondaryCta} className={secondaryCtaClasses} />
+                <CtaLink label={secondaryCta.label} href={secondaryCta.href} variant="secondary" />
               ) : null}
             </div>
           ) : null}
         </div>
 
-        <div className="lg:col-span-5">
+        <div className="relative lg:col-span-5">
+          {badgeText ? (
+            <div className="absolute -left-2 top-4 z-10 hidden rounded-xl border border-slate-200/80 bg-white/90 px-3 py-2 text-xs font-medium text-slate-700 shadow-lg backdrop-blur-md md:block dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-200">
+              {badgeText}
+            </div>
+          ) : null}
           {imageUrl ? (
-            <div className="hover-lift overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-900/80">
+            <div className="hover-lift overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 shadow-2xl shadow-indigo-500/10 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-900/80">
               <img
                 src={imageUrl}
                 alt={imageAlt || title}
@@ -115,11 +106,11 @@ export function Hero({
           ) : (
             <div
               aria-hidden="true"
-              className="hover-lift aspect-[4/3] rounded-2xl border border-slate-200/80 bg-gradient-to-br from-indigo-500/10 via-slate-100/80 to-zinc-900/40 shadow-sm backdrop-blur-md dark:border-zinc-800/80 dark:from-indigo-500/20 dark:via-zinc-900/80 dark:to-zinc-950/80"
+              className="hover-lift aspect-[4/3] rounded-2xl border border-slate-200/80 bg-gradient-to-br from-indigo-500/15 via-slate-100/80 to-violet-500/10 shadow-2xl shadow-indigo-500/10 backdrop-blur-md dark:border-zinc-800/80 dark:from-indigo-500/25 dark:via-zinc-900/80 dark:to-violet-500/15"
             />
           )}
         </div>
       </div>
-    </section>
+    </MotionReveal>
   )
 }
