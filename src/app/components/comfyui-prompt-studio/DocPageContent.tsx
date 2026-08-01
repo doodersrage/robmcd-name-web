@@ -23,7 +23,7 @@ function DocBlockRenderer({
       return <h3 className="text-xl font-semibold text-slate-900 dark:text-zinc-100 pt-2">{block.text}</h3>
     case 'ul':
       return (
-        <ul className="list-disc space-y-2 pl-5 text-base leading-relaxed text-slate-600 dark:text-zinc-400">
+        <ul className="list-disc space-y-2 pl-5 text-base leading-relaxed text-slate-600 marker:text-slate-400 dark:text-zinc-400 dark:marker:text-zinc-600">
           {block.items.map((item) => (
             <li key={item}>{item}</li>
           ))}
@@ -60,7 +60,7 @@ function DocBlockRenderer({
       )
     case 'links':
       return (
-        <ul className="flex flex-wrap gap-3">
+        <ul className="flex list-none flex-wrap gap-3 pl-0">
           {block.items.map((item) =>
             item.external ? (
               <li key={item.href}>
@@ -180,7 +180,7 @@ export function DocPageContent({ page, showLead = true }: { page: DocPage; showL
   const inlineInteractive = pageUsesInteractiveSlot(page)
 
   return (
-    <div className="prose-site space-y-6">
+    <div className="doc-content space-y-6">
       {showLead ? (
         <p className="text-lg leading-relaxed text-slate-600 dark:text-zinc-400">{page.description}</p>
       ) : null}
@@ -191,7 +191,7 @@ export function DocPageContent({ page, showLead = true }: { page: DocPage; showL
       {page.related && page.related.length > 0 ? (
         <div className="border-t border-slate-200/80 dark:border-zinc-800/80 pt-8">
           <h2 className="text-lg font-bold text-slate-900 dark:text-zinc-100">Related</h2>
-          <ul className="mt-3 flex flex-wrap gap-2">
+          <ul className="mt-3 flex list-none flex-wrap gap-2 pl-0">
             {page.related.map((rel) => (
               <li key={rel}>
                 <Link href={slugToPath(rel.split('/'))} className="skill-pill hover-lift">
