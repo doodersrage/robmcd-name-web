@@ -20,6 +20,7 @@ import { createPuckPlugin } from '@delmaredigital/payload-puck/plugin'
 import { validateTurnstile } from './hooks/validateTurnstile'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,9 +30,9 @@ const isCLI = process.argv.some((value) => realpath(value).endsWith(path.join('p
 const isProduction = process.env.NODE_ENV === 'production'
 // During `next build`, Payload config is evaluated to collect admin route metadata.
 const isNextBuild = process.env.NEXT_PHASE === 'phase-production-build'
-// Remote preview sessions fail in Cloudflare Pages/Workers builds. Only opt in locally
-// (e.g. `WRANGLER_REMOTE_BINDINGS=1 pnpm run deploy:database`) when applying migrations.
-const useRemoteBindings = process.env.WRANGLER_REMOTE_BINDINGS === '1'
+// Remote preview sessions are unavailable on this Cloudflare account — never enable here.
+// Production migrations run via prodMigrations on worker startup (real D1 binding).
+const useRemoteBindings = false
 
 const createLog =
   (level: string, fn: typeof console.log) => (objOrMsg: object | string, msg?: string) => {
@@ -74,7 +75,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
+  db: sqliteD1Adapter({ binding: cloudflare.env.D1, prodMigrations: migrations }),
   logger: isProduction ? cloudflareLogger : undefined,
   jobs: {
     autoRun: [

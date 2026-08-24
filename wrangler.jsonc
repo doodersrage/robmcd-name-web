@@ -20,7 +20,6 @@
       "binding": "D1",
       "database_id": "9c3ac6dc-aceb-4e92-bc86-10d4f3289056",
       "database_name": "robmcd-name",
-      "remote": true,
       "migrations_dir": "src/migrations",
     },
   ],
