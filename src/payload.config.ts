@@ -28,16 +28,10 @@ const realpath = (value: string) => (fs.existsSync(value) ? fs.realpathSync(valu
 const isCLI = process.argv.some((value) => realpath(value).endsWith(path.join('payload', 'bin.js')))
 const isProduction = process.env.NODE_ENV === 'production'
 // During `next build`, Payload config is evaluated to collect admin route metadata.
-// Use local Wrangler bindings here so CI does not need a remote edge-preview session.
 const isNextBuild = process.env.NEXT_PHASE === 'phase-production-build'
-// Remote preview sessions fail on Cloudflare Pages builds and during payload CLI in CI.
-const disableRemotePreview =
-  isNextBuild ||
-  isCLI ||
-  process.env.WRANGLER_DISABLE_REMOTE_BINDINGS === '1' ||
-  process.env.CI === 'true' ||
-  process.env.CI === '1' ||
-  Boolean(process.env.CF_PAGES)
+// Remote preview sessions fail in Cloudflare Pages/Workers builds. Only opt in locally
+// (e.g. `WRANGLER_REMOTE_BINDINGS=1 pnpm run deploy:database`) when applying migrations.
+const useRemoteBindings = process.env.WRANGLER_REMOTE_BINDINGS === '1'
 
 const createLog =
   (level: string, fn: typeof console.log) => (objOrMsg: object | string, msg?: string) => {
@@ -203,7 +197,7 @@ function getCloudflareContextFromWrangler(): Promise<CloudflareContext> {
     ({ getPlatformProxy }) =>
       getPlatformProxy({
         environment: process.env.CLOUDFLARE_ENV,
-        remoteBindings: isProduction && !disableRemotePreview,
+        remoteBindings: useRemoteBindings,
         envFiles: [],
       } satisfies GetPlatformProxyOptions),
   )

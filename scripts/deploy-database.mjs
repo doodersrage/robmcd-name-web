@@ -29,7 +29,9 @@ if (isCI) {
     '[deploy:database] Run `pnpm run deploy:database` locally before deploy when you add Payload migrations.',
   )
 } else {
-  run('cross-env NODE_ENV=production PAYLOAD_SECRET=ignore payload migrate')
+  run(
+    'cross-env NODE_ENV=production PAYLOAD_SECRET=ignore WRANGLER_REMOTE_BINDINGS=1 payload migrate',
+  )
 }
 
 run(`wrangler d1 execute D1 --command 'PRAGMA optimize' ${envFlag} --remote`.trim())
