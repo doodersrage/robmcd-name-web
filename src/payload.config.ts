@@ -30,6 +30,14 @@ const isProduction = process.env.NODE_ENV === 'production'
 // During `next build`, Payload config is evaluated to collect admin route metadata.
 // Use local Wrangler bindings here so CI does not need a remote edge-preview session.
 const isNextBuild = process.env.NEXT_PHASE === 'phase-production-build'
+// Remote preview sessions fail on Cloudflare Pages builds and during payload CLI in CI.
+const disableRemotePreview =
+  isNextBuild ||
+  isCLI ||
+  process.env.WRANGLER_DISABLE_REMOTE_BINDINGS === '1' ||
+  process.env.CI === 'true' ||
+  process.env.CI === '1' ||
+  Boolean(process.env.CF_PAGES)
 
 const createLog =
   (level: string, fn: typeof console.log) => (objOrMsg: object | string, msg?: string) => {
@@ -195,7 +203,7 @@ function getCloudflareContextFromWrangler(): Promise<CloudflareContext> {
     ({ getPlatformProxy }) =>
       getPlatformProxy({
         environment: process.env.CLOUDFLARE_ENV,
-        remoteBindings: isProduction && !isNextBuild,
+        remoteBindings: isProduction && !disableRemotePreview,
         envFiles: [],
       } satisfies GetPlatformProxyOptions),
   )

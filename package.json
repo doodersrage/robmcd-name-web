@@ -9,7 +9,7 @@
     "build:puck-css": "node scripts/build-puck-css.mjs",
     "deploy": "pnpm run deploy:database && pnpm run deploy:app",
     "deploy:app": "pnpm run build:puck-css && opennextjs-cloudflare build --env=$CLOUDFLARE_ENV && opennextjs-cloudflare deploy --env=$CLOUDFLARE_ENV",
-    "deploy:database": "cross-env NODE_ENV=production PAYLOAD_SECRET=ignore payload migrate && wrangler d1 execute D1 --command 'PRAGMA optimize' --env=$CLOUDFLARE_ENV --remote",
+    "deploy:database": "node scripts/deploy-database.mjs",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "predev": "pnpm run build:puck-css",
     "devsafe": "rm -rf .next && rm -rf .open-next && cross-env NODE_OPTIONS=--no-deprecation next dev",
