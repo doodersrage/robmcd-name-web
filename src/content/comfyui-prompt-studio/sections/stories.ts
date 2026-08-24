@@ -1,17 +1,17 @@
-import { GH, LIVE, p, page } from '../helpers'
+import { DOCS_BASE_PATH, GH, LIVE, p, page } from '../helpers'
 
 export const storiesPages = [
   page(
     ['stories', 'sales-pitch'],
     'Why Prompt Studio?',
-    'A self-hosted prompt control plane for ComfyUI — 25+ tools, 40+ model targets, gallery review, and queue-time workflow takeover.',
+    'A self-hosted prompt control plane for ComfyUI and cloud engines — 28+ tools, 40+ model targets, Cast, Roleplay, and queue-time workflow takeover.',
     'Sales & stories',
     -2,
     [
       { type: 'h2', text: 'The problem every ComfyUI power user hits' },
       ...p(
         'ComfyUI is unmatched at turning checkpoints into pixels, but it was never designed to be a prompt CMS. Most teams end up with prompts scattered across CLIP node text fields, Discord threads, and spreadsheets — while negatives, character bibles, and “what worked last Tuesday” live nowhere central. Every model family wants different prose: FLUX expects subject-first photographic language, SDXL wants scene descriptions, Qwen Edit expects short imperatives, and WAN video needs motion-forward clauses.',
-        'Prompt Studio closes that gap without replacing ComfyUI. It owns the words, the lint rules, the gallery metadata, and the queue handoff; ComfyUI still owns the graphs, samplers, and VRAM. The app is MIT-licensed, runs on Node.js 22+, and stores production data locally — IndexedDB in the browser for settings, history, and gallery, with server-side persistence and optional multi-user auth when you expose it to a team.',
+        'Prompt Studio closes that gap without replacing ComfyUI or locking you into one cloud vendor. It owns the words, the lint rules, the gallery metadata, Cast homes, and the queue handoff; ComfyUI still owns local graphs when you want them, and Fal/Replicate/Grok/Gemini cover clips when you do not. The app is MIT-licensed, runs on Node.js 22+ or desktop installers, and stores production data locally — IndexedDB in the browser for settings, history, and gallery, with server-side persistence and optional multi-user auth when you expose it to a team.',
       ),
       { type: 'h2', text: 'Before & after' },
       {
@@ -25,9 +25,9 @@ export const storiesPages = [
       {
         type: 'stats',
         items: [
-          { value: '25+', label: 'Tool routes', detail: 'Generate through Plugins' },
+          { value: '28+', label: 'Tool routes', detail: 'Generate through Plugins & Mobile' },
           { value: '40+', label: 'Model targets', detail: 'FLUX, Qwen, Z-Image, SDXL, video…' },
-          { value: '3', label: 'Workspace modes', detail: 'Simple · Studio · Full' },
+          { value: '4', label: 'Workspace modes', detail: 'Simple · Play · Studio · Full' },
           { value: 'MIT', label: 'License', detail: 'Self-hosted, no cloud lock-in' },
         ],
       },
@@ -37,8 +37,10 @@ export const storiesPages = [
         items: [
           'Keywords or random surprise on Generate (`/`), then Format (`/format`) to adapt drafts for any selected architecture',
           'Dedicated Lint (`/lint`) and Refine (`/refine`) with image + intent hints before you burn GPU time',
-          'Character, Pet, Fantasy, Background, Topics, and Compose for structured subject + scene work',
+          'Character, Pet, Fantasy, Cast (`/characters`), Roleplay (`/roleplay`), Background, Topics, and Compose',
+          'Mobile Studio (`/m`) — capture plates, watch queue, rate gallery, Roleplay from photo',
           'Image → Prompt (`/image-prompt`) via vision LLM; Inpaint/Outpaint with `{{INPUT_IMAGE}}` / `{{MASK_IMAGE}}` tokens',
+          'Cloud engines — Fal, Replicate, ChatGPT, Gemini, Grok via Settings → Inference engine',
           'Gallery (`/gallery`) with grid/dense/list layouts, review focus, compare modal, and semantic search',
           'Workflow takeover at queue time plus optional custom nodes under `comfyui/comfyui_image_prompt_tools/`',
           'Studio (`/studio`) for history, iteration trees, campaigns, analytics, templates, and portfolio export',
@@ -47,15 +49,15 @@ export const storiesPages = [
       },
       { type: 'h2', text: 'Who this is for' },
       ...p(
-        'Indie creators shipping character IP, studios batching ComfyUI on local or remote GPUs, and technical artists who need repeatable prompts without rebuilding graphs every week. If you already run ComfyUI and an LLM (local or API), Prompt Studio is the missing text layer — not another closed SaaS generator.',
+        'Indie creators shipping character IP, studios batching ComfyUI on local or remote GPUs, and technical artists who need repeatable prompts without rebuilding graphs every week. If you already run ComfyUI and an LLM (local or API), Prompt Studio is the missing text layer — with optional cloud stills/clips and desktop installs, not another closed SaaS generator.',
       ),
       { type: 'h2', text: 'Start now' },
       {
         type: 'links',
         items: [
           { label: 'GitHub repository', href: GH, external: true },
-          { label: 'Quick start guide', href: '/comfyui-prompt-studio/getting-started/quick-start' },
-          { label: 'Read the case study', href: '/comfyui-prompt-studio/stories/case-study' },
+          { label: 'Quick start guide', href: `${DOCS_BASE_PATH}/getting-started/quick-start` },
+          { label: 'Read the case study', href: `${DOCS_BASE_PATH}/stories/case-study` },
           { label: 'Open dashboard (local)', href: `${LIVE}/dashboard`, external: true },
         ],
       },
@@ -66,10 +68,16 @@ export const storiesPages = [
   page(
     ['stories', 'case-study'],
     'Case study: episodic FLUX → SDXL series',
-    'How structured campaigns, lint, and gallery review cut wasted renders when shipping a 12-episode character series.',
+    'Illustrative scenario — how structured campaigns, lint, and gallery review cut wasted renders.',
     'Sales & stories',
     -1,
     [
+      {
+        type: 'callout',
+        variant: 'info',
+        title: 'Illustrative scenario',
+        text: 'This walkthrough is a composite example based on common Prompt Studio workflows — not a named client engagement.',
+      },
       { type: 'h2', text: 'Profile' },
       {
         type: 'stats',
@@ -120,15 +128,15 @@ export const storiesPages = [
       {
         type: 'quote',
         text: 'The campaign + Topics combo was the unlock — I set up all twelve episode hooks once, ran Draft batches on weeknights, and only promoted winners to Final on weekends.',
-        attribution: 'Maya Chen',
-        role: 'Case study subject',
+        attribution: 'Composite scenario',
+        role: 'Illustrative workflow',
       },
       {
         type: 'links',
         items: [
-          { label: 'Studio campaigns', href: '/comfyui-prompt-studio/studio/campaigns-scheduled' },
-          { label: 'Gallery review mode', href: '/comfyui-prompt-studio/gallery/review-mode' },
-          { label: 'Workflow takeover', href: '/comfyui-prompt-studio/integration/workflow-takeover' },
+          { label: 'Studio campaigns', href: `${DOCS_BASE_PATH}/studio/campaigns-scheduled` },
+          { label: 'Gallery review mode', href: `${DOCS_BASE_PATH}/gallery/review-mode` },
+          { label: 'Workflow takeover', href: `${DOCS_BASE_PATH}/integration/workflow-takeover` },
           { label: 'View on GitHub', href: GH, external: true },
         ],
       },

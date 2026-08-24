@@ -1,47 +1,52 @@
-import { GH, LIVE, p, page } from '../helpers'
+import { DOCS_BASE_PATH, DOCS_SITE, GH, LIVE, RELEASES, p, page } from '../helpers'
 
 export const hubPages = [
   page(
     [],
-    'ComfyUI Prompt Studio',
-    'Model-aware prompt generation, refinement, and orchestration for ComfyUI — documentation hub.',
+    'LLM Prompt Studio',
+    'Model-aware prompts for image, video, audio, and 3D — ComfyUI, cloud engines, Cast, and gallery orchestration.',
     'Hub',
     0,
     [
       ...p(
-        'ComfyUI Prompt Studio is a self-hosted Next.js app that turns keywords or topics into model-specific prompts for image, video, audio, and 3D workflows. ComfyUI remains the render engine; Prompt Studio owns the words, lint rules, gallery metadata, and queue-time workflow handoff.',
-        'The app ships 25+ tool routes, 40+ ComfyUI model targets, three workspace modes (Simple · Studio · Full), and local-first persistence — IndexedDB via Dexie in the browser for settings, history, and gallery, with server-side SQLite and optional multi-user auth when you expose it to a team.',
+        'LLM Prompt Studio (canonical repo: github.com/doodersrage/llm-prompt-studio; the old comfyui-prompt-studio name redirects here) is a self-hosted Next.js app that turns keywords or topics into model-specific prompts for image, video, audio, and 3D workflows. ComfyUI remains the primary local render engine; optional cloud engines (Fal, Replicate, ChatGPT, Gemini, Grok) and Diffusers cover stills and clips when you skip the graph editor.',
+        'The app ships 28+ tool routes, 40+ model targets, four workspace modes (Simple · Play · Studio · Full), desktop installers, Docker images, and local-first persistence — IndexedDB via Dexie in the browser for settings, history, and gallery, with server-side SQLite and optional multi-user auth when you expose it to a team.',
       ),
       {
         type: 'callout',
         variant: 'info',
-        title: 'Live instance',
-        text: `When running locally, open the dashboard at ${LIVE}/dashboard or the gallery at ${LIVE}/gallery. Requires Node.js 22+. Source and full README on GitHub.`,
+        title: 'Get it running',
+        text: `Local dev: ${LIVE} (Node.js 22+). Desktop: GitHub Releases (.dmg / .exe / .deb). Docker: ghcr.io/doodersrage/llm-prompt-studio:latest. Full searchable docs at ${DOCS_SITE}.`,
       },
       {
         type: 'links',
         items: [
           { label: 'GitHub repository', href: GH, external: true },
+          { label: 'GitHub Releases (desktop)', href: RELEASES, external: true },
+          { label: 'Official docs site', href: DOCS_SITE, external: true },
           { label: 'Open dashboard (local)', href: `${LIVE}/dashboard`, external: true },
-          { label: 'Open gallery (local)', href: `${LIVE}/gallery`, external: true },
         ],
       },
       { type: 'h2', text: 'What this guide covers' },
       {
         type: 'ul',
         items: [
-          'Sales pitch and case study for production ComfyUI workflows',
-          'Tool routes from Generate through Gallery, Studio, and Integration',
+          'Sales pitch and case study for production ComfyUI and cloud hybrid workflows',
+          'Tool routes from Generate through Cast, Roleplay, Mobile Studio, Gallery, and Integration',
           '40+ model families — FLUX, Qwen, Z-Image, Boogu, SDXL, WAN video, Stable Audio, Hunyuan3D',
-          'Interactive demos for workspace modes, quality profiles, tool routes, and API endpoints',
+          'Play mode, cloud inference engines, desktop/Docker install, and interactive demos',
         ],
       },
+      { type: 'h2', text: 'Documentation on this site vs GitHub' },
+      ...p(
+        'This section on robmcd.name is the narrative hub — sales pitch, case study, interactive demos, and guided tool docs. Operator reference (env tables, API catalog, release process) lives on the official GitHub Pages docs site linked below. Bookmark both: this hub for onboarding and storytelling, GitHub Pages for day-to-day ops lookup.',
+      ),
       {
         type: 'links',
         items: [
-          { label: 'Why Prompt Studio? (sales pitch)', href: '/comfyui-prompt-studio/stories/sales-pitch' },
-          { label: 'Quick start (Node 22+)', href: '/comfyui-prompt-studio/getting-started/quick-start' },
-          { label: 'Tools table & routes', href: '/comfyui-prompt-studio/introduction/feature-map' },
+          { label: 'Why Prompt Studio? (sales pitch)', href: `${DOCS_BASE_PATH}/stories/sales-pitch` },
+          { label: 'Quick start (Node 22+)', href: `${DOCS_BASE_PATH}/getting-started/quick-start` },
+          { label: 'Tools table & routes', href: `${DOCS_BASE_PATH}/introduction/feature-map` },
         ],
       },
     ],

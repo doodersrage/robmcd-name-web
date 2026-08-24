@@ -7,14 +7,14 @@ import { DocPageNav } from '@/app/components/comfyui-prompt-studio/DocPageNav'
 import { DocsBreadcrumbs } from '@/app/components/comfyui-prompt-studio/DocsBreadcrumbs'
 import { LandingShell } from '@/app/components/pages/PageShell'
 import { Hero } from '@/app/components/ui/Hero'
-import { CPS_GITHUB, getPageBySlug } from '@/content/comfyui-prompt-studio/pages'
+import { CPS_GITHUB, DOCS_BASE_PATH, getPageBySlug } from '@/content/comfyui-prompt-studio/helpers'
 import type { DocPage } from '@/content/comfyui-prompt-studio/types'
 
 export function buildDocMetadata(page: DocPage): Metadata {
   const isHub = page.slug.length === 0
 
   return {
-    title: isHub ? 'ComfyUI Prompt Studio' : `${page.title} — ComfyUI Prompt Studio`,
+    title: isHub ? 'LLM Prompt Studio' : `${page.title} — LLM Prompt Studio`,
     description: page.description,
     openGraph: {
       title: page.title,
@@ -54,11 +54,11 @@ export function renderDocPage(page: DocPage) {
       <LandingShell>
         <Hero
           showStatus
-          statusLabel="Open source · ComfyUI"
-          title="ComfyUI Prompt Studio"
+          statusLabel="Open source · ComfyUI + cloud"
+          title="LLM Prompt Studio"
           description={page.description}
-          skills={['Prompt generation', 'Gallery review', 'Workflow takeover', 'SQLite', 'TypeScript']}
-          primaryCta={{ label: 'Why Prompt Studio?', href: '/comfyui-prompt-studio/stories/sales-pitch' }}
+          skills={['Prompt generation', 'Cast & Roleplay', 'Cloud engines', 'Gallery review', 'Workflow takeover']}
+          primaryCta={{ label: 'Why Prompt Studio?', href: `${DOCS_BASE_PATH}/stories/sales-pitch` }}
           secondaryCta={{ label: 'View on GitHub', href: CPS_GITHUB }}
         />
         <section className="card">

@@ -65,9 +65,18 @@ export function DefaultHomePage() {
       </div>
 
       <ProjectShowcase
-        title="Selected Client Work"
-        description="A snapshot of legacy rescues, server migrations, and modern web platforms I've architected."
+        eyebrow="Open source"
+        title="Built & shipped"
+        description="Tools and platforms from the workbench — including production docs on this site."
         projects={[
+          {
+            title: 'LLM Prompt Studio',
+            tagline: 'ComfyUI + cloud prompt orchestration for image, video, audio, and 3D.',
+            description:
+              'Self-hosted Next.js app with 28+ tool routes, Cast & Roleplay, gallery review, workflow takeover, and desktop/Docker installs. MIT-licensed.',
+            href: SITE_LINKS.promptStudio,
+            linkLabel: 'Read the docs',
+          },
           {
             title: 'Cross-Platform Server & Database Migration',
             tagline: 'Server stabilization and database tuning for mission-critical enterprise systems.',

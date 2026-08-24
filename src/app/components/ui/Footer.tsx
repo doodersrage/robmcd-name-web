@@ -44,6 +44,22 @@ const Footer = () => {
                   About
                 </Link>
               </li>
+              <li>
+                <Link
+                  href={SITE_LINKS.promptStudio}
+                  className="text-link text-sm text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                >
+                  LLM Prompt Studio
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={SITE_LINKS.projects}
+                  className="text-link text-sm text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                >
+                  Projects
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -15,6 +15,9 @@ export const SITE_KEYWORDS = [
   'c# dotnet',
   'php wordpress',
   'database administration',
+  'prompt studio',
+  'comfyui',
+  'llm tooling',
 ]
 
 export const SITE_LINKS = {
@@ -23,4 +26,6 @@ export const SITE_LINKS = {
   contact: '/contact',
   blog: '/blog',
   projects: '/projects',
+  promptStudio: '/llm-prompt-studio',
+  promptStudioGithub: 'https://github.com/doodersrage/llm-prompt-studio',
 } as const

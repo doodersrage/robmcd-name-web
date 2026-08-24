@@ -1,12 +1,40 @@
 import type { DocBlock, DocPage, DocSection } from './types'
 
-export const GH = 'https://github.com/doodersrage/comfyui-prompt-studio'
+export const GH = 'https://github.com/doodersrage/llm-prompt-studio'
 export const LIVE = 'http://localhost:47832'
 export const DOCS = `${GH}/tree/main/docs`
+export const DOCS_SITE = 'https://doodersrage.github.io/llm-prompt-studio'
+export const RELEASES = `${GH}/releases`
+export const DOCKER_IMAGE = 'ghcr.io/doodersrage/llm-prompt-studio:latest'
+export const DOCS_BASE_PATH = '/llm-prompt-studio'
+/** Legacy path — still routed; prefer DOCS_BASE_PATH in new links */
+export const LEGACY_DOCS_BASE_PATH = '/comfyui-prompt-studio'
 export const CPS_GITHUB = GH
 export const CPS_LIVE = LIVE
 
+const SECTION_ORDER = [
+  'Hub',
+  'Sales & stories',
+  'Introduction',
+  'Getting started',
+  'Generate',
+  'Format & lint',
+  'Character',
+  'Play',
+  'Image tools',
+  'Media',
+  'Studio',
+  'Gallery',
+  'Models',
+  'Integration',
+]
+
 let docPagesRef: DocPage[] = []
+
+function sectionIndex(section: string): number {
+  const i = SECTION_ORDER.indexOf(section)
+  return i === -1 ? 999 : i
+}
 
 export function setDocPages(pages: DocPage[]): void {
   docPagesRef = pages
@@ -29,8 +57,8 @@ export function page(
 }
 
 export function slugToPath(slug: string[]): string {
-  if (slug.length === 0) return '/comfyui-prompt-studio'
-  return `/comfyui-prompt-studio/${slug.join('/')}`
+  if (slug.length === 0) return DOCS_BASE_PATH
+  return `${DOCS_BASE_PATH}/${slug.join('/')}`
 }
 
 export function slugKey(slug: string[]): string {
@@ -43,24 +71,12 @@ export function getPageBySlug(slug: string[] | undefined): DocPage | undefined {
 }
 
 export function getAllPages(): DocPage[] {
-  return [...docPagesRef].sort((a, b) => a.order - b.order)
+  return [...docPagesRef].sort((a, b) => {
+    const bySection = sectionIndex(a.section) - sectionIndex(b.section)
+    if (bySection !== 0) return bySection
+    return a.order - b.order
+  })
 }
-
-const SECTION_ORDER = [
-  'Hub',
-  'Sales & stories',
-  'Introduction',
-  'Getting started',
-  'Generate',
-  'Format & lint',
-  'Character',
-  'Image tools',
-  'Media',
-  'Studio',
-  'Gallery',
-  'Models',
-  'Integration',
-]
 
 export function getSections(): DocSection[] {
   const map = new Map<string, DocPage[]>()

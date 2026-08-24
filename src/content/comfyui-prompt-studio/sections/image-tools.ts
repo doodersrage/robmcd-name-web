@@ -57,14 +57,14 @@ export const imageToolsPages = [
     27,
     [
       ...p(
-        'Compose (`/compose`) handles multi-image transfer and edit — merge references, apply regional edits, and optionally lock identity across variations. Gallery re-edit handoffs let you send a reviewed frame back into Compose without losing lineage.',
+        'Compose (`/compose`) handles multi-image transfer and edit — merge references, apply regional edits, optionally **Isolate on white** for Image 1 (clean character plates for Cast and Mobile Studio), and lock identity across variations. Gallery re-edit handoffs let you send a reviewed frame back into Compose without losing lineage.',
         'Architecture-specific paths: Qwen ReferenceLatent for multi-ref, Z-Image Figure 1 VAEEncode for img2img, Boogu TextEncodeBooguEdit for instruction TI2I. Separate content vs style clauses for clearer CLIP encoding when doing style transfer.',
       ),
       { type: 'h2', text: 'Identity lock' },
       {
         type: 'ul',
         items: [
-          'Preserve face/outfit tokens across reference swaps',
+          'Isolate on white for Image 1 — Cast and Mobile Studio plate capture',
           'Regional edit limits changes to masked areas',
           'Pair with Variations matrix for controlled sweeps',
         ],

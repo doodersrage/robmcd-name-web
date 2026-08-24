@@ -6,20 +6,26 @@ const MODES = [
   {
     id: 'simple',
     label: 'Simple',
-    description: 'Generate, format, character basics, and gallery — ideal for daily use.',
-    tools: ['Generate', 'Format', 'Character', 'Gallery'],
+    description: 'Default mode — essentials plus More tools, advanced sections collapsed. History, Compare, Templates, Presets, and Analytics stay available in Studio tabs.',
+    tools: ['Generate', 'Format', 'Character', 'Gallery', 'More tools'],
+  },
+  {
+    id: 'play',
+    label: 'Play',
+    description: 'Cast, Roleplay, Gallery, and Queue in a lean sidebar — narrative stills and clips without the full Edit/Media/Library rail.',
+    tools: ['Cast', 'Roleplay', 'Gallery', 'Queue', 'Mobile `/m`'],
   },
   {
     id: 'studio',
     label: 'Studio',
-    description: 'History, compare, templates, campaigns, and analytics for series work.',
-    tools: ['History', 'Compare', 'Templates', 'Campaigns', 'Analytics'],
+    description: 'Edit / Media / Library groups with collapsed advanced sections — campaigns, analytics, and full tool access.',
+    tools: ['Edit group', 'Media group', 'Library', 'All Studio tabs'],
   },
   {
     id: 'full',
     label: 'Full',
-    description: 'Workflow editor, media tools, mesh, and advanced queue control.',
-    tools: ['Workflow editor', 'Video', 'Audio', 'Mesh', 'Queue'],
+    description: 'Same groups as Studio, expanded by default — quality sections open, workflow editor and media tools prominent.',
+    tools: ['Workflow editor', 'Video', 'Audio', 'Mesh', 'Advanced queue'],
   },
 ] as const
 
@@ -29,6 +35,9 @@ export function WorkspaceModeDemo() {
 
   return (
     <div className="not-prose my-8 space-y-4">
+      <p className="text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
+        Four workspace modes — switch from the sidebar footer or Profile → Appearance.
+      </p>
       <div className="flex flex-wrap gap-2">
         {MODES.map((m) => (
           <button

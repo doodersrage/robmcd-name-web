@@ -4,13 +4,13 @@ export const mediaPages = [
   page(
     ['media', 'video'],
     'Video prompts',
-    'Motion and camera language for WAN, Hunyuan Video, and LTX.',
+    'Motion and camera language for WAN / Hunyuan / LTX locally, or Fal / Replicate / Grok / Gemini clips in the cloud.',
     'Media',
     30,
     [
       ...p(
-        'Video (`/video`) targets motion-forward language for WAN 2.2, Rapid AIO, Lightning, Hunyuan Video, and LTX architectures. Lint enforces frame-safe descriptions and strips static-only photography tags that confuse T2V and I2V scaffolds.',
-        'System scaffolds and asset catalog entries live under Settings → ComfyUI. T2V and I2V queue paths use family-specific recipes; pair with Draft quality for motion exploration and Final for delivery clips.',
+        'Video (`/video`) targets motion-forward language for WAN 2.2, Rapid AIO, Lightning, Hunyuan Video, and LTX when queueing through ComfyUI. The same tool routes cloud clips through Fal, Replicate, Grok, or Gemini — T2V, I2V, and extend paths — when Settings → Inference engine is configured.',
+        'Lint enforces frame-safe descriptions and strips static-only photography tags that confuse T2V and I2V scaffolds. Roleplay **Continue** chains Fal extend-video when the parent clip is Fal; otherwise last-frame I2V applies. Pair Draft quality for motion exploration and Final for delivery clips.',
       ),
       { type: 'h2', text: 'Video prompt style' },
       {
@@ -23,7 +23,7 @@ export const mediaPages = [
         ],
       },
     ],
-    { related: ['models/video-audio-architectures', 'format-and-lint/lint'] },
+    { related: ['integration/cloud-engines', 'play/roleplay', 'models/video-audio-architectures'] },
   ),
 
   page(

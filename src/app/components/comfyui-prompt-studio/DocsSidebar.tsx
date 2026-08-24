@@ -4,10 +4,19 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
+import { DocsSearch } from '@/app/components/comfyui-prompt-studio/DocsSearch'
+import { DOCS_BASE_PATH, LEGACY_DOCS_BASE_PATH } from '@/content/comfyui-prompt-studio/helpers'
 import { getSections, slugToPath } from '@/content/comfyui-prompt-studio/pages'
 
+function normalizeDocsPath(pathname: string): string {
+  if (pathname === LEGACY_DOCS_BASE_PATH || pathname.startsWith(`${LEGACY_DOCS_BASE_PATH}/`)) {
+    return pathname.replace(LEGACY_DOCS_BASE_PATH, DOCS_BASE_PATH)
+  }
+  return pathname
+}
+
 export function DocsSidebar() {
-  const pathname = usePathname()
+  const pathname = normalizeDocsPath(usePathname() ?? '')
   const sections = getSections()
   const [open, setOpen] = useState(false)
 
@@ -59,6 +68,7 @@ export function DocsSidebar() {
           open ? 'block' : 'hidden lg:block'
         }`}
       >
+        <DocsSearch />
         <div className="card lg:bg-transparent lg:shadow-none lg:backdrop-blur-none lg:border-0">
           <div className="card-content lg:p-0">{nav}</div>
         </div>

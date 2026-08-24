@@ -4,9 +4,9 @@ import React from 'react'
 import { ComfyuiDocsLayout } from '@/app/components/comfyui-prompt-studio/ComfyuiDocsLayout'
 
 export const metadata: Metadata = {
-  title: 'ComfyUI Prompt Studio — Documentation',
+  title: 'LLM Prompt Studio — Documentation',
   description:
-    '50-page guide to ComfyUI Prompt Studio: tools, gallery, studio workflows, models, and ComfyUI integration.',
+    'Guide to LLM Prompt Studio: ComfyUI and cloud engines, Cast, Roleplay, gallery, studio workflows, and 40+ model targets.',
 }
 
 export default function ComfyuiPromptStudioLayout({ children }: { children: React.ReactNode }) {

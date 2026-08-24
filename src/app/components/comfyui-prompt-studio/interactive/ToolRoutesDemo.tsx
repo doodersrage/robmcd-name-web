@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
+import { DOCS_BASE_PATH } from '@/content/comfyui-prompt-studio/helpers'
+
 const TOOLS = [
   { route: '/dashboard', label: 'Dashboard', slug: 'introduction/architecture' },
   { route: '/', label: 'Generate', slug: 'generate/overview' },
@@ -10,6 +12,9 @@ const TOOLS = [
   { route: '/lint', label: 'Lint', slug: 'format-and-lint/lint' },
   { route: '/refine', label: 'Refine', slug: 'format-and-lint/refine' },
   { route: '/character', label: 'Character', slug: 'character/character-tool' },
+  { route: '/characters', label: 'Cast', slug: 'play/cast' },
+  { route: '/roleplay', label: 'Roleplay', slug: 'play/roleplay' },
+  { route: '/m', label: 'Mobile Studio', slug: 'play/mobile-studio' },
   { route: '/pet', label: 'Pet', slug: 'character/pet-fantasy' },
   { route: '/fantasy', label: 'Fantasy', slug: 'character/pet-fantasy' },
   { route: '/topics', label: 'Topics', slug: 'character/background-topics' },
@@ -39,13 +44,13 @@ export function ToolRoutesDemo() {
   return (
     <div className="not-prose my-8">
       <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
-        25+ tool routes — click a card for docs, hover for the live local URL (Node.js 22+, port 47832).
+        28+ tool routes — click a card for docs, hover for the live local URL (Node.js 22+, port 47832).
       </p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
         {TOOLS.map((tool) => (
           <Link
             key={tool.route}
-            href={`/comfyui-prompt-studio/${tool.slug}`}
+            href={`${DOCS_BASE_PATH}/${tool.slug}`}
             onMouseEnter={() => setHovered(tool.route)}
             onMouseLeave={() => setHovered(null)}
             className={`rounded-2xl border border-slate-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-900/80 p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
