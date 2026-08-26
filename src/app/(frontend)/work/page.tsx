@@ -6,6 +6,8 @@ import { LandingShell } from '@/app/components/pages/PageShell'
 import { WORK_CASE_STUDIES } from '@/content/work/case-studies'
 import { SITE_LINKS } from '@/lib/site'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Work & case studies',
   description:

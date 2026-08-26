@@ -4,15 +4,13 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 
 import { LandingShell } from '@/app/components/pages/PageShell'
-import { getWorkBySlug, WORK_CASE_STUDIES } from '@/content/work/case-studies'
+import { getWorkBySlug } from '@/content/work/case-studies'
 import { SITE_LINKS } from '@/lib/site'
+
+export const dynamic = 'force-dynamic'
 
 type PageProps = {
   params: Promise<{ slug: string }>
-}
-
-export function generateStaticParams() {
-  return WORK_CASE_STUDIES.map((s) => ({ slug: s.slug }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

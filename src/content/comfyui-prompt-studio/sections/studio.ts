@@ -1,4 +1,4 @@
-import { LIVE, p, page } from '../helpers'
+import { p, page } from '../helpers'
 
 export const studioPages = [
   page(
