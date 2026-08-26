@@ -35,9 +35,29 @@ export const SITE_LINKS = {
   garageTemp: 'https://garage-temp.robmcd.name/',
 } as const
 
-/** Extra nav items appended after CMS pages (not managed in Payload). */
-export const EXTRA_NAV_LINKS = [
-  { label: 'Work', href: SITE_LINKS.work },
-  { label: 'Prompt Studio', href: SITE_LINKS.promptStudio },
-  { label: 'Garage Temp', href: SITE_LINKS.garageTemp, external: true },
-] as const
+export type SiteNavItem = {
+  id: string
+  label: string
+  href: string
+  external?: boolean
+  children?: SiteNavItem[]
+}
+
+/** Extra nav tree appended after CMS pages (not managed in Payload). */
+export const EXTRA_NAV_TREE: SiteNavItem[] = [
+  {
+    id: 'work',
+    label: 'Work',
+    href: SITE_LINKS.work,
+    children: [
+      { id: 'work-overview', label: 'Case studies', href: SITE_LINKS.work },
+      { id: 'work-prompt-studio', label: 'Prompt Studio', href: SITE_LINKS.promptStudio },
+      {
+        id: 'work-garage-temp',
+        label: 'Garage Temp',
+        href: SITE_LINKS.garageTemp,
+        external: true,
+      },
+    ],
+  },
+]

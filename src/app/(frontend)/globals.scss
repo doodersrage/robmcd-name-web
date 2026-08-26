@@ -275,6 +275,35 @@
     @apply text-slate-900 dark:text-zinc-100 md:-translate-y-px;
   }
 
+  .nav-link--nested {
+    @apply pl-3 text-slate-500 dark:text-zinc-500;
+  }
+
+  .nav-submenu {
+    @apply ml-2 mt-1 space-y-1 border-l border-slate-200/80 pl-3 dark:border-zinc-800/80;
+  }
+
+  .nav-submenu-toggle {
+    @apply inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-zinc-100;
+  }
+
+  .nav-item-has-children {
+    @apply static;
+  }
+
+  .nav-dropdown {
+    @apply invisible absolute left-0 top-full z-50 mt-2 min-w-[14rem] translate-y-1 rounded-2xl border border-slate-200/80 bg-white/95 p-2 opacity-0 shadow-md backdrop-blur-md transition-all duration-200 dark:border-zinc-800/80 dark:bg-zinc-900/95;
+  }
+
+  .nav-item-has-children:hover > .nav-dropdown,
+  .nav-item-has-children:focus-within > .nav-dropdown {
+    @apply visible translate-y-0 opacity-100;
+  }
+
+  .nav-dropdown__link {
+    @apply block rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100;
+  }
+
   .mobile-nav-menu {
     @apply border-t border-slate-200/80 pt-4 dark:border-zinc-800/80;
   }
