@@ -49,8 +49,13 @@ export async function generateMetadata({
     return {
       title: 'Robert McDowell — Cross-Platform Engineering & Legacy Modernization',
       description:
-        'Resilient infrastructure and modern codebases built to last. 20 years of Linux & Windows engineering, database administration, and legacy stack repair.',
+        'Resilient infrastructure and modern codebases. Prompt Studio, Garage Temp, legacy stack rescue, and 20 years of Linux & Windows engineering.',
       alternates: { canonical: '/' },
+      openGraph: {
+        title: 'Robert McDowell — Cross-Platform Engineering',
+        description:
+          'Consulting, Prompt Studio docs, and Garage Temperature Monitor — built and shipped by Robert McDowell.',
+      },
     }
   }
 

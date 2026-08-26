@@ -41,10 +41,10 @@ export function DefaultHomePage() {
         statusLabel="20 Years of Cross-Platform Engineering & Systems Expertise"
         title="Resilient Infrastructure. Modern Codebases. Built to Last."
         gradientTitle
-        description="Hi, I'm Rob McDowell. With two decades of hands-on experience across Linux and Windows environments, I specialize in full-stack engineering, database management, and rescuing, repairing, and modernizing complex software stacks."
+        description="Hi, I'm Rob McDowell. With two decades of hands-on experience across Linux and Windows environments, I specialize in full-stack engineering, database management, and rescuing, repairing, and modernizing complex software stacks — plus open-source tools like Prompt Studio and Garage Temp."
         primaryCta={{ label: 'Explore Capabilities', href: '#capabilities' }}
         secondaryCta={{ label: 'Get in Touch', href: SITE_LINKS.contact }}
-        badgeText="Linux · Windows · Full-Stack"
+        badgeText="Linux · Windows · Full-Stack · IoT"
       />
 
       <StatsBar
@@ -59,15 +59,15 @@ export function DefaultHomePage() {
         <BentoGrid
           eyebrow="Core expertise"
           title="What I Do"
-          description="From low-level server administration to modern web applications, I keep cross-platform operations running smoothly."
+          description="From low-level server administration to modern web applications and sensor dashboards, I keep cross-platform operations running smoothly."
           items={BENTO_ITEMS}
         />
       </div>
 
       <ProjectShowcase
-        eyebrow="Open source"
-        title="Built & shipped"
-        description="Tools and platforms from the workbench — including production docs on this site."
+        eyebrow="Built & shipped"
+        title="Open source & live demos"
+        description="Products you can open today — Prompt Studio docs on this site, Garage Temp streaming live probe readings."
         projects={[
           {
             title: 'LLM Prompt Studio',
@@ -78,20 +78,29 @@ export function DefaultHomePage() {
             linkLabel: 'Read the docs',
           },
           {
-            title: 'Cross-Platform Server & Database Migration',
-            tagline: 'Server stabilization and database tuning for mission-critical enterprise systems.',
+            title: 'Garage Temperature Monitor',
+            tagline: 'DHT22 probes → live Astro dashboard with outdoor weather context.',
             description:
-              'Took over an aging Windows & Linux server setup with legacy C# and PHP applications. Repaired database bottlenecks in MSSQL and MySQL, patched security vulnerabilities, and boosted overall stack performance by over 50%.',
-            href: SITE_LINKS.projects,
-            linkLabel: 'View Case Study',
+              'Public IoT demo at garage-temp.robmcd.name — probe guides, firmware notes, history, and account hooks for private probes and alerts.',
+            href: SITE_LINKS.garageTemp,
+            linkLabel: 'Open live demo',
+            external: true,
           },
           {
-            title: 'Decoupled Headless Web Architecture',
-            tagline: 'High-throughput content engine powered by Payload/WordPress and Next.js.',
+            title: 'Work & case studies',
+            tagline: 'Prompt Studio, Garage Temp, and legacy modernization patterns.',
             description:
-              'Architected a hybrid system bridging established backend databases with a modern Next.js frontend, giving the client ultra-fast page loads without losing years of historical data.',
-            href: SITE_LINKS.projects,
-            linkLabel: 'View Project',
+              'Narrative write-ups covering problem, stack, and outcome — plus links into consulting projects.',
+            href: SITE_LINKS.work,
+            linkLabel: 'Browse case studies',
+          },
+          {
+            title: 'Legacy stack rescue',
+            tagline: 'Stabilize first, then modernize without losing historical data.',
+            description:
+              'Consulting pattern for aging Windows/Linux servers and C#/PHP apps — then optional headless Next.js when the business is ready.',
+            href: '/work/legacy-stack-rescue',
+            linkLabel: 'Read the pattern',
           },
         ]}
       />
@@ -108,8 +117,17 @@ export function DefaultHomePage() {
             Software isn&apos;t just about writing new code—it&apos;s about respecting and maintaining the
             systems already in production. Over the last 20 years across both Linux and Windows environments,
             I&apos;ve learned that stability, maintainability, and clean architecture outweigh hype. Whether you
-            need an experienced engineer to maintain your servers, optimize your MSSQL/MySQL databases, or
-            refactor a legacy application, I focus on reliable, long-term results.
+            need an experienced engineer to maintain your servers, optimize your MSSQL/MySQL databases,
+            ship an IoT dashboard like{' '}
+            <a
+              href={SITE_LINKS.garageTemp}
+              className="font-medium text-indigo-600 underline decoration-indigo-400/40 underline-offset-2 hover:text-indigo-700 dark:text-indigo-400"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Garage Temp
+            </a>
+            , or refactor a legacy application, I focus on reliable, long-term results.
           </p>
         </div>
       </section>
@@ -117,11 +135,11 @@ export function DefaultHomePage() {
       <div className="space-y-4">
         <CtaBanner
           title="Need to repair a legacy stack or stabilize your server infrastructure?"
-          description="Let's discuss how my 20 years of cross-platform engineering experience can bring peace of mind to your tech operations."
+          description="Let's discuss how my 20 years of cross-platform engineering experience can bring peace of mind to your tech operations — or explore Prompt Studio and Garage Temp for open-source demos."
           primaryLabel="Start a Conversation"
           primaryHref={SITE_LINKS.contact}
-          secondaryLabel="View Projects"
-          secondaryHref={SITE_LINKS.projects}
+          secondaryLabel="View case studies"
+          secondaryHref={SITE_LINKS.work}
         />
         <p className="text-center text-sm text-slate-600 dark:text-zinc-400">
           or reach out directly at{' '}

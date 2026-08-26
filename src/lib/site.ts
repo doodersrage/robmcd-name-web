@@ -18,6 +18,9 @@ export const SITE_KEYWORDS = [
   'prompt studio',
   'comfyui',
   'llm tooling',
+  'garage temperature monitor',
+  'iot',
+  'embedded systems',
 ]
 
 export const SITE_LINKS = {
@@ -26,6 +29,15 @@ export const SITE_LINKS = {
   contact: '/contact',
   blog: '/blog',
   projects: '/projects',
+  work: '/work',
   promptStudio: '/llm-prompt-studio',
   promptStudioGithub: 'https://github.com/doodersrage/llm-prompt-studio',
+  garageTemp: 'https://garage-temp.robmcd.name/',
 } as const
+
+/** Extra nav items appended after CMS pages (not managed in Payload). */
+export const EXTRA_NAV_LINKS = [
+  { label: 'Work', href: SITE_LINKS.work },
+  { label: 'Prompt Studio', href: SITE_LINKS.promptStudio },
+  { label: 'Garage Temp', href: SITE_LINKS.garageTemp, external: true },
+] as const

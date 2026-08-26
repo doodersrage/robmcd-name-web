@@ -11,6 +11,7 @@ export type ProjectShowcaseItem = {
   description: string
   href: string
   linkLabel: string
+  external?: boolean
 }
 
 export type ProjectShowcaseProps = {
@@ -36,28 +37,37 @@ export function ProjectShowcase({ eyebrow, title, description, projects }: Proje
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {projects.map((project) => (
-          <article
-            key={project.title}
-            className={cn(
-              'glass-card group flex flex-col justify-between p-6 transition-all duration-300',
-              'hover:-translate-y-1 hover:shadow-glow',
-            )}
-          >
-            <div className="space-y-3">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-zinc-100">{project.title}</h3>
-              <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{project.tagline}</p>
-              <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">{project.description}</p>
-            </div>
-            <Link
-              href={project.href}
-              className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 transition-colors group-hover:text-indigo-600 dark:text-zinc-100 dark:group-hover:text-indigo-400"
+        {projects.map((project) => {
+          const linkClass =
+            'mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 transition-colors group-hover:text-indigo-600 dark:text-zinc-100 dark:group-hover:text-indigo-400'
+
+          return (
+            <article
+              key={project.title}
+              className={cn(
+                'glass-card group flex flex-col justify-between p-6 transition-all duration-300',
+                'hover:-translate-y-1 hover:shadow-glow',
+              )}
             >
-              {project.linkLabel}
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
-          </article>
-        ))}
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-zinc-100">{project.title}</h3>
+                <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{project.tagline}</p>
+                <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">{project.description}</p>
+              </div>
+              {project.external ? (
+                <a href={project.href} className={linkClass} target="_blank" rel="noopener noreferrer">
+                  {project.linkLabel}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              ) : (
+                <Link href={project.href} className={linkClass}>
+                  {project.linkLabel}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </Link>
+              )}
+            </article>
+          )
+        })}
       </div>
     </MotionReveal>
   )

@@ -19,11 +19,22 @@ export default function NotFound() {
         <Link href="/" className="btn btn-primary">
           Go home
         </Link>
-        <Link href={SITE_LINKS.blog} className="btn btn-secondary">
-          Browse blog
+        <Link href={SITE_LINKS.work} className="btn btn-secondary">
+          Case studies
         </Link>
-        <Link href="/search" className="btn btn-secondary">
-          Search
+        <Link href={SITE_LINKS.promptStudio} className="btn btn-secondary">
+          Prompt Studio
+        </Link>
+        <a
+          href={SITE_LINKS.garageTemp}
+          className="btn btn-secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Garage Temp
+        </a>
+        <Link href={SITE_LINKS.contact} className="btn btn-secondary">
+          Contact
         </Link>
       </div>
     </section>

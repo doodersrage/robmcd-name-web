@@ -40,6 +40,7 @@ export const hubPages = [
       { type: 'h2', text: 'Documentation on this site vs GitHub' },
       ...p(
         'This section on robmcd.name is the narrative hub — sales pitch, case study, interactive demos, and guided tool docs. Operator reference (env tables, API catalog, release process) lives on the official GitHub Pages docs site linked below. Bookmark both: this hub for onboarding and storytelling, GitHub Pages for day-to-day ops lookup.',
+        'More of my open work sits alongside this product: Garage Temperature Monitor (live DHT22 probes + weather at garage-temp.robmcd.name) and case studies under /work.',
       ),
       {
         type: 'links',
@@ -47,6 +48,8 @@ export const hubPages = [
           { label: 'Why Prompt Studio? (sales pitch)', href: `${DOCS_BASE_PATH}/stories/sales-pitch` },
           { label: 'Quick start (Node 22+)', href: `${DOCS_BASE_PATH}/getting-started/quick-start` },
           { label: 'Tools table & routes', href: `${DOCS_BASE_PATH}/introduction/feature-map` },
+          { label: 'Garage Temp live demo', href: 'https://garage-temp.robmcd.name/', external: true },
+          { label: 'Work & case studies', href: '/work' },
         ],
       },
     ],

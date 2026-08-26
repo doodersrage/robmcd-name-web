@@ -12,12 +12,22 @@ import type { DocPage } from '@/content/comfyui-prompt-studio/types'
 
 export function buildDocMetadata(page: DocPage): Metadata {
   const isHub = page.slug.length === 0
+  const title = isHub ? 'LLM Prompt Studio' : `${page.title} — LLM Prompt Studio`
+  const path = isHub ? DOCS_BASE_PATH : `${DOCS_BASE_PATH}/${page.slug.join('/')}`
 
   return {
-    title: isHub ? 'LLM Prompt Studio' : `${page.title} — LLM Prompt Studio`,
+    title,
     description: page.description,
+    alternates: { canonical: path },
     openGraph: {
-      title: page.title,
+      title,
+      description: page.description,
+      url: path,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
       description: page.description,
     },
   }

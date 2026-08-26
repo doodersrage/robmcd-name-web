@@ -4,11 +4,13 @@ import type { NextRequest } from 'next/server'
 const DIRECT_APP_PREFIXES = [
   '/llm-prompt-studio',
   '/comfyui-prompt-studio',
+  '/work',
   '/blog',
   '/search',
   '/admin',
   '/feed.xml',
   '/sitemap.xml',
+  '/robots.txt',
 ]
 
 export function middleware(request: NextRequest) {

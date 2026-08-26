@@ -2,6 +2,7 @@ import React, { cache } from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { Page } from '@/payload-types'
+import { EXTRA_NAV_LINKS } from '@/lib/site'
 
 const getNavPages = cache(async () => {
   const payload = await getPayload({ config: configPromise })
@@ -71,6 +72,26 @@ function NavList({
   )
 }
 
+function ExtraNavLinks({ mobile = false }: { mobile?: boolean }) {
+  return (
+    <ul className={`flex flex-col gap-1 ${mobile ? '' : 'md:flex-row md:gap-6'}`}>
+      {EXTRA_NAV_LINKS.map((link) => (
+        <li key={link.href}>
+          <a
+            className="nav-link"
+            href={link.href}
+            {...('external' in link && link.external
+              ? { target: '_blank', rel: 'noopener noreferrer' }
+              : {})}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export function NavFallback({ mobile = false }: { mobile?: boolean }) {
   return (
     <div
@@ -96,6 +117,7 @@ const Nav = async ({ mobile = false }: { mobile?: boolean }) => {
   return (
     <div className={`nav-menu flex w-full flex-col gap-1 ${mobile ? '' : 'md:flex-row md:gap-8'}`}>
       <NavList pages={pages} mobile={mobile} />
+      <ExtraNavLinks mobile={mobile} />
     </div>
   )
 }

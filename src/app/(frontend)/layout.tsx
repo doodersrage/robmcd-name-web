@@ -9,6 +9,7 @@ import { Metadata } from 'next'
 import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
+  SITE_LINKS,
   SITE_NAME,
   SITE_OWNER,
   SITE_TAGLINE,
@@ -75,6 +76,7 @@ const jsonLd = {
       '@id': `${SITE_URL}/#person`,
       name: SITE_OWNER,
       url: SITE_URL,
+      sameAs: [SITE_LINKS.github, SITE_LINKS.garageTemp, SITE_LINKS.promptStudioGithub],
     },
   ],
 }

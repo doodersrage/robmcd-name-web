@@ -53,6 +53,24 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <a
+                  href={SITE_LINKS.garageTemp}
+                  className="text-link text-sm text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Garage Temp
+                </a>
+              </li>
+              <li>
+                <Link
+                  href={SITE_LINKS.work}
+                  className="text-link text-sm text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                >
+                  Work
+                </Link>
+              </li>
+              <li>
                 <Link
                   href={SITE_LINKS.projects}
                   className="text-link text-sm text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-100"
