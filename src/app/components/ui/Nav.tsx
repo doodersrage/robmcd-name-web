@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { Page } from '@/payload-types'
 import { EXTRA_NAV_TREE, type SiteNavItem } from '@/lib/site'
+import { getPagePath, getParentId } from '@/lib/pages'
 import { NavMenu } from '@/app/components/ui/NavMenu'
 
 const getNavPages = cache(async () => {
@@ -26,21 +27,6 @@ const getNavPages = cache(async () => {
   return docs
 })
 
-function getParentId(page: Page): number | null {
-  if (!page.parent) return null
-  if (typeof page.parent === 'number') return page.parent
-  return page.parent.id ?? null
-}
-
-function pageHref(page: Page): string {
-  const crumbs = page.breadcrumbs
-  if (Array.isArray(crumbs) && crumbs.length > 0) {
-    const last = crumbs[crumbs.length - 1]
-    if (last?.url) return last.url.startsWith('/') ? last.url : `/${last.url}`
-  }
-  return page.slug === 'home' ? '/' : `/${page.slug}`
-}
-
 function buildCmsNavTree(pages: Page[], parentId: number | null = null): SiteNavItem[] {
   return pages
     .filter((page) => getParentId(page) === parentId)
@@ -50,7 +36,7 @@ function buildCmsNavTree(pages: Page[], parentId: number | null = null): SiteNav
       return {
         id: `cms-${page.id}`,
         label: page.title,
-        href: pageHref(page),
+        href: getPagePath(page),
         ...(children.length > 0 ? { children } : {}),
       }
     })

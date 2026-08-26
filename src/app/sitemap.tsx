@@ -9,6 +9,7 @@ import { Page, Post } from '@/payload-types'
 import { DOC_PAGES, slugToPath } from '@/content/comfyui-prompt-studio/pages'
 import { WORK_CASE_STUDIES } from '@/content/work/case-studies'
 import { getServerSideURL } from '@/utilities/getURL'
+import { getPagePath } from '@/lib/pages'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const payload = await getPayload({ config: configPromise })
@@ -36,9 +37,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${url}/blog/${slug}`,
       lastModified: new Date(updatedAt),
     })),
-    ...pages.docs.map(({ slug, updatedAt }) => ({
-      url: `${url}${slug === 'home' ? '' : `/${slug}`}`,
-      lastModified: new Date(updatedAt),
+    ...pages.docs.map((page) => ({
+      url: `${url}${getPagePath(page)}`,
+      lastModified: new Date(page.updatedAt),
     })),
     ...DOC_PAGES.map((page) => ({
       url: `${url}${slugToPath(page.slug)}`,

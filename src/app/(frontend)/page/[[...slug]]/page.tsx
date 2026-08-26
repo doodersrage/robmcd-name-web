@@ -10,27 +10,23 @@ import type { Page } from '@/payload-types'
 import { DefaultHomePage } from '@/app/components/pages/DefaultHomePage'
 import { LegacyPageContent } from '@/app/components/pages/LegacyPageContent'
 import { PuckPageWrapper } from '@/app/components/pages/PuckPageWrapper'
+import { getPagePath, publishedPageFilter } from '@/lib/pages'
 
 export type paramsType = Promise<{ slug: string[] }>
 
 async function getPage(slug?: string[]): Promise<Page | null> {
   const payload = await getPayload({ config: configPromise })
-  const slugPath = slug?.join('/') || 'home'
+  const segments = slug?.filter(Boolean)
+  const slugPath = segments?.join('/') || 'home'
+  const targetPath = slugPath === 'home' ? '/' : `/${slugPath}`
 
   const { docs } = await payload.find({
     collection: 'pages',
-    where: {
-      and: [
-        { slug: { equals: slugPath } },
-        {
-          or: [{ _status: { equals: 'published' } }, { _status: { exists: false } }],
-        },
-      ],
-    },
-    limit: 1,
+    where: publishedPageFilter,
+    limit: 200,
   })
 
-  return docs[0] || null
+  return docs.find((page) => getPagePath(page) === targetPath) ?? null
 }
 
 function isCodedHomePage(page: Page) {
@@ -64,7 +60,7 @@ export async function generateMetadata({
     description: page?.pageMeta?.metaDescription || '',
     keywords: page?.pageMeta?.metaKeywords ? [page.pageMeta.metaKeywords] : [],
     alternates: {
-      canonical: page?.slug === 'home' ? '/' : `/${page?.slug}`,
+      canonical: page ? getPagePath(page) : undefined,
     },
   }
 }
