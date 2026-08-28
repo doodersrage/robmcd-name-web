@@ -38,11 +38,9 @@ export async function generateMetadata({
 
 function SearchResultsShell({ query, children }: { query: string; children: React.ReactNode }) {
   return (
-    <div className="card">
-      <div className="card-content space-y-8">
-        <h1 className="page-title">Search Results for &quot;{query}&quot;</h1>
-        {children}
-      </div>
+    <div className="space-y-8">
+      <h1 className="page-title">Search Results for &quot;{query}&quot;</h1>
+      {children}
     </div>
   )
 }
@@ -96,7 +94,7 @@ function searchLocalContent(term: string): SearchHit[] {
       id: 'thermaltrace',
       title: 'ThermalTrace',
       description:
-        'Open-source probe monitoring with freeze-aware alerts, outdoor weather context, ESP/Arduino ingest, and 89+ guides at garage-temp.robmcd.name.',
+        'Open-source probe monitoring with freeze-aware alerts, outdoor weather context, ESP/Arduino ingest, and 89+ guides at thermaltrace.dev.',
       href: SITE_LINKS.thermalTrace,
       source: 'External · Live demo',
     })
@@ -163,7 +161,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
   return (
     <SearchResultsShell query={query}>
       {cmsError && localHits.length === 0 ? (
-        <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">
+        <p className="text-base leading-relaxed text-[var(--muted)]">
           Error fetching search results. Please try again later.
         </p>
       ) : query && merged.length > 0 ? (
@@ -181,7 +179,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
                 <h2 className="mb-2 text-xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
                   {isExternal ? (
                     <a
-                      className="text-link text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                      className="text-link"
                       href={result.href}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -190,14 +188,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
                     </a>
                   ) : (
                     <Link
-                      className="text-link text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                      className="text-link"
                       href={result.href}
                     >
                       {result.title}
                     </Link>
                   )}
                 </h2>
-                <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">
+                <p className="text-base leading-relaxed text-[var(--muted)]">
                   {result.description}
                 </p>
               </li>
@@ -205,7 +203,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<par
           })}
         </ul>
       ) : (
-        <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">No results found.</p>
+        <p className="text-base leading-relaxed text-[var(--muted)]">No results found.</p>
       )}
     </SearchResultsShell>
   )

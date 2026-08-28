@@ -10,13 +10,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12">
           <div className="flex flex-col gap-3">
             <SiteLogo as="static" size="sm" />
-            <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">
+            <p className="text-base leading-relaxed text-[var(--muted)]">
               {SITE_DESCRIPTION}
             </p>
           </div>
 
           <div className="flex flex-col gap-4">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-zinc-100">
+            <h4 className="eyebrow">
               Quick Links
             </h4>
             <ul className="space-y-3">
@@ -82,7 +82,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-4">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-zinc-100">
+            <h4 className="eyebrow">
               Legal
             </h4>
             <ul className="space-y-3">

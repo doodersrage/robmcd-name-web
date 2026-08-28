@@ -1,6 +1,6 @@
 import React from 'react'
 import Script from 'next/script'
-import { Inter } from 'next/font/google'
+import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google'
 import Footer from '@/app/components/ui/Footer'
 import Header from '@/app/components/ui/Header'
 import { ThemeScript } from '@/app/components/ui/ThemeToggle'
@@ -16,9 +16,17 @@ import {
   SITE_URL,
 } from '@/lib/site'
 
-const inter = Inter({
+const plexSans = IBM_Plex_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-plex-sans',
+  display: 'swap',
+})
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-plex-mono',
   display: 'swap',
 })
 
@@ -76,7 +84,12 @@ const jsonLd = {
       '@id': `${SITE_URL}/#person`,
       name: SITE_OWNER,
       url: SITE_URL,
-      sameAs: [SITE_LINKS.github, SITE_LINKS.thermalTrace, SITE_LINKS.promptStudioGithub],
+      sameAs: [
+        SITE_LINKS.github,
+        SITE_LINKS.thermalTrace,
+        SITE_LINKS.thermalTraceGithub,
+        SITE_LINKS.promptStudioGithub,
+      ],
     },
   ],
 }
@@ -85,7 +98,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html lang="en" className={`${plexSans.variable} ${plexMono.variable}`} suppressHydrationWarning>
       <head>
         <ThemeScript />
         <script

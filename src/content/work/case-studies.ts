@@ -61,7 +61,7 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     title: 'ThermalTrace',
     tagline: 'Probe curves, freeze-aware alerts, and household-ready monitoring — from Arduino to Astro on Cloudflare',
     description:
-      'An open-source temperature monitoring platform (live at garage-temp.robmcd.name) that tracks, logs, and analyzes probe curves with outdoor weather context, NWS-backed freeze risk, multi-channel alerts, and 89+ guides from sensor wire to signed-in dashboard.',
+      'An open-source temperature monitoring platform (live at thermaltrace.dev) that tracks, logs, and analyzes probe curves with outdoor weather context, NWS-backed freeze risk, multi-channel alerts, and 89+ guides from sensor wire to signed-in dashboard.',
     externalHref: SITE_LINKS.thermalTrace,
     linkLabel: 'Open ThermalTrace',
     stack: [
@@ -85,7 +85,7 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
         heading: 'What shipped',
         body: [
           'Public live dashboard with three probe zones, outdoor weather comparison, and an interactive probe demo that mirrors the real JSON feed rhythm. Freeze-aware alerts combine threshold rules, forecast data, and NWS-backed cold risk across email, SMS, push, and HMAC webhooks.',
-          'Hardware paths for ESP/Arduino HTTPS ingest and typed JSON feeds, plus a FastAPI relay with Redis caching for stable endpoints from flaky home uplinks. Kit QR onboarding, ESP32 OTA, and open firmware in arduino-network-json-temperature-sever.',
+          'Hardware paths for ESP/Arduino HTTPS ingest and typed JSON feeds, plus a FastAPI relay with Redis caching for stable endpoints from flaky home uplinks. Kit QR onboarding, ESP32 OTA, and the open dashboard repo at github.com/doodersrage/thermaltrace.',
           'Accounts via Supabase auth, household sharing without password handoffs, Stripe subscriptions for Pro alert channels and CSV history export, and a PWA install path for desktop and mobile status checks.',
           '89+ searchable guides on robmcd.name’s ThermalTrace About hub — probe mounting, DHT22 wiring, seasonal patterns, ingest API, data flow, middleware auth, and the full sensor-to-chart pipeline documented for anyone rebuilding the stack.',
         ],

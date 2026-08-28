@@ -21,20 +21,20 @@ export type HeroBlockProps = {
 export const HeroConfig: ComponentConfig<HeroBlockProps> = {
   label: 'Hero',
   defaultProps: {
-    showStatus: 'yes',
-    statusLabel: 'Available for new projects',
-    title: 'Building thoughtful web experiences',
-    gradientTitle: 'yes',
+    showStatus: 'no',
+    statusLabel: '',
+    title: 'Resilient infrastructure. Modern codebases.',
+    gradientTitle: 'no',
     description:
-      'Software developer specializing in modern web applications, from architecture to polished interfaces.',
-    primaryCtaLabel: 'View Projects',
-    primaryCtaLink: '/projects',
-    secondaryCtaLabel: 'Get in Touch',
+      'Twenty years of Linux and Windows engineering — repairing live stacks, running servers, and shipping tools you can open today.',
+    primaryCtaLabel: 'See the work',
+    primaryCtaLink: '/work',
+    secondaryCtaLabel: 'Get in touch',
     secondaryCtaLink: '/contact',
-    skills: 'React, TypeScript, Next.js, Tailwind CSS',
+    skills: '',
     imageUrl: '',
     imageAlt: '',
-    badgeText: 'Payload CMS + Puck',
+    badgeText: '',
   },
   fields: {
     showStatus: {

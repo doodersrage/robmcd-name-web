@@ -11,16 +11,15 @@ export type CtaLinkProps = {
 }
 
 const variants = {
-  primary: 'btn btn-primary shadow-2xl shadow-indigo-500/10',
-  secondary: 'btn btn-secondary backdrop-blur-md',
-  gradient:
-    'btn bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-2xl shadow-indigo-500/20 hover:-translate-y-1 hover:from-indigo-400 hover:to-violet-500',
+  primary: 'btn btn-primary',
+  secondary: 'btn btn-secondary',
+  gradient: 'btn btn-primary',
 }
 
 export function CtaLink({ label, href, variant = 'primary', className }: CtaLinkProps) {
   const isExternal = /^https?:\/\//.test(href)
   const classes = cn(
-    'transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 active:scale-[0.98]',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]',
     variants[variant],
     className,
   )

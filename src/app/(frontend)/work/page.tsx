@@ -23,75 +23,47 @@ export const metadata: Metadata = {
 export default function WorkIndexPage() {
   return (
     <LandingShell>
-      <section className="card">
-        <div className="card-content space-y-4">
-          <p className="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-            Portfolio
-          </p>
-          <h1 className="page-title">Work & case studies</h1>
-          <p className="max-w-2xl text-base leading-relaxed text-slate-600 dark:text-zinc-400">
-            Open-source products you can open today — LLM Prompt Studio for ComfyUI and cloud creative
-            pipelines, ThermalTrace for probe curves and freeze-aware alerts — plus the consulting pattern
-            behind legacy rescues and headless modernization. For live CMS project pages, see{' '}
-            <Link href={SITE_LINKS.projects} className="text-link font-medium text-indigo-600 dark:text-indigo-400">
-              Projects
-            </Link>
-            .
-          </p>
-        </div>
+      <section className="space-y-4">
+        <p className="eyebrow">Portfolio</p>
+        <h1 className="page-title">Work & case studies</h1>
+        <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">
+          Open-source products you can open today — LLM Prompt Studio and ThermalTrace — plus the consulting
+          pattern behind legacy rescues. For live CMS project pages, see{' '}
+          <Link href={SITE_LINKS.projects} className="text-link underline">
+            Projects
+          </Link>
+          .
+        </p>
       </section>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <ul className="divide-y divide-[var(--line)]">
         {WORK_CASE_STUDIES.map((study) => (
-          <article
-            key={study.slug}
-            className="rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-800/80 dark:bg-zinc-900/80"
-          >
-            <h2 className="text-xl font-bold text-slate-900 dark:text-zinc-100">{study.title}</h2>
-            <p className="mt-2 text-sm font-medium text-indigo-600 dark:text-indigo-400">{study.tagline}</p>
-            <p className="mt-3 text-base leading-relaxed text-slate-600 dark:text-zinc-400">
-              {study.description}
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {study.stack.slice(0, 4).map((s) => (
-                <span
-                  key={s}
-                  className="rounded-lg bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 dark:bg-zinc-950 dark:text-zinc-400"
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
-            <Link
-              href={`/work/${study.slug}`}
-              className="mt-5 inline-flex text-sm font-semibold text-slate-900 hover:text-indigo-600 dark:text-zinc-100 dark:hover:text-indigo-400"
-            >
-              Read case study →
+          <li key={study.slug} className="py-10 first:pt-0">
+            <h2 className="text-xl font-semibold">{study.title}</h2>
+            <p className="mt-1 font-mono text-sm text-[var(--muted)]">{study.tagline}</p>
+            <p className="mt-3 max-w-2xl text-base leading-relaxed text-[var(--muted)]">{study.description}</p>
+            <p className="mt-4 font-mono text-xs text-[var(--muted)]">{study.stack.slice(0, 4).join(' · ')}</p>
+            <Link href={`/work/${study.slug}`} className="mt-5 inline-flex text-sm font-medium text-link">
+              Read case study
             </Link>
-          </article>
+          </li>
         ))}
-      </div>
+      </ul>
 
-      <section className="card">
-        <div className="card-content flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-lg font-bold text-slate-900 dark:text-zinc-100">Try the live demos</h2>
-            <p className="mt-1 text-sm text-slate-600 dark:text-zinc-400">
-              ThermalTrace streams probe curves with freeze alerts in public. Prompt Studio docs live on this
-              site with interactive tool demos.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <a href={SITE_LINKS.thermalTrace} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
-              ThermalTrace
-            </a>
-            <Link href={SITE_LINKS.promptStudio} className="btn btn-secondary">
-              Prompt Studio docs
-            </Link>
-            <Link href={SITE_LINKS.contact} className="btn btn-secondary">
-              Contact
-            </Link>
-          </div>
+      <section className="flex flex-col gap-4 border-t border-[var(--line)] pt-10 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-lg font-semibold">Live demos</h2>
+          <p className="mt-1 max-w-md text-sm text-[var(--muted)]">
+            ThermalTrace streams probe curves in public. Prompt Studio docs live on this site.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <a href={SITE_LINKS.thermalTrace} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
+            ThermalTrace
+          </a>
+          <Link href={SITE_LINKS.promptStudio} className="btn btn-secondary">
+            Prompt Studio docs
+          </Link>
         </div>
       </section>
     </LandingShell>

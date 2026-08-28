@@ -40,20 +40,14 @@ export function renderDocPage(page: DocPage) {
   if (isMarketing) {
     return (
       <LandingShell>
-        <section className="card overflow-hidden">
-          <div className="card-content border-l-4 border-slate-800 pl-6 dark:border-zinc-300">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-500">
-              {page.section}
-            </p>
-            <h1 className="page-title mt-2">{page.title}</h1>
-            <p className="mt-3 text-lg leading-relaxed text-slate-600 dark:text-zinc-400">{page.description}</p>
-          </div>
+        <section className="space-y-4 border-l-2 border-[var(--ink)] pl-6">
+          <p className="eyebrow">{page.section}</p>
+          <h1 className="page-title">{page.title}</h1>
+          <p className="max-w-2xl text-lg leading-relaxed text-[var(--muted)]">{page.description}</p>
         </section>
-        <section className="card">
-          <div className="card-content">
-            <DocPageContent page={page} showLead={false} />
-            <DocPageNav order={page.order} />
-          </div>
+        <section className="space-y-8">
+          <DocPageContent page={page} showLead={false} />
+          <DocPageNav order={page.order} />
         </section>
       </LandingShell>
     )
@@ -63,19 +57,14 @@ export function renderDocPage(page: DocPage) {
     return (
       <LandingShell>
         <Hero
-          showStatus
-          statusLabel="Open source · ComfyUI + cloud"
           title="LLM Prompt Studio"
           description={page.description}
-          skills={['Prompt generation', 'Cast & Roleplay', 'Cloud engines', 'Gallery review', 'Workflow takeover']}
           primaryCta={{ label: 'Why Prompt Studio?', href: `${DOCS_BASE_PATH}/stories/sales-pitch` }}
           secondaryCta={{ label: 'View on GitHub', href: CPS_GITHUB }}
         />
-        <section className="card">
-          <div className="card-content">
-            <DocPageContent page={page} showLead={false} />
-            <DocPageNav order={page.order} />
-          </div>
+        <section className="space-y-8">
+          <DocPageContent page={page} showLead={false} />
+          <DocPageNav order={page.order} />
         </section>
       </LandingShell>
     )
@@ -83,14 +72,10 @@ export function renderDocPage(page: DocPage) {
 
   return (
     <article className="space-y-8 pb-16 md:space-y-12">
-      <div className="card">
-        <div className="card-content">
-          <DocsBreadcrumbs slug={page.slug} title={page.title} />
-          <h1 className="page-title">{page.title}</h1>
-          <DocPageContent page={page} />
-          <DocPageNav order={page.order} />
-        </div>
-      </div>
+      <DocsBreadcrumbs slug={page.slug} title={page.title} />
+      <h1 className="page-title">{page.title}</h1>
+      <DocPageContent page={page} />
+      <DocPageNav order={page.order} />
     </article>
   )
 }

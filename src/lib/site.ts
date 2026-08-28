@@ -37,11 +37,11 @@ export const SITE_LINKS = {
   promptStudioGithub: 'https://github.com/doodersrage/llm-prompt-studio',
   promptStudioDocs: 'https://doodersrage.github.io/llm-prompt-studio',
   promptStudioDocker: 'ghcr.io/doodersrage/llm-prompt-studio:latest',
-  thermalTrace: 'https://garage-temp.robmcd.name/',
-  thermalTraceAbout: 'https://garage-temp.robmcd.name/about',
-  thermalTraceGithub: 'https://github.com/doodersrage/garage-temp',
-  /** @deprecated Use thermalTrace — same URL, kept for older references */
-  garageTemp: 'https://garage-temp.robmcd.name/',
+  thermalTrace: 'https://thermaltrace.dev/',
+  thermalTraceAbout: 'https://thermaltrace.dev/about',
+  thermalTraceGithub: 'https://github.com/doodersrage/thermaltrace',
+  /** @deprecated Use thermalTrace */
+  garageTemp: 'https://thermaltrace.dev/',
 } as const
 
 export type SiteNavItem = {

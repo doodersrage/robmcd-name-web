@@ -16,29 +16,27 @@ type PuckPageWrapperProps = {
 const siteTheme = {
   buttonVariants: {
     default: {
-      classes:
-        'bg-gradient-to-r from-indigo-500 to-violet-600 text-white hover:from-indigo-400 hover:to-violet-500 shadow-lg shadow-indigo-500/20',
+      classes: 'bg-[var(--ink)] text-[var(--canvas)] hover:bg-[var(--accent)] hover:text-[#f4f7f4]',
     },
     secondary: {
       classes:
-        'border border-slate-200/80 bg-white/80 text-slate-700 backdrop-blur-md hover:bg-slate-50 dark:border-zinc-800/80 dark:bg-zinc-900/80 dark:text-zinc-300 dark:hover:bg-zinc-800/80',
+        'border border-[var(--line)] bg-transparent text-[var(--ink)] hover:border-[var(--ink)]',
     },
     outline: {
-      classes:
-        'border border-slate-200/80 bg-transparent text-slate-700 hover:bg-slate-50 dark:border-zinc-800/80 dark:text-zinc-300 dark:hover:bg-zinc-800/80',
+      classes: 'border border-[var(--line)] bg-transparent text-[var(--ink)] hover:border-[var(--ink)]',
     },
     ghost: {
-      classes: 'bg-transparent text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800',
+      classes: 'bg-transparent text-[var(--ink)] hover:bg-[var(--paper)]',
     },
   },
-  focusRingColor: 'focus:ring-indigo-500/30',
+  focusRingColor: 'focus:ring-[var(--accent)]',
   colorPresets: [
-    { hex: '#6366f1', label: 'Indigo' },
-    { hex: '#8b5cf6', label: 'Violet' },
-    { hex: '#22d3ee', label: 'Cyan' },
-    { hex: '#34d399', label: 'Emerald' },
-    { hex: '#0f172a', label: 'Slate Dark' },
-    { hex: '#f4f4f5', label: 'Zinc Light' },
+    { hex: '#1f6a4a', label: 'Pine' },
+    { hex: '#1a211c', label: 'Ink' },
+    { hex: '#eef1ee', label: 'Paper' },
+    { hex: '#3d7a62', label: 'Moss' },
+    { hex: '#141814', label: 'Night' },
+    { hex: '#e6ebe4', label: 'Mist' },
   ],
 }
 

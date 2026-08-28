@@ -22,27 +22,16 @@ export function CtaBanner({
 }: CtaBannerProps) {
   return (
     <MotionReveal as="section" className="not-prose" stagger={false}>
-      <div className="relative overflow-hidden rounded-2xl border border-indigo-500/20 bg-slate-950 px-6 py-12 shadow-2xl shadow-indigo-500/10 md:px-12 md:py-16 dark:border-indigo-500/30">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(99_102_241_/_0.35),transparent_55%),radial-gradient(ellipse_at_bottom_left,rgb(139_92_246_/_0.25),transparent_50%)]"
-        />
-        <div className="relative mx-auto max-w-2xl space-y-6 text-center">
-          <h2 className="text-2xl font-bold tracking-tight text-white md:text-4xl">{title}</h2>
-          {description ? (
-            <p className="text-base leading-relaxed text-slate-300 md:text-lg">{description}</p>
+      <div className="space-y-6 border-t pt-10" style={{ borderColor: 'var(--line)' }}>
+        <h2 className="max-w-2xl text-2xl font-semibold tracking-tight md:text-3xl">{title}</h2>
+        {description ? (
+          <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">{description}</p>
+        ) : null}
+        <div className="flex flex-wrap items-center gap-3">
+          <CtaLink label={primaryLabel} href={primaryHref} variant="primary" />
+          {secondaryLabel && secondaryHref ? (
+            <CtaLink label={secondaryLabel} href={secondaryHref} variant="secondary" />
           ) : null}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <CtaLink label={primaryLabel} href={primaryHref} variant="gradient" />
-            {secondaryLabel && secondaryHref ? (
-              <CtaLink
-                label={secondaryLabel}
-                href={secondaryHref}
-                variant="secondary"
-                className="border-white/20 bg-white/10 text-white hover:bg-white/15"
-              />
-            ) : null}
-          </div>
         </div>
       </div>
     </MotionReveal>

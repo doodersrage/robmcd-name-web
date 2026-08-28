@@ -1,4 +1,5 @@
 import { DOCS_BASE_PATH, DOCS_SITE, GH, LIVE, RELEASES, p, page } from '../helpers'
+import { SITE_LINKS } from '@/lib/site'
 
 export const hubPages = [
   page(
@@ -40,7 +41,7 @@ export const hubPages = [
       { type: 'h2', text: 'Documentation on this site vs GitHub' },
       ...p(
         'This section on robmcd.name is the narrative hub — sales pitch, case study, interactive demos, and guided tool docs. Operator reference (env tables, API catalog, release process) lives on the official GitHub Pages docs site linked below. Bookmark both: this hub for onboarding and storytelling, GitHub Pages for day-to-day ops lookup.',
-        'More of my open work sits alongside this product: ThermalTrace (probe curves, freeze alerts, and 89+ guides at garage-temp.robmcd.name) and case studies under /work.',
+        'More of my open work sits alongside this product: ThermalTrace (probe curves, freeze alerts, and 89+ guides at thermaltrace.dev) and case studies under /work.',
       ),
       {
         type: 'links',
@@ -49,8 +50,8 @@ export const hubPages = [
           { label: 'Quick start (Node 22+)', href: `${DOCS_BASE_PATH}/getting-started/quick-start` },
           { label: 'Tools table & routes', href: `${DOCS_BASE_PATH}/introduction/feature-map` },
           { label: 'Play mode & Roleplay', href: `${DOCS_BASE_PATH}/play/roleplay` },
-          { label: 'ThermalTrace live demo', href: 'https://garage-temp.robmcd.name/', external: true },
-          { label: 'ThermalTrace guides', href: 'https://garage-temp.robmcd.name/about', external: true },
+          { label: 'ThermalTrace live demo', href: SITE_LINKS.thermalTrace, external: true },
+          { label: 'ThermalTrace guides', href: SITE_LINKS.thermalTraceAbout, external: true },
           { label: 'Work & case studies', href: '/work' },
         ],
       },

@@ -1,9 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
-import { ArrowUpRight } from 'lucide-react'
 
 import { MotionReveal } from '@/app/components/ui/MotionReveal'
-import { cn } from '@/lib/cn'
 
 export type ProjectShowcaseItem = {
   title: string
@@ -25,50 +23,37 @@ export function ProjectShowcase({ eyebrow, title, description, projects }: Proje
   return (
     <MotionReveal as="section" className="not-prose space-y-8">
       <div className="space-y-3">
-        {eyebrow ? (
-          <p className="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-            {eyebrow}
-          </p>
-        ) : null}
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl dark:text-zinc-50">{title}</h2>
+        {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
+        <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">{title}</h2>
         {description ? (
-          <p className="max-w-2xl text-base leading-relaxed text-slate-600 dark:text-zinc-400">{description}</p>
+          <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">{description}</p>
         ) : null}
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <ul className="divide-y" style={{ borderColor: 'var(--line)' }}>
         {projects.map((project) => {
-          const linkClass =
-            'mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 transition-colors group-hover:text-indigo-600 dark:text-zinc-100 dark:group-hover:text-indigo-400'
+          const linkClass = 'mt-4 inline-flex text-sm font-medium text-link'
 
           return (
-            <article
-              key={project.title}
-              className={cn(
-                'glass-card group flex flex-col justify-between p-6 transition-all duration-300',
-                'hover:-translate-y-1 hover:shadow-glow',
-              )}
-            >
-              <div className="space-y-3">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-zinc-100">{project.title}</h3>
-                <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{project.tagline}</p>
-                <p className="text-base leading-relaxed text-slate-600 dark:text-zinc-400">{project.description}</p>
-              </div>
+            <li key={project.title} className="py-8 first:pt-0">
+              <h3 className="text-xl font-semibold">{project.title}</h3>
+              <p className="mt-1 font-mono text-sm text-[var(--muted)]">{project.tagline}</p>
+              <p className="mt-3 max-w-2xl text-base leading-relaxed text-[var(--muted)]">
+                {project.description}
+              </p>
               {project.external ? (
                 <a href={project.href} className={linkClass} target="_blank" rel="noopener noreferrer">
                   {project.linkLabel}
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
               ) : (
                 <Link href={project.href} className={linkClass}>
                   {project.linkLabel}
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </Link>
               )}
-            </article>
+            </li>
           )
         })}
-      </div>
+      </ul>
     </MotionReveal>
   )
 }

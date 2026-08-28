@@ -1,6 +1,7 @@
 import type { ComponentConfig } from '@puckeditor/core'
 
 import { ProjectShowcase } from '@/app/components/ui/ProjectShowcase'
+import { SITE_LINKS } from '@/lib/site'
 
 type ProjectItem = {
   title: string
@@ -38,8 +39,8 @@ export const ProjectShowcaseConfig: ComponentConfig<ProjectShowcaseBlockProps> =
         title: 'ThermalTrace',
         tagline: 'Probe curves, freeze alerts, and IoT monitoring',
         description:
-          'Open-source dashboard at garage-temp.robmcd.name — ESP/Arduino ingest, NWS-backed cold risk, multi-channel alerts, and 89+ guides.',
-        href: 'https://garage-temp.robmcd.name/',
+          'Open-source dashboard at thermaltrace.dev — ESP/Arduino ingest, NWS-backed cold risk, multi-channel alerts, and 89+ guides.',
+        href: SITE_LINKS.thermalTrace,
         linkLabel: 'Open live demo',
         external: 'external',
       },
