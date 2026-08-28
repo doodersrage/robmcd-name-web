@@ -29,16 +29,16 @@ export const ProjectShowcaseConfig: ComponentConfig<ProjectShowcaseBlockProps> =
         title: 'LLM Prompt Studio',
         tagline: 'ComfyUI + cloud prompt orchestration',
         description:
-          'Self-hosted Next.js app with 28+ tool routes, Cast & Roleplay, gallery review, and desktop/Docker installs.',
+          'MIT-licensed Next.js app with 28+ tool routes, Cast & Roleplay, Play mode, gallery review, workflow takeover, and desktop/Docker installs.',
         href: '/llm-prompt-studio',
         linkLabel: 'Read the docs',
         external: 'internal',
       },
       {
-        title: 'Garage Temperature Monitor',
-        tagline: 'DHT22 probes → live Astro dashboard',
+        title: 'ThermalTrace',
+        tagline: 'Probe curves, freeze alerts, and IoT monitoring',
         description:
-          'Public IoT demo with garage vs outdoor weather, probe guides, firmware notes, and account hooks for private probes.',
+          'Open-source dashboard at garage-temp.robmcd.name — ESP/Arduino ingest, NWS-backed cold risk, multi-channel alerts, and 89+ guides.',
         href: 'https://garage-temp.robmcd.name/',
         linkLabel: 'Open live demo',
         external: 'external',

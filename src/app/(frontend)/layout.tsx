@@ -76,7 +76,7 @@ const jsonLd = {
       '@id': `${SITE_URL}/#person`,
       name: SITE_OWNER,
       url: SITE_URL,
-      sameAs: [SITE_LINKS.github, SITE_LINKS.garageTemp, SITE_LINKS.promptStudioGithub],
+      sameAs: [SITE_LINKS.github, SITE_LINKS.thermalTrace, SITE_LINKS.promptStudioGithub],
     },
   ],
 }

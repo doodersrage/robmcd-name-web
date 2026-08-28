@@ -43,6 +43,11 @@ const nextConfig = {
         destination: '/',
         permanent: true, // Returns 308 instead of 307
       },
+      {
+        source: '/work/garage-temp',
+        destination: '/work/thermaltrace',
+        permanent: true,
+      },
     ]
   },
 }

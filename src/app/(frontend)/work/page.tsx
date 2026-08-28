@@ -11,12 +11,12 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Work & case studies',
   description:
-    'Selected work by Robert McDowell — LLM Prompt Studio, Garage Temperature Monitor, and legacy modernization patterns.',
+    'Selected work by Robert McDowell — LLM Prompt Studio, ThermalTrace temperature monitoring, and legacy modernization patterns.',
   alternates: { canonical: '/work' },
   openGraph: {
     title: 'Work & case studies — Robert McDowell',
     description:
-      'Open-source tools and consulting patterns: Prompt Studio, Garage Temp, and legacy stack rescue.',
+      'Open-source tools and consulting patterns: LLM Prompt Studio, ThermalTrace, and legacy stack rescue.',
   },
 }
 
@@ -30,8 +30,9 @@ export default function WorkIndexPage() {
           </p>
           <h1 className="page-title">Work & case studies</h1>
           <p className="max-w-2xl text-base leading-relaxed text-slate-600 dark:text-zinc-400">
-            Open-source products you can open today, plus the consulting pattern behind legacy rescues
-            and headless modernization. For live CMS project pages, see{' '}
+            Open-source products you can open today — LLM Prompt Studio for ComfyUI and cloud creative
+            pipelines, ThermalTrace for probe curves and freeze-aware alerts — plus the consulting pattern
+            behind legacy rescues and headless modernization. For live CMS project pages, see{' '}
             <Link href={SITE_LINKS.projects} className="text-link font-medium text-indigo-600 dark:text-indigo-400">
               Projects
             </Link>
@@ -76,12 +77,13 @@ export default function WorkIndexPage() {
           <div>
             <h2 className="text-lg font-bold text-slate-900 dark:text-zinc-100">Try the live demos</h2>
             <p className="mt-1 text-sm text-slate-600 dark:text-zinc-400">
-              Garage Temp streams probe readings in public. Prompt Studio docs live on this site.
+              ThermalTrace streams probe curves with freeze alerts in public. Prompt Studio docs live on this
+              site with interactive tool demos.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <a href={SITE_LINKS.garageTemp} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
-              Garage Temp
+            <a href={SITE_LINKS.thermalTrace} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              ThermalTrace
             </a>
             <Link href={SITE_LINKS.promptStudio} className="btn btn-secondary">
               Prompt Studio docs

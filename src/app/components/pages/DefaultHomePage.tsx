@@ -41,7 +41,7 @@ export function DefaultHomePage() {
         statusLabel="20 Years of Cross-Platform Engineering & Systems Expertise"
         title="Resilient Infrastructure. Modern Codebases. Built to Last."
         gradientTitle
-        description="Hi, I'm Rob McDowell. With two decades of hands-on experience across Linux and Windows environments, I specialize in full-stack engineering, database management, and rescuing, repairing, and modernizing complex software stacks — plus open-source tools like Prompt Studio and Garage Temp."
+        description="Hi, I'm Rob McDowell. With two decades of hands-on experience across Linux and Windows environments, I specialize in full-stack engineering, database management, and rescuing, repairing, and modernizing complex software stacks — plus open-source products like LLM Prompt Studio and ThermalTrace."
         primaryCta={{ label: 'Explore Capabilities', href: '#capabilities' }}
         secondaryCta={{ label: 'Get in Touch', href: SITE_LINKS.contact }}
         badgeText="Linux · Windows · Full-Stack · IoT"
@@ -67,28 +67,28 @@ export function DefaultHomePage() {
       <ProjectShowcase
         eyebrow="Built & shipped"
         title="Open source & live demos"
-        description="Products you can open today — Prompt Studio docs on this site, Garage Temp streaming live probe readings."
+        description="Products you can open today — Prompt Studio docs on this site, ThermalTrace streaming live probe curves with freeze-aware alerts."
         projects={[
           {
             title: 'LLM Prompt Studio',
             tagline: 'ComfyUI + cloud prompt orchestration for image, video, audio, and 3D.',
             description:
-              'Self-hosted Next.js app with 28+ tool routes, Cast & Roleplay, gallery review, workflow takeover, and desktop/Docker installs. MIT-licensed.',
+              'MIT-licensed Next.js app with 28+ tool routes, Cast & Roleplay, Play mode, gallery review, workflow takeover, and desktop/Docker installs. Docs on robmcd.name; operator reference on GitHub Pages.',
             href: SITE_LINKS.promptStudio,
             linkLabel: 'Read the docs',
           },
           {
-            title: 'Garage Temperature Monitor',
-            tagline: 'DHT22 probes → live Astro dashboard with outdoor weather context.',
+            title: 'ThermalTrace',
+            tagline: 'Probe curves, freeze alerts, and household-ready IoT monitoring.',
             description:
-              'Public IoT demo at garage-temp.robmcd.name — probe guides, firmware notes, history, and account hooks for private probes and alerts.',
-            href: SITE_LINKS.garageTemp,
+              'Open-source Astro dashboard at garage-temp.robmcd.name — ESP/Arduino ingest, NWS-backed cold risk, multi-channel alerts, Supabase accounts, and 89+ sensor-to-screen guides.',
+            href: SITE_LINKS.thermalTrace,
             linkLabel: 'Open live demo',
             external: true,
           },
           {
             title: 'Work & case studies',
-            tagline: 'Prompt Studio, Garage Temp, and legacy modernization patterns.',
+            tagline: 'Prompt Studio, ThermalTrace, and legacy modernization patterns.',
             description:
               'Narrative write-ups covering problem, stack, and outcome — plus links into consulting projects.',
             href: SITE_LINKS.work,
@@ -120,12 +120,12 @@ export function DefaultHomePage() {
             need an experienced engineer to maintain your servers, optimize your MSSQL/MySQL databases,
             ship an IoT dashboard like{' '}
             <a
-              href={SITE_LINKS.garageTemp}
+              href={SITE_LINKS.thermalTrace}
               className="font-medium text-indigo-600 underline decoration-indigo-400/40 underline-offset-2 hover:text-indigo-700 dark:text-indigo-400"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Garage Temp
+              ThermalTrace
             </a>
             , or refactor a legacy application, I focus on reliable, long-term results.
           </p>
@@ -135,7 +135,7 @@ export function DefaultHomePage() {
       <div className="space-y-4">
         <CtaBanner
           title="Need to repair a legacy stack or stabilize your server infrastructure?"
-          description="Let's discuss how my 20 years of cross-platform engineering experience can bring peace of mind to your tech operations — or explore Prompt Studio and Garage Temp for open-source demos."
+          description="Let's discuss how my 20 years of cross-platform engineering experience can bring peace of mind to your tech operations — or explore LLM Prompt Studio and ThermalTrace for open-source demos."
           primaryLabel="Start a Conversation"
           primaryHref={SITE_LINKS.contact}
           secondaryLabel="View case studies"

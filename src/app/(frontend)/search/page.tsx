@@ -83,17 +83,21 @@ function searchLocalContent(term: string): SearchHit[] {
   if (
     q.includes('garage') ||
     q.includes('temp') ||
+    q.includes('thermal') ||
+    q.includes('trace') ||
+    q.includes('freeze') ||
     q.includes('iot') ||
     q.includes('dht') ||
     q.includes('probe') ||
-    q.includes('sensor')
+    q.includes('sensor') ||
+    q.includes('alert')
   ) {
     extras.push({
-      id: 'garage-temp',
-      title: 'Garage Temperature Monitor',
+      id: 'thermaltrace',
+      title: 'ThermalTrace',
       description:
-        'Live DHT22 garage probes with outdoor weather comparison, firmware guides, and Astro dashboard.',
-      href: SITE_LINKS.garageTemp,
+        'Open-source probe monitoring with freeze-aware alerts, outdoor weather context, ESP/Arduino ingest, and 89+ guides at garage-temp.robmcd.name.',
+      href: SITE_LINKS.thermalTrace,
       source: 'External · Live demo',
     })
   }

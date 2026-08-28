@@ -45,12 +45,12 @@ export async function generateMetadata({
     return {
       title: 'Robert McDowell — Cross-Platform Engineering & Legacy Modernization',
       description:
-        'Resilient infrastructure and modern codebases. Prompt Studio, Garage Temp, legacy stack rescue, and 20 years of Linux & Windows engineering.',
+        'Resilient infrastructure and modern codebases. LLM Prompt Studio, ThermalTrace, legacy stack rescue, and 20 years of Linux & Windows engineering.',
       alternates: { canonical: '/' },
       openGraph: {
         title: 'Robert McDowell — Cross-Platform Engineering',
         description:
-          'Consulting, Prompt Studio docs, and Garage Temperature Monitor — built and shipped by Robert McDowell.',
+          'Consulting, LLM Prompt Studio docs, and ThermalTrace — built and shipped by Robert McDowell.',
       },
     }
   }

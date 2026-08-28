@@ -1,3 +1,5 @@
+import { SITE_LINKS } from '@/lib/site'
+
 export type WorkCaseStudy = {
   slug: string
   title: string
@@ -14,64 +16,84 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
   {
     slug: 'llm-prompt-studio',
     title: 'LLM Prompt Studio',
-    tagline: 'Self-hosted prompt control plane for ComfyUI and cloud engines',
+    tagline: 'Self-hosted prompt control plane for ComfyUI, cloud engines, and production creative pipelines',
     description:
-      'A production Next.js app that turns keywords into model-ready prompts for image, video, audio, and 3D — with Cast, Roleplay, gallery review, and queue-time workflow takeover.',
-    href: '/llm-prompt-studio',
-    externalHref: 'https://github.com/doodersrage/llm-prompt-studio',
-    linkLabel: 'Read the docs',
-    stack: ['Next.js', 'TypeScript', 'ComfyUI', 'Fal / Replicate', 'SQLite', 'Tauri'],
+      'An MIT-licensed Next.js app that turns keywords and topics into model-ready prompts for image, video, audio, and 3D — with Cast character homes, Roleplay beats, gallery review, Play mode, Mobile Studio, and queue-time workflow takeover into ComfyUI or Fal/Replicate/Grok/Gemini when you skip the graph editor.',
+    href: SITE_LINKS.promptStudio,
+    externalHref: SITE_LINKS.promptStudioGithub,
+    linkLabel: 'Read the docs on robmcd.name',
+    stack: [
+      'Next.js',
+      'TypeScript',
+      'ComfyUI',
+      'Fal / Replicate / Grok',
+      'Tauri desktop',
+      'Docker',
+      'SQLite',
+    ],
     sections: [
       {
         heading: 'The problem',
         body: [
-          'ComfyUI is excellent at rendering, but teams still paste prompts into CLIP nodes, Discord pins, and spreadsheets. Switching FLUX ↔ SDXL ↔ Qwen silently breaks tag density and length limits. Gallery folders become unsearchable PNG dumps.',
-          'Prompt Studio owns the text layer: generate, format, lint, character bibles, Cast homes, Roleplay beats, and handoff into ComfyUI or cloud engines — without replacing the graph editor.',
+          'ComfyUI excels at rendering, but teams still paste prompts into CLIP nodes, Discord pins, and spreadsheets. Switching FLUX ↔ SDXL ↔ Qwen silently breaks tag density and length limits. Gallery folders become unsearchable PNG dumps with no shared character bible or campaign structure.',
+          'Prompt Studio owns the text layer: generate, format, lint, character bibles, Cast homes, Roleplay beats, batch review, and handoff into ComfyUI or cloud engines — without replacing the graph editor or locking you into one vendor.',
         ],
       },
       {
         heading: 'What shipped',
         body: [
-          '28+ tool routes, 40+ model targets, Simple / Play / Studio / Full workspace modes, desktop installers, and Docker images. Gallery review, semantic search, Draft/Final/Max quality profiles, and workflow takeover at queue time.',
-          'Full narrative docs live on this site at /llm-prompt-studio; operator reference lives on GitHub Pages.',
+          '28+ tool routes across Generate, Refine, Compose, Image → Prompt, Cast, Roleplay, Mobile Studio, Gallery, and Integration. 40+ ComfyUI model targets with family-aware scaffolds, plus optional cloud stills and clips when local VRAM is not the bottleneck.',
+          'Four workspace modes (Simple · Play · Studio · Full), Draft/Final/Max quality profiles, semantic gallery search, keyboard review ratings, and workflow takeover that injects live prompt values at ComfyUI queue time — no graph rebuild between iterations.',
+          'Desktop installers (.dmg / .exe / .deb) via Tauri, Docker image at ghcr.io/doodersrage/llm-prompt-studio, and local-first persistence (IndexedDB in the browser; SQLite server-side with optional multi-user auth for team deployments).',
+          'Narrative docs and interactive demos live on robmcd.name at /llm-prompt-studio; operator reference (env tables, API catalog, release process) lives on GitHub Pages.',
         ],
       },
       {
         heading: 'Outcome',
         body: [
-          'A reusable open-source product (MIT) that doubles as a portfolio piece for LLM tooling, ComfyUI integration, and edge-ready Next.js architecture — the same stack this marketing site runs on.',
+          'A reusable open-source product that doubles as a portfolio piece for LLM tooling, ComfyUI integration, and edge-ready Next.js architecture — the same stack this marketing site runs on. Creators get a missing text layer between their LLM and their render farm, with an escape hatch to cloud when ComfyUI is not in the loop.',
         ],
       },
     ],
   },
   {
-    slug: 'garage-temp',
-    title: 'Garage Temperature Monitor',
-    tagline: 'From DHT22 probes to a live Astro dashboard with weather context',
+    slug: 'thermaltrace',
+    title: 'ThermalTrace',
+    tagline: 'Probe curves, freeze-aware alerts, and household-ready monitoring — from Arduino to Astro on Cloudflare',
     description:
-      'A public IoT demo that streams garage probe readings, compares them with outdoor weather, and explains the full path from sensor wire to screen.',
-    externalHref: 'https://garage-temp.robmcd.name/',
-    linkLabel: 'Open live demo',
-    stack: ['Astro', 'DHT22', 'Arduino / firmware', 'JSON feeds', 'Weather API'],
+      'An open-source temperature monitoring platform (live at garage-temp.robmcd.name) that tracks, logs, and analyzes probe curves with outdoor weather context, NWS-backed freeze risk, multi-channel alerts, and 89+ guides from sensor wire to signed-in dashboard.',
+    externalHref: SITE_LINKS.thermalTrace,
+    linkLabel: 'Open ThermalTrace',
+    stack: [
+      'Astro',
+      'Cloudflare Workers',
+      'Supabase',
+      'DHT22 / ESP32',
+      'FastAPI relay',
+      'Stripe',
+      'PWA',
+    ],
     sections: [
       {
         heading: 'The problem',
         body: [
-          'Garages swing hard with seasons and sun load. A single thermometer reading does not tell you whether the space is safer for tools, batteries, or storage — especially without outdoor context.',
-          'Most hobby dashboards stop at “show a number.” This project closes the loop: probe placement, averaging, historical trends, and clear docs for anyone rebuilding the stack.',
+          'Garages, workshops, and outbuildings swing hard with seasons, sun load, and door events. A single thermometer reading does not tell you whether pipes, batteries, or stored goods are at risk — especially without outdoor context or forecast-aware freeze warnings.',
+          'Most hobby dashboards stop at “show a number.” ThermalTrace closes the loop: probe placement, multi-zone layout, historical curves, freeze thresholds derived from history, and alerts before damage — not after.',
         ],
       },
       {
         heading: 'What shipped',
         body: [
-          'Live public readings at garage-temp.robmcd.name with outdoor weather comparison, account hooks for private probes/alerts, and an About section covering firmware, wiring, backend scripts, and the Astro front end — including interactive probe demos and Arduino sketches.',
-          'It sits next to Prompt Studio as proof of embedded + web craft: sensors, feeds, and a polished public UI under the same robmcd.name brand.',
+          'Public live dashboard with three probe zones, outdoor weather comparison, and an interactive probe demo that mirrors the real JSON feed rhythm. Freeze-aware alerts combine threshold rules, forecast data, and NWS-backed cold risk across email, SMS, push, and HMAC webhooks.',
+          'Hardware paths for ESP/Arduino HTTPS ingest and typed JSON feeds, plus a FastAPI relay with Redis caching for stable endpoints from flaky home uplinks. Kit QR onboarding, ESP32 OTA, and open firmware in arduino-network-json-temperature-sever.',
+          'Accounts via Supabase auth, household sharing without password handoffs, Stripe subscriptions for Pro alert channels and CSV history export, and a PWA install path for desktop and mobile status checks.',
+          '89+ searchable guides on robmcd.name’s ThermalTrace About hub — probe mounting, DHT22 wiring, seasonal patterns, ingest API, data flow, middleware auth, and the full sensor-to-chart pipeline documented for anyone rebuilding the stack.',
         ],
       },
       {
         heading: 'Outcome',
         body: [
-          'A working product visitors can open immediately — not a mockup. Useful for clients who need IoT dashboards, telemetry UIs, or “sensor to screen” architecture explained clearly.',
+          'A working product visitors can open immediately — not a mockup. Useful for clients who need IoT dashboards, telemetry UIs, alert routing, or “sensor to screen” architecture explained clearly. Sits alongside LLM Prompt Studio as proof of embedded + web craft under the robmcd.name brand.',
         ],
       },
     ],
@@ -104,6 +126,11 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
   },
 ]
 
+const SLUG_ALIASES: Record<string, string> = {
+  'garage-temp': 'thermaltrace',
+}
+
 export function getWorkBySlug(slug: string): WorkCaseStudy | undefined {
-  return WORK_CASE_STUDIES.find((w) => w.slug === slug)
+  const resolved = SLUG_ALIASES[slug] ?? slug
+  return WORK_CASE_STUDIES.find((w) => w.slug === resolved)
 }

@@ -72,14 +72,24 @@ export default async function WorkCaseStudyPage({ params }: PageProps) {
                 {study.linkLabel}
               </Link>
             )}
-            {study.href && study.externalHref ? (
+            {study.externalHref ? (
+              <a href={study.externalHref} className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+                {study.slug === 'llm-prompt-studio' ? 'View on GitHub' : 'Open live demo'}
+              </a>
+            ) : null}
+            {study.slug === 'llm-prompt-studio' ? (
+              <Link href={SITE_LINKS.promptStudio} className="btn btn-secondary">
+                Docs on this site
+              </Link>
+            ) : null}
+            {study.slug === 'thermaltrace' ? (
               <a
-                href={study.externalHref}
+                href={SITE_LINKS.thermalTraceAbout}
                 className="btn btn-secondary"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                View on GitHub
+                Guides & About
               </a>
             ) : null}
             <Link href={SITE_LINKS.contact} className="btn btn-secondary">
@@ -116,9 +126,12 @@ export default async function WorkCaseStudyPage({ params }: PageProps) {
             <Link href="/work" className="btn btn-secondary">
               All case studies
             </Link>
-            <a href={SITE_LINKS.garageTemp} className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
-              Garage Temp live
+            <a href={SITE_LINKS.thermalTrace} className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+              ThermalTrace live
             </a>
+            <Link href={SITE_LINKS.promptStudio} className="btn btn-secondary">
+              Prompt Studio docs
+            </Link>
           </div>
         </div>
       </section>

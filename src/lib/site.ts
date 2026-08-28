@@ -15,12 +15,15 @@ export const SITE_KEYWORDS = [
   'c# dotnet',
   'php wordpress',
   'database administration',
+  'llm prompt studio',
   'prompt studio',
   'comfyui',
   'llm tooling',
-  'garage temperature monitor',
+  'thermaltrace',
+  'temperature monitoring',
   'iot',
   'embedded systems',
+  'freeze alerts',
 ]
 
 export const SITE_LINKS = {
@@ -32,6 +35,12 @@ export const SITE_LINKS = {
   work: '/work',
   promptStudio: '/llm-prompt-studio',
   promptStudioGithub: 'https://github.com/doodersrage/llm-prompt-studio',
+  promptStudioDocs: 'https://doodersrage.github.io/llm-prompt-studio',
+  promptStudioDocker: 'ghcr.io/doodersrage/llm-prompt-studio:latest',
+  thermalTrace: 'https://garage-temp.robmcd.name/',
+  thermalTraceAbout: 'https://garage-temp.robmcd.name/about',
+  thermalTraceGithub: 'https://github.com/doodersrage/garage-temp',
+  /** @deprecated Use thermalTrace — same URL, kept for older references */
   garageTemp: 'https://garage-temp.robmcd.name/',
 } as const
 
@@ -51,11 +60,11 @@ export const EXTRA_NAV_TREE: SiteNavItem[] = [
     href: SITE_LINKS.work,
     children: [
       { id: 'work-overview', label: 'Case studies', href: SITE_LINKS.work },
-      { id: 'work-prompt-studio', label: 'Prompt Studio', href: SITE_LINKS.promptStudio },
+      { id: 'work-prompt-studio', label: 'LLM Prompt Studio', href: SITE_LINKS.promptStudio },
       {
-        id: 'work-garage-temp',
-        label: 'Garage Temp',
-        href: SITE_LINKS.garageTemp,
+        id: 'work-thermaltrace',
+        label: 'ThermalTrace',
+        href: SITE_LINKS.thermalTrace,
         external: true,
       },
     ],

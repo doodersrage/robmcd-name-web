@@ -23,15 +23,15 @@ export default function NotFound() {
           Case studies
         </Link>
         <Link href={SITE_LINKS.promptStudio} className="btn btn-secondary">
-          Prompt Studio
+          LLM Prompt Studio
         </Link>
         <a
-          href={SITE_LINKS.garageTemp}
+          href={SITE_LINKS.thermalTrace}
           className="btn btn-secondary"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Garage Temp
+          ThermalTrace
         </a>
         <Link href={SITE_LINKS.contact} className="btn btn-secondary">
           Contact

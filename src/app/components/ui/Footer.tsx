@@ -54,12 +54,12 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href={SITE_LINKS.garageTemp}
+                  href={SITE_LINKS.thermalTrace}
                   className="text-link text-sm text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-100"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Garage Temp
+                  ThermalTrace
                 </a>
               </li>
               <li>
