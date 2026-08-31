@@ -5,19 +5,19 @@ export const hubPages = [
   page(
     [],
     'LLM Prompt Studio',
-    'Model-aware prompts for image, video, audio, and 3D — ComfyUI, cloud engines, Cast, and gallery orchestration.',
+    'Prompt, queue, and ship films — ComfyUI takeover, Play campaigns, Cast, and cloud stills/clips.',
     'Hub',
     0,
     [
       ...p(
-        'LLM Prompt Studio (canonical repo: github.com/doodersrage/llm-prompt-studio; the old comfyui-prompt-studio name redirects here) is a self-hosted Next.js app that turns keywords or topics into model-specific prompts for image, video, audio, and 3D workflows. ComfyUI remains the primary local render engine; optional cloud engines (Fal, Replicate, ChatGPT, Gemini, Grok) and Diffusers cover stills and clips when you skip the graph editor.',
-        'The app ships 28+ tool routes, 40+ model targets, four workspace modes (Simple · Play · Studio · Full), Play mode with Cast homes and Roleplay beats, Mobile Studio for phone-first queues, desktop Tauri installers, Docker images, and local-first persistence — IndexedDB via Dexie in the browser for settings, history, and gallery, with server-side SQLite and optional multi-user auth when you expose it to a team.',
+        'LLM Prompt Studio (canonical repo: github.com/doodersrage/llm-prompt-studio; the old comfyui-prompt-studio name redirects here) is a self-hosted Next.js app that turns keywords or topics into model-specific prompts for image, video, audio, and 3D workflows. ComfyUI remains the primary local render engine; optional Diffusers stills and cloud engines (Fal, Replicate, ChatGPT, Gemini, Grok) cover stills and clips when you skip the graph editor.',
+        'The app ships 25+ tool routes — Generate, Format, Refine, Compose, Image → Prompt, Inpaint/Outpaint, Character, Cast, Roleplay, Video, Audio, 3D Mesh, Gallery, Variations, ControlNet, Workflow editor, Plugins, Mobile Studio — plus 40+ model targets (FLUX including Klein, Qwen Image, Z-Image, Boogu, SDXL, Hunyuan, WAN video, and more). Four workspace modes (Simple · Play · Studio · Full), Heal & ready on first launch, Play campaigns (Moodboard → Fitting → Day → Cut → Cast), desktop Tauri installers, Docker images, and local-first persistence.',
       ),
       {
         type: 'callout',
         variant: 'info',
         title: 'Get it running',
-        text: `Local dev: ${LIVE} (Node.js 22+). Desktop: GitHub Releases (.dmg / .exe / .deb). Docker: ghcr.io/doodersrage/llm-prompt-studio:latest. Full searchable docs at ${DOCS_SITE}.`,
+        text: `Local dev: ${LIVE} (Node.js 22+). Heal & ready on Settings → Overview. Desktop: GitHub Releases (.dmg / .exe / .deb). Docker: ghcr.io/doodersrage/llm-prompt-studio:latest. Full searchable docs at ${DOCS_SITE}.`,
       },
       {
         type: 'links',
@@ -34,14 +34,14 @@ export const hubPages = [
         items: [
           'Sales pitch and case study for production ComfyUI and cloud hybrid workflows',
           'Tool routes from Generate through Cast, Roleplay, Mobile Studio, Gallery, and Integration',
-          '40+ model families — FLUX, Qwen, Z-Image, Boogu, SDXL, WAN video, Stable Audio, Hunyuan3D',
-          'Play mode, cloud inference engines, desktop/Docker install, and interactive demos',
+          '40+ model families — FLUX (incl. Klein), Qwen, Z-Image, Boogu, SDXL, WAN video, Stable Audio, Hunyuan3D',
+          'Play campaign loop, Heal & ready, cloud engines, desktop/Docker install, and interactive demos',
         ],
       },
       { type: 'h2', text: 'Documentation on this site vs GitHub' },
       ...p(
-        'This section on robmcd.name is the narrative hub — sales pitch, case study, interactive demos, and guided tool docs. Operator reference (env tables, API catalog, release process) lives on the official GitHub Pages docs site linked below. Bookmark both: this hub for onboarding and storytelling, GitHub Pages for day-to-day ops lookup.',
-        'More of my open work sits alongside this product: ThermalTrace (probe curves, freeze alerts, and 89+ guides at thermaltrace.dev) and case studies under /work.',
+        'This section on robmcd.name is the narrative hub — sales pitch, case study, interactive demos, and guided tool docs. Operator reference (env tables, API catalog, Play guide, release process) lives on the official GitHub Pages docs site linked below. Bookmark both: this hub for onboarding and storytelling, GitHub Pages for day-to-day ops lookup.',
+        'More of my open work sits alongside this product: ThermalTrace (garage/workshop sensors, freeze alerts, flood/door/power ingest at thermaltrace.dev) and case studies under /work.',
       ),
       {
         type: 'links',

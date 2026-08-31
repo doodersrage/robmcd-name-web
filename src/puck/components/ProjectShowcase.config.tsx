@@ -28,18 +28,18 @@ export const ProjectShowcaseConfig: ComponentConfig<ProjectShowcaseBlockProps> =
     projects: [
       {
         title: 'LLM Prompt Studio',
-        tagline: 'ComfyUI + cloud prompt orchestration',
+        tagline: 'Prompt, queue, and ship films',
         description:
-          'MIT-licensed Next.js app with 28+ tool routes, Cast & Roleplay, Play mode, gallery review, workflow takeover, and desktop/Docker installs.',
+          'MIT-licensed Next.js studio with Heal & ready, Play campaigns, Cast & Roleplay, 25+ tools, 40+ models, workflow takeover, and desktop/Docker installs.',
         href: '/llm-prompt-studio',
         linkLabel: 'Read the docs',
         external: 'internal',
       },
       {
         title: 'ThermalTrace',
-        tagline: 'Probe curves, freeze alerts, and IoT monitoring',
+        tagline: 'Garage sensors and freeze-aware alerts',
         description:
-          'Open-source dashboard at thermaltrace.dev — ESP/Arduino ingest, NWS-backed cold risk, multi-channel alerts, and 89+ guides.',
+          'Open-source dashboard at thermaltrace.dev — ESP32/Arduino ingest, flood/door/power sensors, threshold/forecast/NWS alerts, Free/Member/Pro, PWA.',
         href: SITE_LINKS.thermalTrace,
         linkLabel: 'Open live demo',
         external: 'external',

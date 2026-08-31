@@ -17,9 +17,9 @@ export const introductionPages = [
       {
         type: 'ul',
         items: [
-          '40+ ComfyUI image model targets with architecture-specific scaffolds',
+          'Heal & ready on first launch; 40+ ComfyUI image model targets with architecture-specific scaffolds',
           'Cloud engines for stills and clips without maintaining every graph locally',
-          'Cast (`/characters`), Roleplay (`/roleplay`), and Mobile Studio (`/m`) for character IP workflows',
+          'Play campaigns (Moodboard → Cut → Cast), Roleplay, and Mobile Studio for character IP workflows',
           'Dedicated Format (`/format`) and Lint (`/lint`) — separate tools, not one combined step',
           'Gallery with grid/dense/list layouts, review focus, compare modal, and semantic search',
           'Workflow takeover at queue time — inject live prompts without rebuilding graphs',

@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Work & case studies',
   description:
-    'Selected work by Robert McDowell — LLM Prompt Studio, ThermalTrace temperature monitoring, and legacy modernization patterns.',
+    'Selected work by Robert McDowell — LLM Prompt Studio (ComfyUI + cloud creative studio) and ThermalTrace (garage sensor monitoring with freeze alerts).',
   alternates: { canonical: '/work' },
   openGraph: {
     title: 'Work & case studies — Robert McDowell',
@@ -27,8 +27,9 @@ export default function WorkIndexPage() {
         <p className="eyebrow">Portfolio</p>
         <h1 className="page-title">Work & case studies</h1>
         <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">
-          Open-source products you can open today — LLM Prompt Studio and ThermalTrace — plus the consulting
-          pattern behind legacy rescues. For live CMS project pages, see{' '}
+          Open-source products you can open today — LLM Prompt Studio for ComfyUI and cloud creative pipelines,
+          ThermalTrace for garage sensors and freeze-aware alerts — plus the consulting pattern behind legacy
+          rescues. For live CMS project pages, see{' '}
           <Link href={SITE_LINKS.projects} className="text-link underline">
             Projects
           </Link>
@@ -54,7 +55,8 @@ export default function WorkIndexPage() {
         <div>
           <h2 className="text-lg font-semibold">Live demos</h2>
           <p className="mt-1 max-w-md text-sm text-[var(--muted)]">
-            ThermalTrace streams probe curves in public. Prompt Studio docs live on this site.
+            ThermalTrace monitors garage sensors with freeze alerts in public. Prompt Studio docs live on this
+            site with interactive tool demos.
           </p>
         </div>
         <div className="flex flex-wrap gap-3">

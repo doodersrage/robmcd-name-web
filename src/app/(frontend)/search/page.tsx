@@ -94,7 +94,7 @@ function searchLocalContent(term: string): SearchHit[] {
       id: 'thermaltrace',
       title: 'ThermalTrace',
       description:
-        'Open-source probe monitoring with freeze-aware alerts, outdoor weather context, ESP/Arduino ingest, and 89+ guides at thermaltrace.dev.',
+        'Open-source garage/workshop monitoring — ESP32/Arduino ingest, freeze and leak alerts, Discord/Telegram/email channels, Free/Member/Pro plans at thermaltrace.dev.',
       href: SITE_LINKS.thermalTrace,
       source: 'External · Live demo',
     })

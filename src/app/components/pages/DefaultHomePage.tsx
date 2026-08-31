@@ -54,21 +54,21 @@ export function DefaultHomePage() {
       <ProjectShowcase
         eyebrow="Shipped"
         title="Open source"
-        description="LLM Prompt Studio docs live here. ThermalTrace streams live probe curves at thermaltrace.dev."
+        description="LLM Prompt Studio docs live here. ThermalTrace monitors garage sensors with freeze alerts at thermaltrace.dev."
         projects={[
           {
             title: 'LLM Prompt Studio',
-            tagline: 'ComfyUI + cloud prompt orchestration for image, video, audio, and 3D.',
+            tagline: 'Prompt, queue, and ship films — ComfyUI + cloud stills/clips.',
             description:
-              'MIT-licensed Next.js app with 28+ tool routes, Cast & Roleplay, Play mode, gallery review, workflow takeover, and desktop/Docker installs.',
+              'MIT-licensed Next.js studio: Heal & ready, Play campaigns (Moodboard → Cut → Cast), 25+ tools, 40+ models, workflow takeover, Mobile Studio, and desktop/Docker installs.',
             href: SITE_LINKS.promptStudio,
             linkLabel: 'Read the docs',
           },
           {
             title: 'ThermalTrace',
-            tagline: 'Probe curves, freeze alerts, and household-ready IoT monitoring.',
+            tagline: 'Garage sensors, freeze alerts, and household sharing.',
             description:
-              'Open-source Astro dashboard — ESP/Arduino ingest, NWS-backed cold risk, multi-channel alerts, and 89+ sensor-to-screen guides.',
+              'Open-source dashboard for ESP32/Arduino or HTTPS JSON probes — temp, flood, door, power, air quality; threshold/forecast/NWS alerts; Free / Member / Pro; PWA install.',
             href: SITE_LINKS.thermalTrace,
             linkLabel: 'Open thermaltrace.dev',
             external: true,

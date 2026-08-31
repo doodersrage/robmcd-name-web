@@ -21,9 +21,10 @@ export const SITE_KEYWORDS = [
   'llm tooling',
   'thermaltrace',
   'temperature monitoring',
+  'freeze alerts',
+  'esp32',
   'iot',
   'embedded systems',
-  'freeze alerts',
 ]
 
 export const SITE_LINKS = {
@@ -40,6 +41,7 @@ export const SITE_LINKS = {
   thermalTrace: 'https://thermaltrace.dev/',
   thermalTraceAbout: 'https://thermaltrace.dev/about',
   thermalTraceGithub: 'https://github.com/doodersrage/thermaltrace',
+  thermalTraceDocs: 'https://doodersrage.github.io/thermaltrace/',
   /** @deprecated Use thermalTrace */
   garageTemp: 'https://thermaltrace.dev/',
 } as const

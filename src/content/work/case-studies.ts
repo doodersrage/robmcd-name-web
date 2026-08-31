@@ -16,9 +16,9 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
   {
     slug: 'llm-prompt-studio',
     title: 'LLM Prompt Studio',
-    tagline: 'Self-hosted prompt control plane for ComfyUI, cloud engines, and production creative pipelines',
+    tagline: 'Prompt, queue, and ship films — ComfyUI takeover plus cloud stills and clips',
     description:
-      'An MIT-licensed Next.js app that turns keywords and topics into model-ready prompts for image, video, audio, and 3D — with Cast character homes, Roleplay beats, gallery review, Play mode, Mobile Studio, and queue-time workflow takeover into ComfyUI or Fal/Replicate/Grok/Gemini when you skip the graph editor.',
+      'An MIT-licensed Next.js studio that turns topics into model-ready prompts for image, video, audio, and 3D. Heal & ready on first launch, Play campaign loops (Moodboard → Cut → Cast), Mobile Studio, workflow takeover, and optional Fal/Replicate/Grok/Gemini when you skip the local graph.',
     href: SITE_LINKS.promptStudio,
     externalHref: SITE_LINKS.promptStudioGithub,
     linkLabel: 'Read the docs on robmcd.name',
@@ -26,7 +26,7 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
       'Next.js',
       'TypeScript',
       'ComfyUI',
-      'Fal / Replicate / Grok',
+      'Fal / Replicate / Grok / Gemini',
       'Tauri desktop',
       'Docker',
       'SQLite',
@@ -42,16 +42,16 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
       {
         heading: 'What shipped',
         body: [
-          '28+ tool routes across Generate, Refine, Compose, Image → Prompt, Cast, Roleplay, Mobile Studio, Gallery, and Integration. 40+ ComfyUI model targets with family-aware scaffolds, plus optional cloud stills and clips when local VRAM is not the bottleneck.',
-          'Four workspace modes (Simple · Play · Studio · Full), Draft/Final/Max quality profiles, semantic gallery search, keyboard review ratings, and workflow takeover that injects live prompt values at ComfyUI queue time — no graph rebuild between iterations.',
-          'Desktop installers (.dmg / .exe / .deb) via Tauri, Docker image at ghcr.io/doodersrage/llm-prompt-studio, and local-first persistence (IndexedDB in the browser; SQLite server-side with optional multi-user auth for team deployments).',
-          'Narrative docs and interactive demos live on robmcd.name at /llm-prompt-studio; operator reference (env tables, API catalog, release process) lives on GitHub Pages.',
+          '25+ tool routes across Generate, Format, Refine, Compose, Image → Prompt, Inpaint/Outpaint, Character, Cast, Roleplay, Video, Audio, 3D Mesh, Gallery, Variations, ControlNet, Workflow editor, Plugins, and Mobile Studio. 40+ ComfyUI image targets (FLUX including Klein, Qwen Image, Z-Image, Boogu, SDXL, Hunyuan, WAN video, and more) with family-aware scaffolds.',
+          'Four workspace modes (Simple · Play · Studio · Full). Play campaigns run Moodboard → Fitting → Day → Roleplay → Cut film → Save to Cast. Draft/Final/Max quality profiles, semantic gallery search, keyboard review ratings, and workflow takeover that patches live prompt values at ComfyUI queue time.',
+          'Heal & ready on first launch, optional Diffusers stills sidecar, cloud engines for stills and clips (Fal, Replicate, Grok, Gemini; ChatGPT stills), desktop installers via Tauri, Docker at ghcr.io/doodersrage/llm-prompt-studio, and local-first persistence (IndexedDB + server SQLite with optional multi-user auth).',
+          'Narrative docs and interactive demos live on robmcd.name at /llm-prompt-studio; operator reference (env tables, API catalog, Play guide, release process) lives on GitHub Pages.',
         ],
       },
       {
         heading: 'Outcome',
         body: [
-          'A reusable open-source product that doubles as a portfolio piece for LLM tooling, ComfyUI integration, and edge-ready Next.js architecture — the same stack this marketing site runs on. Creators get a missing text layer between their LLM and their render farm, with an escape hatch to cloud when ComfyUI is not in the loop.',
+          'A reusable open-source product that doubles as a portfolio piece for LLM tooling, ComfyUI integration, and edge-ready Next.js architecture — the same stack this marketing site runs on. Creators get a missing text layer between their LLM and their render farm, with a 10-minute still→clip→Cast loop and an escape hatch to cloud when ComfyUI is not in the loop.',
         ],
       },
     ],
@@ -59,17 +59,17 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
   {
     slug: 'thermaltrace',
     title: 'ThermalTrace',
-    tagline: 'Probe curves, freeze-aware alerts, and household-ready monitoring — from Arduino to Astro on Cloudflare',
+    tagline: 'Garage and workshop sensors — live curves, freeze alerts, and household sharing',
     description:
-      'An open-source temperature monitoring platform (live at thermaltrace.dev) that tracks, logs, and analyzes probe curves with outdoor weather context, NWS-backed freeze risk, multi-channel alerts, and 89+ guides from sensor wire to signed-in dashboard.',
+      'Open-source monitoring at thermaltrace.dev for ESP32, Arduino, or any HTTPS JSON probe. Temperature, humidity, flood, door, power, air quality, and more — with freeze-aware alerts, history tiers, PWA install, and free / Member / Pro plans.',
     externalHref: SITE_LINKS.thermalTrace,
     linkLabel: 'Open ThermalTrace',
     stack: [
       'Astro',
       'Cloudflare Workers',
       'Supabase',
-      'DHT22 / ESP32',
-      'FastAPI relay',
+      'ESP32 / Arduino',
+      'MQTT bridge',
       'Stripe',
       'PWA',
     ],
@@ -78,16 +78,16 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
         heading: 'The problem',
         body: [
           'Garages, workshops, and outbuildings swing hard with seasons, sun load, and door events. A single thermometer reading does not tell you whether pipes, batteries, or stored goods are at risk — especially without outdoor context or forecast-aware freeze warnings.',
-          'Most hobby dashboards stop at “show a number.” ThermalTrace closes the loop: probe placement, multi-zone layout, historical curves, freeze thresholds derived from history, and alerts before damage — not after.',
+          'Most hobby dashboards stop at “show a number.” ThermalTrace closes the loop: push a device, map sensors, watch live curves, and get alerts before damage — not after.',
         ],
       },
       {
         heading: 'What shipped',
         body: [
-          'Public live dashboard with three probe zones, outdoor weather comparison, and an interactive probe demo that mirrors the real JSON feed rhythm. Freeze-aware alerts combine threshold rules, forecast data, and NWS-backed cold risk across email, SMS, push, and HMAC webhooks.',
-          'Hardware paths for ESP/Arduino HTTPS ingest and typed JSON feeds, plus a FastAPI relay with Redis caching for stable endpoints from flaky home uplinks. Kit QR onboarding, ESP32 OTA, and the open dashboard repo at github.com/doodersrage/thermaltrace.',
-          'Accounts via Supabase auth, household sharing without password handoffs, Stripe subscriptions for Pro alert channels and CSV history export, and a PWA install path for desktop and mobile status checks.',
-          '89+ searchable guides on robmcd.name’s ThermalTrace About hub — probe mounting, DHT22 wiring, seasonal patterns, ingest API, data flow, middleware auth, and the full sensor-to-chart pipeline documented for anyone rebuilding the stack.',
+          'Three steps to first reading: create a push device, POST JSON (or pull HTTPS feeds), then set freeze thresholds and test alerts. Works with ESP32, Arduino, HTTPS JSON push/pull, MQTT bridge, and Home Assistant webhooks — MQTT can stay on the LAN while ThermalTrace mirrors over HTTPS for household alerts.',
+          'Sensor types beyond temperature: humidity, CO₂, pressure, PM2.5, VOC, water level, energy, doors, power, flood, and motion. Threshold freeze and automatic leak alerts on every plan; Member adds forecast cold-risk; Pro adds official NWS freeze alerts plus SMS, WhatsApp, browser push, webhooks, guest share links, and a printable claims evidence pack.',
+          'Alert channels include email, Discord, Telegram, and Slack; Telegram bots support /status, /snooze, and /vacation replies. Free forever with live curves and 7-day history; Member ($4/mo) and Pro ($10/mo) unlock longer retention, CSV export, and more devices. PWA install for phone home-screen access; native Android app coming soon.',
+          'Public live demo, About guides, sample Arduino and MicroPython sketches, and operator docs at doodersrage.github.io/thermaltrace — source at github.com/doodersrage/thermaltrace.',
         ],
       },
       {
